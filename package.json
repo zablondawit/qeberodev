@@ -1,0 +1,19 @@
+{
+  "name": "qebero.dev",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Qebero.dev business website and portfolio",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "Zablon Dawit <zablon@qebero.dev>",
+  "license": "Apache-2.0",
+  "workspaces": {
+    "packages": [
+      "apps/*"
+    ]
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
