@@ -1,0 +1,16 @@
+@import "./global.css";
+
+button {
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.25em;
+    cursor: pointer;
+
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    /* 4px gap */
+    gap: 0.25em;
+
+    @apply bg-foreground text-background px-2 py-1;
+}

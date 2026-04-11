@@ -1,7 +1,40 @@
 ---
-import "@styles/header.css";
+import "../styles/header.css";
+import Button from "@components/button.astro";
 ---
 
 <header>
-    <img src="/inline-logo.svg" alt="" />
+    <img src="/inline-logo.svg" alt="qeberodev logo" />
+
+    <Button icon="lucide:menu" id="nav-btn" />
+    <section>
+        <a href="/">Home</a>
+        <a href="/articles">Articles</a>
+        <a href="/contact">Contact</a>
+        <a href="/about">About</a>
+    </section>
 </header>
+
+<script>
+    const url = new URL(window.location.href);
+
+    function getBasePath(pathname: string) {
+        const parts = pathname.split("/").filter(Boolean);
+        return parts.length > 0 ? parts[0] : "home";
+    }
+
+    const path = getBasePath(url.pathname);
+    const navElements = document.querySelectorAll("section a");
+    const selectedNavElement = navElements
+        .entries()
+        .find(([, el]) => el.textContent.toLowerCase() === path)?.[1];
+
+    if (selectedNavElement) {
+        selectedNavElement.classList.add("selected");
+    }
+
+    const navButton = document.querySelector("#nav-btn");
+    navButton?.addEventListener("click", function () {
+        console.log("Toggle Nav");
+    });
+</script>

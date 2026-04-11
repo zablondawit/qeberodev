@@ -2,11 +2,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 :root {
-    --main-font: "Fira Sans", "Arial", sans-serif;
-    --mono-font: "Fira Mono", monospaced;
-    /* Border red line */
+    /* Debug Border red line */
     --dbg: 1px solid red;
+
+    --font-main: "Fira Sans", "Arial", sans-serif;
+    --font-mono: "Fira Mono", monospaced;
+
+    /* Move to TailwindCSS later */
+    --color-primary: #557550;
+    --color-foreground: #262626;
+    --color-background: #fff;
+
     font-size: 16px;
+}
+
+/* Dark-Mode Color */
+@media screen and (prefers-color-scheme: dark) {
+    :root {
+        --color-primary: #a4e09e;
+        --color-background: #fff;
+        --color-foreground: #262626;
+    }
 }
 
 body {
@@ -15,13 +31,15 @@ body {
     margin: 0;
     padding: 0;
 
-    font-family: var(--main-font);
+    font-family: var(--font-main);
     font-display: block;
+
+    margin: 0 5%;
 }
 
 pre,
 code {
-    font-family: var(--mono-font);
+    font-family: var(--font-mono);
 }
 
 pre {

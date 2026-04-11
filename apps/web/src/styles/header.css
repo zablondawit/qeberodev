@@ -1,12 +1,43 @@
+@import "./global.css";
+
 header {
-    border: var(--dbg);
+    /*border: var(--dbg);*/
     padding: 0.5em;
     display: flex;
 
     flex-direction: row;
     justify-content: space-between;
-}
+    align-items: center;
 
-header img {
-    height: 2rem;
+    img {
+        height: 1.2rem;
+    }
+
+    button#nav-btn {
+        display: none;
+        @media screen and (max-width: 600px) {
+            display: inline-flex;
+        }
+    }
+
+    section {
+        font-size: 1rem;
+        display: inline-flex;
+        gap: 0.5em;
+        text-transform: uppercase;
+
+        @media screen and (max-width: 600px) {
+            display: none;
+        }
+
+        a {
+            color: var(--color-foreground);
+            font-weight: 600;
+            text-decoration: none;
+
+            &.selected {
+                @apply text-primary;
+            }
+        }
+    }
 }
