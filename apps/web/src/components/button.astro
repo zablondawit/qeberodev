@@ -4,13 +4,13 @@ import type { HTMLAttributes } from "astro/types";
 import { Icon } from "astro-icon/components";
 
 type Props = HTMLAttributes<"button"> & {
-    icon?: string;
+  icon?: string;
 };
 
 const { icon, ...props } = Astro.props;
 ---
 
 <button {...props}>
-    {icon && <Icon name="lucide:menu" />}
-    <slot />
+  {icon && <Icon name={icon} />}
+  <slot />
 </button>

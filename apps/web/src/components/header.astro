@@ -12,10 +12,25 @@ import Button from "@components/button.astro";
   <section>
     <a href="/">Home</a>
     <a href="/articles">Articles</a>
-    <a href="/contact">Contact</a>
     <a href="/about">About</a>
   </section>
 </header>
+
+<nav class="nav-hidden" aria-hidden="true" id="side-nav">
+  <Button icon="lucide:x" id="close-btn" />
+
+  <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/articles">Articles</a>
+    </li>
+    <li>
+      <a href="/about">About</a>
+    </li>
+  </ul>
+</nav>
 
 <script>
   const url = new URL(window.location.href);
@@ -34,9 +49,27 @@ import Button from "@components/button.astro";
   if (selectedNavElement) {
     selectedNavElement.classList.add("selected");
   }
+</script>
 
-  const navButton = document.querySelector("#nav-btn");
-  navButton?.addEventListener("click", function () {
-    console.log("Toggle Nav");
-  });
+<script>
+  const nav = document.querySelector("nav#side-nav");
+  const closeBtn = document.querySelector("#side-nav #close-btn");
+  const navBtn = document.querySelector("#nav-btn");
+
+  function closeNav() {
+    nav?.classList.add("nav-hidden");
+    nav?.setAttribute("aria-hidden", "true");
+  }
+
+  function openNav() {
+    nav?.classList.remove("nav-hidden");
+    nav?.setAttribute("aria-hidden", "false");
+  }
+
+  if (!nav || !closeBtn || !navBtn) {
+    console.error("Navigation elements not found");
+  } else {
+    navBtn?.addEventListener("click", openNav);
+    closeBtn?.addEventListener("click", closeNav);
+  }
 </script>
