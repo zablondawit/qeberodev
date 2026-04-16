@@ -1,0 +1,46 @@
+@import "./global.css";
+
+footer {
+  font-size: 1rem;
+  @apply bg-foreground text-background;
+  padding: 4em;
+  display: flex;
+  flex-direction: column;
+  gap: 4em;
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+
+    &.legal {
+      flex-direction: row;
+      align-items: end;
+      justify-content: space-between;
+      font-weight: 200;
+
+      a {
+        font-style: italic;
+      }
+    }
+
+    &.contact {
+      h1 {
+        font-size: 2rem;
+        font-style: italic;
+        font-weight: 200;
+      }
+      h3 {
+        font-size: 1.25rem;
+        font-style: italic;
+        font-weight: 200;
+      }
+
+      #mail-link {
+        font-size: 1.25rem;
+        font-style: italic;
+        font-weight: 200;
+      }
+    }
+  }
+}
