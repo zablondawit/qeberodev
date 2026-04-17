@@ -42,13 +42,16 @@ import Button from "@components/button.astro";
 
   const path = getBasePath(url.pathname);
   const navElements = document.querySelectorAll("section a");
+  const sideNavElements = document.querySelectorAll("#side-nav a");
+  const selectedSideNavElement = sideNavElements
+    .entries()
+    .find(([, el]) => el.textContent.toLowerCase() === path)?.[1];
   const selectedNavElement = navElements
     .entries()
     .find(([, el]) => el.textContent.toLowerCase() === path)?.[1];
 
-  if (selectedNavElement) {
-    selectedNavElement.classList.add("selected");
-  }
+  selectedNavElement?.classList.add("selected");
+  selectedSideNavElement?.classList.add("selected");
 </script>
 
 <script>

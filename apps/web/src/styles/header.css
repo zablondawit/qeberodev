@@ -16,6 +16,10 @@ nav#side-nav {
     flex-direction: column;
     gap: 0.125em;
     padding: 1em 0.5em;
+
+    & a.selected {
+      @apply text-primary;
+    }
   }
 
   #close-btn {
