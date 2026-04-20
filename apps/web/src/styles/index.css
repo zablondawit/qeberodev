@@ -36,8 +36,14 @@ body {
   font-display: block;
 
   main {
-    margin: 0 5%;
-    @apply py-4;
+    & > * {
+      margin: 0 5%;
+      @apply py-4;
+
+      &.wide-section {
+        margin: 0;
+      }
+    }
   }
 }
 

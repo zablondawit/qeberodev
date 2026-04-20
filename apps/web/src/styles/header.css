@@ -42,7 +42,7 @@ nav#side-nav {
 
 header {
   /*border: var(--dbg);*/
-  padding: 0.5em;
+  padding: 5%;
   display: flex;
 
   flex-direction: row;

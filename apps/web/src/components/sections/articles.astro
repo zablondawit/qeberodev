@@ -1,0 +1,24 @@
+---
+import { getCollection } from "astro:content";
+
+const articles = await getCollection("articles");
+// Articles Collection Metadata
+const metadata = articles.map((a) => ({
+  title: a.data.title,
+  slug: a.id,
+}));
+---
+
+<section>
+  <h3>Featured Articles</h3>
+
+  <ul>
+    {
+      metadata.map((m) => (
+        <li>
+          <a href={`/articles/${m.slug}`}>{m.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

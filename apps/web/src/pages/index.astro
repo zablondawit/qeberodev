@@ -1,13 +1,12 @@
 ---
 import MainLayout from "@layouts/main.astro";
+import Articles from "@/components/sections/articles.astro";
+import Hero from "@/components/sections/hero.astro";
+import Showcase from "@/components/sections/showcase.astro";
 ---
 
 <MainLayout title="Home">
-  <h1 class="text-3xl font-bold">Hello World</h1>
-  <p>
-    This is the home page of my Astro project. You can edit this page by
-    modifying the <code>src/pages/index.astro</code> file.
-  </p>
-
-  <button>Hello</button>
+  <Hero />
+  <Showcase />
+  <Articles />
 </MainLayout>
