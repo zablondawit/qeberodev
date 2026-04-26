@@ -1,12 +1,175 @@
 ---
 import "../../styles/showcase.section.css";
+
+import logo_css from "@/assets/showcase_logos/logo-css.svg?raw";
+import logo_nodejs from "@/assets/showcase_logos/logo-nodejs.svg?raw";
+import logo_python from "@/assets/showcase_logos/logo-python.svg?raw";
+import logo_react from "@/assets/showcase_logos/logo-react.svg?raw";
+import logo_ts from "@/assets/showcase_logos/logo-ts.svg?raw";
+import logo_wordpress from "@/assets/showcase_logos/logo-wordpress.svg?raw";
+
+const showcasing_topics = [
+  "Engineering Principles",
+  "Architect Decisions",
+  "Developer Experience",
+  "Hands-on Guides",
+];
+
+// a directory of icons for logos
+// placed inside public/showcase_icons
 ---
 
+<script>
+  import { gsap } from "gsap";
+
+  const topics = gsap.utils.toArray<HTMLElement>("#showcase .showcase-topic");
+
+  if (topics.length > 0) {
+    gsap.set(topics, { opacity: 0 });
+    gsap.set(topics[0], { opacity: 1 });
+
+    const timeline = gsap.timeline({ repeat: -1 });
+
+    topics.forEach((topic, index) => {
+      const nextTopic = topics[(index + 1) % topics.length];
+      const duration = 0.575;
+      const delay = duration; // delay between fade out and fade in
+
+      timeline
+        .to({}, { duration: 1 })
+        .to(topic, {
+          opacity: 0,
+          duration: duration,
+          delay: delay,
+          ease: "circ.inOut",
+        })
+        .to(
+          nextTopic,
+          {
+            opacity: 1,
+            duration: duration,
+            delay: delay,
+            ease: "circ.inOut",
+          },
+          "<"
+        );
+    });
+  }
+</script>
+
+<script>
+  import { gsap } from "gsap";
+
+  window.addEventListener("DOMContentLoaded", () => {
+    // rotating topics (existing)
+    const topics = gsap.utils.toArray<HTMLElement>("#showcase .showcase-topic");
+
+    if (topics.length > 0) {
+      gsap.set(topics, { opacity: 0 });
+      gsap.set(topics[0], { opacity: 1 });
+
+      const timeline = gsap.timeline({ repeat: -1 });
+
+      topics.forEach((topic, index) => {
+        const nextTopic = topics[(index + 1) % topics.length];
+        const duration = 0.575;
+        const delay = duration;
+
+        timeline
+          .to({}, { duration: 1 })
+          .to(topic, {
+            opacity: 0,
+            duration: duration,
+            delay: delay,
+            ease: "circ.inOut",
+          })
+          .to(
+            nextTopic,
+            {
+              opacity: 1,
+              duration: duration,
+              delay: delay,
+              ease: "circ.inOut",
+            },
+            "<"
+          );
+      });
+    }
+
+    // GSAP continuous marquee for logos
+    const track = document.querySelector<HTMLElement>(
+      ".showcase-logos .showcase-track"
+    );
+    const container = document.querySelector(".showcase-logos");
+
+    if (track && container) {
+      // duplicate children for a seamless loop
+      track.innerHTML = track.innerHTML + track.innerHTML;
+      gsap.set(track, { x: 0 });
+
+      let marqueeTween: gsap.core.Tween;
+
+      function startMarquee() {
+        if (!track) return;
+
+        gsap.killTweensOf(track);
+        // width of one set (half of the duplicated track)
+        const singleWidth = track.scrollWidth / 2;
+        const pxPerSec = 20; // adjust speed
+        const duration = Math.max(1, singleWidth / pxPerSec);
+
+        // animate the track to the left by one set; repeat infinitely
+        marqueeTween = gsap.to(track, {
+          x: -singleWidth,
+          duration,
+          ease: "none",
+          repeat: -1,
+        });
+      }
+
+      // start initially and on resize (debounced)
+      startMarquee();
+      let rt: NodeJS.Timeout;
+      window.addEventListener("resize", () => {
+        clearTimeout(rt);
+        rt = setTimeout(startMarquee, 200);
+      });
+    }
+  });
+</script>
+
 <section id="showcase" class="wide-section">
-  <h2>We share our thinking and approach to building Modern Software</h2>
-  <h3>
-    Covering <b>Engineering Principles</b>, <b>Architect Decisions</b>, <b
-      >Developer Experience</b
-    >, and <b>Hands-on Guides</b>
-  </h3>
+  <section>
+    <h2>We share our thinking and approach to building Modern Software</h2>
+    <h2 class="covering-text">Covering</h2>
+  </section>
+
+  <section class="showcase-topics">
+    {
+      showcasing_topics.map((topic, index) => (
+        <span id={`topic-${index}`} class="showcase-topic">
+          <h3>
+            <b>{topic}</b>
+          </h3>
+        </span>
+      ))
+    }
+  </section>
+
+  <section class="showcase-logos" aria-label="technology logos marquee">
+    <div class="showcase-track" aria-hidden="true">
+      <Fragment set:html={logo_css} />
+      <Fragment set:html={logo_nodejs} />
+      <Fragment set:html={logo_python} />
+      <Fragment set:html={logo_react} />
+      <Fragment set:html={logo_ts} />
+      <Fragment set:html={logo_wordpress} />
+      <Fragment set:html={logo_css} />
+      <Fragment set:html={logo_nodejs} />
+      <Fragment set:html={logo_python} />
+      <Fragment set:html={logo_react} />
+      <Fragment set:html={logo_ts} />
+      <Fragment set:html={logo_wordpress} />
+    </div>
+  </section>
 </section>

@@ -8,5 +8,9 @@
         "latex",
         "plaintext",
         "css"
+    ],
+    "cSpell.words": [
+        "gsap",
+        "yoyo"
     ]
 }

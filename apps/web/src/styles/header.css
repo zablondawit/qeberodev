@@ -1,83 +1,83 @@
 @import "./global.css";
 
 nav#side-nav {
-  font-size: 1rem;
-  display: none;
-
-  &.nav-hidden {
+    font-size: 1rem;
     display: none;
-  }
 
-  ul {
-    font-size: 2rem;
-    font-weight: 600;
-
-    display: flex;
-    flex-direction: column;
-    gap: 0.125em;
-    padding: 1em 0.5em;
-
-    & a.selected {
-      @apply text-primary;
+    &.nav-hidden {
+        display: none;
     }
-  }
 
-  #close-btn {
-    position: absolute;
-    top: 0.5em;
-    right: 0.5em;
-  }
+    ul {
+        font-size: 2rem;
+        font-weight: 600;
 
-  @media screen and (max-width: 600px) {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--color-background);
-    z-index: 1000;
-  }
+        display: flex;
+        flex-direction: column;
+        gap: 0.125em;
+        padding: 1em 0.5em;
+
+        & a.selected {
+            @apply text-primary;
+        }
+    }
+
+    #close-btn {
+        position: absolute;
+        top: 1em;
+        right: 1em;
+    }
+
+    @media screen and (max-width: 600px) {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--color-background);
+        z-index: 1000;
+    }
 }
 
 header {
-  /*border: var(--dbg);*/
-  padding: 5%;
-  display: flex;
+    /*border: var(--dbg);*/
+    padding: 2em 5%;
+    display: flex;
 
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 
-  img {
-    height: 1.2rem;
-  }
-
-  button#nav-btn {
-    display: none;
-    @media screen and (max-width: 600px) {
-      display: inline-flex;
-    }
-  }
-
-  section {
-    font-size: 1rem;
-    display: inline-flex;
-    gap: 0.5em;
-    text-transform: uppercase;
-
-    @media screen and (max-width: 600px) {
-      display: none;
+    img {
+        height: 1.2rem;
     }
 
-    a {
-      color: var(--color-foreground);
-      font-weight: 600;
-      text-decoration: none;
-
-      &.selected {
-        @apply text-primary;
-      }
+    button#nav-btn {
+        display: none;
+        @media screen and (max-width: 600px) {
+            display: inline-flex;
+        }
     }
-  }
+
+    section {
+        font-size: 1rem;
+        display: inline-flex;
+        gap: 0.5em;
+        text-transform: uppercase;
+
+        @media screen and (max-width: 600px) {
+            display: none;
+        }
+
+        a {
+            color: var(--color-foreground);
+            font-weight: 600;
+            text-decoration: none;
+
+            &.selected {
+                @apply text-primary;
+            }
+        }
+    }
 }

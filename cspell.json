@@ -4,10 +4,12 @@
     "qeberodev",
     "shadcn",
     "lucide",
-    "@apply"
+    "@apply",
+    "GSAP"
   ],
   "userWords": [
     "Dawit",
-    "Zablon"
+    "Zablon",
+    "Tweens"
   ]
 }

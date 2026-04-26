@@ -1,51 +1,51 @@
 @import "./global.css";
 
 footer {
-  font-size: 1rem;
-  @apply bg-foreground text-background;
-  padding: 4em;
-  display: flex;
-  flex-direction: column;
-  gap: 4em;
-
-  section {
+    font-size: 1rem;
+    @apply bg-foreground text-background;
+    padding: 4em 5%;
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
+    gap: 4em;
 
-    &.legal {
-      flex-direction: row;
-      align-items: end;
-      justify-content: space-between;
-      font-weight: 200;
+    section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
 
-      .copy-right {
-        font-size: 0.875rem;
-        text-align: end;
-      }
+        &.legal {
+            flex-direction: row;
+            align-items: end;
+            justify-content: space-between;
+            font-weight: 200;
 
-      a {
-        font-style: italic;
-      }
+            .copy-right {
+                font-size: 0.875rem;
+                text-align: end;
+            }
+
+            a {
+                font-style: italic;
+            }
+        }
+
+        &.contact {
+            h1 {
+                font-size: 2rem;
+                font-style: normal;
+                font-weight: 600;
+            }
+            h3 {
+                font-size: 1.25rem;
+                font-style: italic;
+                font-weight: 100;
+            }
+
+            #mail-link {
+                font-size: 1.25rem;
+                font-style: italic;
+                font-weight: 200;
+            }
+        }
     }
-
-    &.contact {
-      h1 {
-        font-size: 2rem;
-        font-style: italic;
-        font-weight: 200;
-      }
-      h3 {
-        font-size: 1.25rem;
-        font-style: italic;
-        font-weight: 200;
-      }
-
-      #mail-link {
-        font-size: 1.25rem;
-        font-style: italic;
-        font-weight: 200;
-      }
-    }
-  }
 }

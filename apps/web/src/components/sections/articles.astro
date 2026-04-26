@@ -1,24 +1,75 @@
 ---
+import "../../styles/articles.section.css";
 import { getCollection } from "astro:content";
 
 const articles = await getCollection("articles");
 // Articles Collection Metadata
 const metadata = articles.map((a) => ({
-  title: a.data.title,
-  slug: a.id,
+    title: a.data.title,
+    slug: a.id,
 }));
 ---
 
-<section>
-  <h3>Featured Articles</h3>
+<script>
+    import { gsap } from "gsap";
 
-  <ul>
-    {
-      metadata.map((m) => (
+    // Hover text animation for links
+    window.addEventListener("DOMContentLoaded", () => {
+        const hoverLinks = document.querySelectorAll(".hover-link");
+        hoverLinks.forEach((link) => {
+            const txt = link.querySelector(".text");
+            if (!txt) return;
+
+            const tl = gsap.timeline({ paused: true });
+            tl.to(txt, {
+                fontWeight: 800,
+                duration: 0.25,
+                immediateRender: false,
+                ease: "expo.inOut",
+            });
+
+            link.addEventListener("mouseenter", () => tl.play(0));
+            link.addEventListener("mouseleave", () => tl.reverse());
+        });
+    });
+</script>
+
+<section id="featured-articles">
+    <h3>
+        <span>Featured Articles</span>
+    </h3>
+
+    <ul>
+        <!-- {
+            metadata.map((m) => (
+                <li>
+                    <a href={`/articles/${m.slug}`}>{m.title}</a>
+                </li>
+            ))
+        } -->
+
         <li>
-          <a href={`/articles/${m.slug}`}>{m.title}</a>
+            <a class="hover-link" href={`/articles/hello`}>
+                <span class="text">Fundamentals of CSS: Part 1</span>
+            </a>
         </li>
-      ))
-    }
-  </ul>
+        <li>
+            <a class="hover-link" href={`/articles/hello`}>
+                <span class="text">Fundamentals of CSS: Part 2</span>
+            </a>
+        </li>
+        <li>
+            <a class="hover-link" href={`/articles/hello`}>
+                <span class="text"
+                    >Expressive Typing with TypeScript: Part 2</span
+                >
+            </a>
+        </li>
+
+        <li id="all-articles">
+            <a href="/articles" class="hover-link more-link">
+                <span class="text">More Articles</span>
+            </a>
+        </li>
+    </ul>
 </section>
