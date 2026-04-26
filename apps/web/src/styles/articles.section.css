@@ -41,6 +41,14 @@ section#featured-articles {
             will-change: transform;
             transform-origin: center;
         }
+
+        @media screen and (max-width: 600px) {
+            font-size: 1.5rem;
+
+            &.more-link span {
+                font-size: 1.25rem;
+            }
+        }
     }
 
     ul {
@@ -51,6 +59,10 @@ section#featured-articles {
 
         li#all-articles {
             margin-top: 2em;
+
+            @media screen and (max-width: 600px) {
+                margin-top: 1em;
+            }
         }
     }
 }

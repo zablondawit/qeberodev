@@ -33,6 +33,11 @@ section#showcase {
         h3 {
             font-size: 4em;
         }
+
+        @media screen and (max-width: 600px) {
+            height: 10em;
+            line-height: normal;
+        }
     }
 
     section.showcase-logos {
@@ -60,14 +65,5 @@ section#showcase {
     }
 
     @media screen and (max-width: 600px) {
-        height: 65vh;
-
-        .covering-text {
-            padding-bottom: 1em;
-        }
-
-        h3 {
-            font-size: 3rem;
-        }
     }
 }

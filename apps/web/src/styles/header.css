@@ -9,13 +9,14 @@ nav#side-nav {
     }
 
     ul {
-        font-size: 2rem;
+        font-size: 2.5rem;
         font-weight: 600;
+        text-transform: uppercase;
 
         display: flex;
         flex-direction: column;
         gap: 0.125em;
-        padding: 1em 0.5em;
+        padding: 2em 0.5em;
 
         & a.selected {
             @apply text-primary;
@@ -24,8 +25,8 @@ nav#side-nav {
 
     #close-btn {
         position: absolute;
-        top: 1em;
-        right: 1em;
+        top: 2em;
+        right: 5%;
     }
 
     @media screen and (max-width: 600px) {
