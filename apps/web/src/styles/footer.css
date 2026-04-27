@@ -19,6 +19,11 @@ footer {
             justify-content: space-between;
             font-weight: 200;
 
+            ul {
+                display: flex;
+                flex-direction: column-reverse;
+            }
+
             .copy-right {
                 font-size: 0.875rem;
                 text-align: end;

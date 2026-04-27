@@ -40,31 +40,15 @@ const metadata = articles.map((a) => ({
     </h3>
 
     <ul>
-        <!-- {
+        {
             metadata.map((m) => (
                 <li>
-                    <a href={`/articles/${m.slug}`}>{m.title}</a>
+                    <a class="hover-link" href={`/articles/${m.slug}`}>
+                        <span class="text">{m.title}</span>
+                    </a>
                 </li>
             ))
-        } -->
-
-        <li>
-            <a class="hover-link" href={`/articles/hello`}>
-                <span class="text">Fundamentals of CSS: Part 1</span>
-            </a>
-        </li>
-        <li>
-            <a class="hover-link" href={`/articles/hello`}>
-                <span class="text">Fundamentals of CSS: Part 2</span>
-            </a>
-        </li>
-        <li>
-            <a class="hover-link" href={`/articles/hello`}>
-                <span class="text"
-                    >Expressive Typing with TypeScript: Part 2</span
-                >
-            </a>
-        </li>
+        }
 
         <li id="all-articles">
             <a href="/articles" class="hover-link more-link">

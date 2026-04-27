@@ -12,6 +12,14 @@ const articles = defineCollection({
   }),
 });
 
+const legal = defineCollection({
+  loader: glob({
+    pattern: "**/*.md",
+    base: "./src/data/legal",
+  }),
+});
+
 export const collections = {
   articles,
+  legal,
 };

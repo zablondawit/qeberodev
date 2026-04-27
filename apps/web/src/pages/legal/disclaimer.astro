@@ -1,0 +1,22 @@
+---
+import MdRender from "@/components/md-render.astro";
+import MainLayout from "@/layouts/main.astro";
+
+import { getCollection, render } from "astro:content";
+
+const legal = await getCollection("legal");
+
+const document = legal.find((p) => p.id === "website-disclaimer");
+if (!document) {
+    Astro.redirect("/404", 301);
+    throw new Error("Website Disclaimer not found");
+}
+
+const { Content } = await render(document);
+---
+
+<MainLayout title="Website Disclaimer">
+    <MdRender>
+        <Content />
+    </MdRender>
+</MainLayout>

@@ -1,4 +1,6 @@
 ---
+import MdRender from "@/components/md-render.astro";
+
 import MainLayout from "@layouts/main.astro";
 import type { GetStaticPaths } from "astro";
 import { getCollection, render, type CollectionEntry } from "astro:content";
@@ -16,5 +18,7 @@ const { Content } = await render(post);
 ---
 
 <MainLayout title="Article">
-    <Content />
+    <MdRender>
+        <Content />
+    </MdRender>
 </MainLayout>
