@@ -5,3 +5,15 @@ import "../styles/md-render.css";
 <article class="md">
     <slot />
 </article>
+
+<script>
+    const images = document.querySelectorAll("img");
+
+    images.forEach((img) =>
+        img.addEventListener("click", () => {
+            console.log("Clicked", {
+                url: img.getAttribute("src"),
+            });
+        }),
+    );
+</script>

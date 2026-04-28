@@ -32,7 +32,7 @@ Short intro paragraph. Use to preview hero, metadata, TOC, social cards, and con
 
 ## Section: Images
 
-![cover preview](/assets/images/rich-test-cover.jpg)
+![cover preview](../../assets/images/rich-test-cover.jpg)
 
 Caption: Hero image preview.
 
