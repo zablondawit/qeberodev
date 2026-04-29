@@ -1,5 +1,6 @@
 ---
 import MdRender from "@/components/md-render.astro";
+import "../../styles/article-page.css";
 
 import MainLayout from "@layouts/main.astro";
 import type { GetStaticPaths } from "astro";
@@ -14,11 +15,15 @@ interface Props {
     post: CollectionEntry<"articles">;
 }
 const { post } = Astro.props;
+const metadata = post.data;
+
 const { Content } = await render(post);
 ---
 
-<MainLayout title="Article">
+<MainLayout frontmatter={metadata} title="Article">
     <MdRender>
         <Content />
     </MdRender>
+
+    <section class="comment-soon">Comments Arriving Soon 🚀</section>
 </MainLayout>

@@ -1,0 +1,10 @@
+section.comment-soon {
+    font-size: 1rem;
+    border: 0.0625em solid var(--color-foreground);
+    border-radius: 0.125em;
+
+    text-align: center;
+    margin-bottom: 1em;
+    padding: 2em 0;
+    opacity: 0.4;
+}

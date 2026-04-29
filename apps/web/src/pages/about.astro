@@ -1,7 +1,19 @@
 ---
 import MainLayout from "@layouts/main.astro";
+import MdRender from "@/components/md-render.astro";
+
+import { getEntry, render } from "astro:content";
+
+const about = await getEntry({
+    collection: "general",
+    id: "about",
+});
+
+const { Content } = await render(about);
 ---
 
 <MainLayout title="About">
-    <p>Hello</p>
+    <MdRender>
+        <Content />
+    </MdRender>
 </MainLayout>
