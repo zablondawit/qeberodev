@@ -1,0 +1,18 @@
+---
+import "../styles/components/checkbox.css";
+
+type Props = {
+    name: string;
+    title?: string;
+    id?: string;
+    label: string;
+};
+
+const { id, name, title, label } = Astro.props;
+---
+
+<label class="checkbox" id={id} title={title}>
+    <input type="checkbox" name={name} />
+    <span class="checkbox-visual"></span>
+    <span class="checkbox-label">{label}</span>
+</label>

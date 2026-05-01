@@ -60,8 +60,9 @@ section#article-search {
                 border-width: 0.125em;
                 border-radius: 0;
                 border-color: var(--dbg);
-                background: white;
                 margin: 0.125em 0;
+
+                @apply bg-background;
             }
 
             input[type="checkbox"]:checked + .checkbox-visual {

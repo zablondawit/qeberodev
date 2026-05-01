@@ -1,0 +1,36 @@
+@import "../global.css";
+
+label.checkbox {
+    padding: 0;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25em;
+    cursor: pointer;
+    user-select: none;
+
+    input[type="checkbox"] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .checkbox-visual {
+        font-size: 1rem;
+        display: inline-block;
+        width: 1.25em;
+        height: 1.25em;
+        border-width: 0.125em;
+        border-radius: 0;
+        border-color: var(--dbg);
+        margin: 0.125em 0;
+
+        @apply bg-background;
+    }
+
+    input[type="checkbox"]:checked + .checkbox-visual {
+        @apply border-foreground bg-foreground;
+    }
+}

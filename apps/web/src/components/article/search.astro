@@ -1,6 +1,7 @@
 ---
 import "../../styles/components/article/search.css";
 import Button from "@/components/button.astro";
+import Checkbox from "@/components/checkbox.astro";
 ---
 
 <script>
@@ -8,7 +9,14 @@ import Button from "@/components/button.astro";
         "section#article-search #search-input",
     );
 
-    searchInput;
+    const quickSearchToggle = document.querySelector<HTMLLabelElement>(
+        "fieldset#search-options #quick-search input",
+    );
+    quickSearchToggle?.addEventListener("click", () => {
+        console.log({
+            info: "Quick Search toggled",
+        });
+    });
 </script>
 
 <section id="article-search">
@@ -18,14 +26,12 @@ import Button from "@/components/button.astro";
     </fieldset>
 
     <fieldset id="search-options">
-        <label
+        <Checkbox
+            name="quick-search"
             id="quick-search"
+            label="Quick Search"
             title="When enabled, search results will be shown as you type. No need to press Search!"
-        >
-            <input type="checkbox" name="quick-search" />
-            <span class="checkbox-visual"></span>
-            <span class="checkbox-label">Quick Search</span>
-        </label>
+        />
     </fieldset>
     <!-- <fieldset>
         <Button>Filter</Button>
