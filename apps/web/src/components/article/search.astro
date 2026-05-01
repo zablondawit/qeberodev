@@ -1,0 +1,33 @@
+---
+import "../../styles/components/article/search.css";
+import Button from "@/components/button.astro";
+---
+
+<script>
+    const searchInput = document.querySelector(
+        "section#article-search #search-input",
+    );
+
+    searchInput;
+</script>
+
+<section id="article-search">
+    <fieldset id="search">
+        <input id="search-input" placeholder="Search Articles" type="text" />
+        <Button>Search</Button>
+    </fieldset>
+
+    <fieldset id="search-options">
+        <label
+            id="quick-search"
+            title="When enabled, search results will be shown as you type. No need to press Search!"
+        >
+            <input type="checkbox" name="quick-search" />
+            <span class="checkbox-visual"></span>
+            <span class="checkbox-label">Quick Search</span>
+        </label>
+    </fieldset>
+    <!-- <fieldset>
+        <Button>Filter</Button>
+    </fieldset> -->
+</section>

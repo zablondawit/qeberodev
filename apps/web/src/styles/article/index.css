@@ -1,0 +1,8 @@
+@import "../global.css";
+
+section#article-list {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}

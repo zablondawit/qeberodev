@@ -1,22 +1,27 @@
 ---
+import "../../styles/article/index.css";
 import MainLayout from "@layouts/main.astro";
 import { getCollection } from "astro:content";
+import ArticleCard from "@/components/article/card.astro";
+import ArticleSearch from "@/components/article/search.astro";
 
 const articles = await getCollection("articles");
 ---
 
 <MainLayout title="Articles">
-    <h1>List of Articles</h1>
+    <ArticleSearch />
 
-    <ul>
-        {
-            articles.map((article) => (
-                <li>
-                    <a href={`/articles/${article.id}`}>{article.data.title}</a>
-                </li>
-            ))
-        }
-    </ul>
+    <section id="article-list">
+        <ul>
+            {
+                articles.map((article) => (
+                    <li>
+                        <ArticleCard article={article} />
+                    </li>
+                ))
+            }
+        </ul>
+    </section>
 </MainLayout>
 
 <style>

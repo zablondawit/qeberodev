@@ -1,0 +1,20 @@
+@import "../../global.css";
+
+article.card {
+    padding-bottom: 0.625em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125em;
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    small.date {
+        @apply opacity-65;
+    }
+
+    p.description {
+        @apply opacity-65;
+    }
+}

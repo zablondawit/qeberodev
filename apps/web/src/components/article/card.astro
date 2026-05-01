@@ -1,0 +1,27 @@
+---
+import "../../styles/components/article/card.css";
+import { formatArticleCardDate } from "@/lib/datetime";
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+    article: CollectionEntry<"articles">;
+};
+const { article } = Astro.props;
+const publishedDate = formatArticleCardDate(article.data.date);
+---
+
+<article class="card">
+    <h3 class="title">
+        <a href={`/articles/${article.id}`}>
+            {article.data.title}
+        </a>
+    </h3>
+
+    <p class="description">
+        {article.data.description}
+    </p>
+
+    <small class="date">
+        {publishedDate}
+    </small>
+</article>
