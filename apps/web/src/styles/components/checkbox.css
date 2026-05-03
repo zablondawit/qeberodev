@@ -27,10 +27,21 @@ label.checkbox {
         border-color: var(--dbg);
         margin: 0.125em 0;
 
+        & .check-icon {
+            color: #fff;
+            opacity: 0;
+        }
+
         @apply bg-background;
     }
 
+    input[type="checkbox"]:checked + .checkbox-visual,
+    input[type="checkbox"]:indeterminate + .checkbox-visual,
     input[type="checkbox"]:checked + .checkbox-visual {
+        & .check-icon {
+            opacity: 1;
+        }
+
         @apply border-foreground bg-foreground;
     }
 }

@@ -5,17 +5,23 @@ import Checkbox from "@/components/checkbox.astro";
 ---
 
 <script>
-    const searchInput = document.querySelector(
+    const searchInput = document.querySelector<HTMLInputElement>(
         "section#article-search #search-input",
     );
-
-    const quickSearchToggle = document.querySelector<HTMLLabelElement>(
+    const quickSearchToggle = document.querySelector<HTMLInputElement>(
         "fieldset#search-options #quick-search input",
     );
-    quickSearchToggle?.addEventListener("click", () => {
-        console.log({
-            info: "Quick Search toggled",
-        });
+
+    const handleSearch = () => {
+        if (!quickSearchToggle) return;
+        const { checked: quickSearchEnabled } = quickSearchToggle;
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+        if (!searchInput) return;
+
+        searchInput.focus();
+        searchInput.addEventListener("keydown", handleSearch);
     });
 </script>
 

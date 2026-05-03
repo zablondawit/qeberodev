@@ -1,18 +1,49 @@
 ---
+/**
+ * A custom checkbox component that uses a web component to manage its state and styling.
+ *
+ * @param `data-checked` - A boolean attribute that reflects the checked state of the checkbox.
+ *  It is updated whenever the checkbox is toggled.
+ */
 import "../styles/components/checkbox.css";
+import { Icon } from "astro-icon/components";
 
 type Props = {
-    name: string;
-    title?: string;
     id?: string;
+    name: string;
     label: string;
+    title?: string;
+    checked?: boolean;
 };
 
-const { id, name, title, label } = Astro.props;
+const { id, name, title, label, checked = false } = Astro.props;
 ---
 
-<label class="checkbox" id={id} title={title}>
-    <input type="checkbox" name={name} />
-    <span class="checkbox-visual"></span>
-    <span class="checkbox-label">{label}</span>
-</label>
+<astro-checkbox data-checked={checked}>
+    <label class="checkbox" id={id} title={title}>
+        <input type="checkbox" name={name} checked={checked} />
+        <span class="checkbox-visual">
+            <Icon class="check-icon" name="lucide:check" />
+        </span>
+        <span class="checkbox-label">{label}</span>
+    </label>
+</astro-checkbox>
+
+<script>
+    class CheckboxElement extends HTMLElement {
+        connectedCallback() {
+            const input = this.querySelector<HTMLInputElement>(
+                    `input[type="checkbox"]`,
+                ),
+                label = this.querySelector("label");
+            if (!label || !input) return;
+
+            // Initialize the `data-checked` attribute based on the initial state of the checkbox
+            input.addEventListener("change", () =>
+                this.setAttribute("data-checked", String(input.checked)),
+            );
+        }
+    }
+
+    customElements.define("astro-checkbox", CheckboxElement);
+</script>

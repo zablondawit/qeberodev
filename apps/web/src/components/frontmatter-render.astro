@@ -12,26 +12,25 @@ const { frontmatter } = Astro.props;
 const metadata = frontmatter && generatePageMetadata(frontmatter);
 ---
 
-{ metadata && (
-<meta name="description" content={metadata.description} />
-<link rel="canonical" href={metadata.canonical} />
-<meta property="og:title" content={metadata.og.title} />
-<meta property="og:type" content={metadata.og.type} />
-<meta property="og:url" content={metadata.og.url} />
-<meta property="og:description" content={metadata.og.description} />
-<meta property="og:image" content={metadata.og.image} />
-<meta
-    property="article:published_time"
-    content={metadata.article.published_time}
-/>
-<meta
-    property="article:modified_time"
-    content={metadata.article.modified_time}
-/>
-<meta property="article:author" content={metadata.article.author} />
-<meta name="twitter:card" content={metadata.twitter.card} />
-<meta name="twitter:title" content={metadata.twitter.title} />
-<meta name="twitter:description" content={metadata.twitter.description} />
-<meta name="twitter:image" content={metadata.twitter.image} />
-)
-}
+{metadata && (
+    <meta name="description" content={metadata.description} />
+    <link rel="canonical" href={metadata.canonical} />
+    <meta property="og:title" content={metadata.og.title} />
+    <meta property="og:type" content={metadata.og.type} />
+    <meta property="og:url" content={metadata.og.url} />
+    <meta property="og:description" content={metadata.og.description} />
+    <meta property="og:image" content={metadata.og.image} />
+    <meta
+        property="article:published_time"
+        content={metadata.article.published_time}
+    />
+    <meta
+        property="article:modified_time"
+        content={metadata.article.modified_time}
+    />
+    <meta property="article:author" content={metadata.article.author} />
+    <meta name="twitter:card" content={metadata.twitter.card} />
+    <meta name="twitter:title" content={metadata.twitter.title} />
+    <meta name="twitter:description" content={metadata.twitter.description} />
+    <meta name="twitter:image" content={metadata.twitter.image} />
+)}

@@ -28,6 +28,7 @@
   },
   "type": "module",
   "devDependencies": {
-    "@iconify-json/lucide": "^1.2.101"
+    "@iconify-json/lucide": "^1.2.101",
+    "sharp": "^0.34.5"
   }
 }
