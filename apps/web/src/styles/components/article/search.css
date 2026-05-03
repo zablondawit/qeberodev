@@ -1,6 +1,6 @@
 @import "../../global.css";
 
-c-article-search#article-search {
+c-article-search {
     display: flex;
     flex-direction: column;
     gap: 0.25em;
@@ -8,12 +8,12 @@ c-article-search#article-search {
     font-size: 1rem;
     padding: 0;
 
-    & fieldset#search {
+    & fieldset.search {
         display: flex;
         flex-direction: row;
         gap: 0;
 
-        & input#search-input {
+        & input.search-input {
             flex-grow: 1;
             line-height: 1.75;
             border: var(--dbg);
@@ -27,47 +27,12 @@ c-article-search#article-search {
         }
     }
 
-    & fieldset#search-options {
+    & fieldset.search-options {
         font-size: 1rem;
         display: flex;
         flex-direction: row;
         gap: 0.625em;
         justify-content: flex-start;
         align-items: center;
-
-        & label#quick-search {
-            padding: 0;
-            display: inline-flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            gap: 0.125em;
-            cursor: pointer;
-            user-select: none;
-
-            input[type="checkbox"] {
-                position: absolute;
-                opacity: 0;
-                width: 0;
-                height: 0;
-            }
-
-            .checkbox-visual {
-                font-size: 1rem;
-                display: inline-block;
-                width: 1.25em;
-                height: 1.25em;
-                border-width: 0.125em;
-                border-radius: 0;
-                border-color: var(--dbg);
-                margin: 0.125em 0;
-
-                @apply bg-background;
-            }
-
-            input[type="checkbox"]:checked + .checkbox-visual {
-                @apply border-foreground bg-foreground;
-            }
-        }
     }
 }

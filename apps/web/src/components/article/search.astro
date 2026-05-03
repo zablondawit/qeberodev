@@ -2,57 +2,36 @@
 import "../../styles/components/article/search.css";
 import Button from "@/components/button.astro";
 import Checkbox from "@/components/checkbox.astro";
+
+type Props = Pick<HTMLElement, "id">;
+
+const { id } = Astro.props;
 ---
 
-<!-- <script>
-    import type { CollectionEntry } from "astro:content";
-    type ArticleList = CollectionEntry<"articles">[];
-
-    const searchInput = document.querySelector<HTMLInputElement>(
-        "section#article-search #search-input",
-    );
-    const quickSearchToggle = document.querySelector<HTMLInputElement>(
-        "fieldset#search-options #quick-search input",
-    );
-
-    const handleSearch = (articles: ArticleList) => {
-        if (!quickSearchToggle) return;
-        const { checked: quickSearchEnabled } = quickSearchToggle;
-
-        console.log({
-            articles,
-        });
-    };
-
-    document.addEventListener("DOMContentLoaded", async () => {
-        if (!searchInput) return;
-
-        const availableArticles: ArticleList = await fetch(
-            "/api/articles.json",
-        ).then((r) => r.json());
-
-        // searchInput.focus();
-        // searchInput.addEventListener("keydown", () =>
-        //     handleSearch(availableArticles),
-        // );
-    }); -->
 <script>
     class ArticleSearchElement extends HTMLElement {
-        dispatchSearch(query: string): void {
+        dispatchSearch(query: string, options: ArticleSearchOptions): void {
             this.dispatchEvent(
                 new ArticleSearchEvent({
                     query,
+                    options: options,
                 }),
             );
         }
 
         connectedCallback() {
-            const searchInput =
-                this.querySelector<HTMLInputElement>("input#search-input");
+            const searchInput = this.querySelector<HTMLInputElement>(
+                "c-article-search fieldset.search input[type='text']",
+            );
+            const quickSearchCheckbox = this.querySelector<HTMLInputElement>(
+                "c-article-search fieldset.search-options c-checkbox input[type='checkbox']",
+            );
 
             searchInput?.addEventListener("keyup", (e) => {
                 const value = (e.target as HTMLInputElement).value;
-                this.dispatchSearch(value);
+                this.dispatchSearch(value, {
+                    quickSearch: !!quickSearchCheckbox?.checked,
+                });
             });
         }
     }
@@ -70,13 +49,13 @@ import Checkbox from "@/components/checkbox.astro";
     customElements.define("c-article-search", ArticleSearchElement);
 </script>
 
-<c-article-search id="article-search">
-    <fieldset id="search">
-        <input id="search-input" placeholder="Search Articles" type="text" />
+<c-article-search id={id}>
+    <fieldset class="search">
+        <input class="search-input" placeholder="Search Articles" type="text" />
         <Button>Search</Button>
     </fieldset>
 
-    <fieldset id="search-options">
+    <fieldset class="search-options">
         <Checkbox
             name="quick-search"
             id="quick-search"
