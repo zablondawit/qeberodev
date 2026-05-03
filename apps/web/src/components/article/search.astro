@@ -4,7 +4,10 @@ import Button from "@/components/button.astro";
 import Checkbox from "@/components/checkbox.astro";
 ---
 
-<script>
+<!-- <script>
+    import type { CollectionEntry } from "astro:content";
+    type ArticleList = CollectionEntry<"articles">[];
+
     const searchInput = document.querySelector<HTMLInputElement>(
         "section#article-search #search-input",
     );
@@ -12,20 +15,62 @@ import Checkbox from "@/components/checkbox.astro";
         "fieldset#search-options #quick-search input",
     );
 
-    const handleSearch = () => {
+    const handleSearch = (articles: ArticleList) => {
         if (!quickSearchToggle) return;
         const { checked: quickSearchEnabled } = quickSearchToggle;
+
+        console.log({
+            articles,
+        });
     };
 
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", async () => {
         if (!searchInput) return;
 
-        searchInput.focus();
-        searchInput.addEventListener("keydown", handleSearch);
-    });
+        const availableArticles: ArticleList = await fetch(
+            "/api/articles.json",
+        ).then((r) => r.json());
+
+        // searchInput.focus();
+        // searchInput.addEventListener("keydown", () =>
+        //     handleSearch(availableArticles),
+        // );
+    }); -->
+<script>
+    class ArticleSearchElement extends HTMLElement {
+        dispatchSearch(query: string): void {
+            this.dispatchEvent(
+                new ArticleSearchEvent({
+                    query,
+                }),
+            );
+        }
+
+        connectedCallback() {
+            const searchInput =
+                this.querySelector<HTMLInputElement>("input#search-input");
+
+            searchInput?.addEventListener("keyup", (e) => {
+                const value = (e.target as HTMLInputElement).value;
+                this.dispatchSearch(value);
+            });
+        }
+    }
+
+    class ArticleSearchEvent extends CustomEvent<ArticleSearchChangeDetail> {
+        constructor(detail: ArticleSearchChangeDetail) {
+            super("search-change", {
+                detail,
+                bubbles: false,
+                composed: true,
+            });
+        }
+    }
+
+    customElements.define("c-article-search", ArticleSearchElement);
 </script>
 
-<section id="article-search">
+<c-article-search id="article-search">
     <fieldset id="search">
         <input id="search-input" placeholder="Search Articles" type="text" />
         <Button>Search</Button>
@@ -39,7 +84,4 @@ import Checkbox from "@/components/checkbox.astro";
             title="When enabled, search results will be shown as you type. No need to press Search!"
         />
     </fieldset>
-    <!-- <fieldset>
-        <Button>Filter</Button>
-    </fieldset> -->
-</section>
+</c-article-search>

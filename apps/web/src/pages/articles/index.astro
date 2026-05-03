@@ -4,9 +4,27 @@ import MainLayout from "@layouts/main.astro";
 import { getCollection } from "astro:content";
 import ArticleCard from "@/components/article/card.astro";
 import ArticleSearch from "@/components/article/search.astro";
+import "@/components/article/search.astro";
 
 const articles = await getCollection("articles");
 ---
+
+<script>
+    import debounce from "debounce";
+
+    const searchComponent = document.querySelector("c-article-search");
+
+    const debouncedLog = debounce((value: string) => {
+        console.log({
+            value,
+        });
+    }, 300);
+
+    searchComponent?.addEventListener("search-change", (e) => {
+        const value = e.detail.query;
+        debouncedLog(value);
+    });
+</script>
 
 <MainLayout title="Articles">
     <ArticleSearch />

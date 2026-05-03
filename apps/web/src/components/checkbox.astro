@@ -19,7 +19,7 @@ type Props = {
 const { id, name, title, label, checked = false } = Astro.props;
 ---
 
-<astro-checkbox data-checked={checked}>
+<c-checkbox data-checked={checked}>
     <label class="checkbox" id={id} title={title}>
         <input type="checkbox" name={name} checked={checked} />
         <span class="checkbox-visual">
@@ -27,7 +27,7 @@ const { id, name, title, label, checked = false } = Astro.props;
         </span>
         <span class="checkbox-label">{label}</span>
     </label>
-</astro-checkbox>
+</c-checkbox>
 
 <script>
     class CheckboxElement extends HTMLElement {
@@ -45,5 +45,5 @@ const { id, name, title, label, checked = false } = Astro.props;
         }
     }
 
-    customElements.define("astro-checkbox", CheckboxElement);
+    customElements.define("c-checkbox", CheckboxElement);
 </script>

@@ -1,6 +1,6 @@
 @import "../../global.css";
 
-section#article-search {
+c-article-search#article-search {
     display: flex;
     flex-direction: column;
     gap: 0.25em;
