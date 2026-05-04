@@ -12,34 +12,62 @@ const articles = await getCollection("articles");
 <script>
     import debounce from "debounce";
     import type { CollectionEntry } from "astro:content";
+    import { formatArticleCardDate } from "@/lib/datetime";
 
+    /** Delay in milliseconds for the search debounce */
     const SEARCH_DELAY = 300;
 
     type ArticleList = CollectionEntry<"articles">[];
 
-    const handleSearch = debounce(
-        (
-            query: string,
-            articles: ArticleList,
-            options: {
-                quick: boolean;
-            },
-        ) => {
-            console.log({
-                query,
-                options,
-                articles,
-            });
-        },
-        SEARCH_DELAY,
-    );
-
     document.addEventListener("DOMContentLoaded", async () => {
+        const searchComponent = document.querySelector("c-article-search");
+        const articleList = document.querySelector("#article-list");
+        const articleSearchList = document.querySelector(
+            "#article-search-list",
+        );
+
+        if (!articleList || !articleSearchList) return;
+
         const availableArticles: ArticleList = await fetch(
             "/api/articles.json",
         ).then((r) => r.json());
 
-        const searchComponent = document.querySelector("c-article-search");
+        const handleSearch = debounce(
+            (
+                query: string,
+                articles: ArticleList,
+                options: {
+                    quick: boolean;
+                },
+            ) => {
+                if (query === "") {
+                    articleSearchList.innerHTML = "";
+                    articleList.classList.remove("hide-list");
+                    return;
+                } else {
+                    articleList.classList.add("hide-list");
+                }
+
+                const results = articles.filter((a) =>
+                    a.data.title.toLowerCase().includes(query.toLowerCase()),
+                );
+
+                results.forEach((article) => {
+                    const articleCard =
+                        document.createElement("c-article-card");
+
+                    articleCard.update({
+                        id: article.id,
+                        title: article.data.title,
+                        description: article.data.description,
+                        publishedDate: formatArticleCardDate(article.data.date),
+                    });
+                    articleSearchList.appendChild(articleCard);
+                });
+            },
+            SEARCH_DELAY,
+        );
+
         searchComponent?.addEventListener("search-change", ({ detail }) => {
             const {
                 query,
@@ -57,20 +85,8 @@ const articles = await getCollection("articles");
     <ArticleSearch id="article-search" />
 
     <section id="article-list">
-        <ul>
-            {
-                articles.map((article) => (
-                    <li>
-                        <ArticleCard article={article} />
-                    </li>
-                ))
-            }
-        </ul>
+        {articles.map((article) => <ArticleCard article={article} />)}
     </section>
-</MainLayout>
 
-<style>
-    a {
-        text-decoration: underline;
-    }
-</style>
+    <section id="article-search-list"></section>
+</MainLayout>

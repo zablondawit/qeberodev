@@ -10,7 +10,48 @@ const { article } = Astro.props;
 const publishedDate = formatArticleCardDate(article.data.date);
 ---
 
-<article class="card">
+<template id="t-article-card">
+    <h3 class="title">
+        <a href=""></a>
+    </h3>
+    <p class="description"></p>
+    <small class="date"></small>
+</template>
+
+<script>
+    class ArticleCardElement extends HTMLElement {
+        update(props: ArticleCardProps) {
+            const template = document.getElementById(
+                "t-article-card",
+            ) as HTMLTemplateElement;
+            const content = template.content.cloneNode(
+                true,
+            ) as DocumentFragment;
+
+            const link = content.querySelector("a");
+            if (link) {
+                link.href = `/articles/${props.id}`;
+                link.textContent = props.title;
+            }
+
+            content.querySelector(".description")!.textContent =
+                props.description;
+            content.querySelector(".date")!.textContent = props.publishedDate;
+
+            this.innerHTML = "";
+            this.appendChild(content);
+        }
+
+        connectedCallback() {
+            // Add the "card" class to the element for styling
+            this.classList.add("card");
+        }
+    }
+
+    customElements.define("c-article-card", ArticleCardElement);
+</script>
+
+<c-article-card class="card">
     <h3 class="title">
         <a href={`/articles/${article.id}`}>
             {article.data.title}
@@ -24,4 +65,4 @@ const publishedDate = formatArticleCardDate(article.data.date);
     <small class="date">
         {publishedDate}
     </small>
-</article>
+</c-article-card>

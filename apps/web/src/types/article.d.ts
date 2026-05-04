@@ -1,3 +1,7 @@
+/**
+ * Article related data types
+ */
+
 interface ArticleSearchEventMap extends HTMLElementEventMap {
     "search-change": ArticleSearchEvent;
 }
@@ -24,6 +28,20 @@ declare global {
         );
     }
 
+    interface ArticleCardProps {
+        id: string;
+        title: string;
+        description: string;
+        publishedDate: string;
+    }
+    declare class ArticleCardElement extends HTMLElement {
+        /**
+         * Update the article card with new data
+         * @param data The article data to update the card with
+         */
+        update(data: ArticleCardProps): void;
+    }
+
     interface ArticleSearchOptions {
         quickSearch: boolean;
     }
@@ -37,6 +55,7 @@ declare global {
 
     interface HTMLElementTagNameMap {
         "c-article-search": ArticleSearchElement;
+        "c-article-card": ArticleCardElement;
     }
 
     interface GlobalEventHandlersEventMap {}

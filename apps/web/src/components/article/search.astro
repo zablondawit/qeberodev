@@ -52,10 +52,10 @@ const { id } = Astro.props;
 <c-article-search id={id}>
     <fieldset class="search">
         <input class="search-input" placeholder="Search Articles" type="text" />
-        <Button>Search</Button>
+        <Button hidden>Search</Button>
     </fieldset>
 
-    <fieldset class="search-options">
+    <fieldset hidden class="search-options">
         <Checkbox
             name="quick-search"
             id="quick-search"

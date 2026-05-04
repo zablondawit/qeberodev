@@ -1,6 +1,6 @@
 @import "../../global.css";
 
-article.card {
+c-article-card.card {
     padding-bottom: 0.625em;
     display: flex;
     flex-direction: column;
