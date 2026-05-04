@@ -11,3 +11,7 @@ section#article-list {
         display: none;
     }
 }
+
+section#article-search-list {
+    min-height: 40vh;
+}

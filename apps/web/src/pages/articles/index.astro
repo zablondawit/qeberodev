@@ -40,17 +40,26 @@ const articles = await getCollection("articles");
                     quick: boolean;
                 },
             ) => {
+                articleSearchList.innerHTML = "";
                 if (query === "") {
-                    articleSearchList.innerHTML = "";
                     articleList.classList.remove("hide-list");
+                    articleList.removeAttribute("hidden");
+                    articleSearchList.setAttribute("hidden", "");
                     return;
                 } else {
                     articleList.classList.add("hide-list");
+                    articleList.setAttribute("hidden", "");
+                    articleSearchList.removeAttribute("hidden");
                 }
 
                 const results = articles.filter((a) =>
                     a.data.title.toLowerCase().includes(query.toLowerCase()),
                 );
+
+                if (!results.length) {
+                    articleSearchList.innerHTML = `<p>No Match Found</p>`;
+                    return;
+                }
 
                 results.forEach((article) => {
                     const articleCard =
@@ -88,5 +97,5 @@ const articles = await getCollection("articles");
         {articles.map((article) => <ArticleCard article={article} />)}
     </section>
 
-    <section id="article-search-list"></section>
+    <section hidden id="article-search-list"></section>
 </MainLayout>
