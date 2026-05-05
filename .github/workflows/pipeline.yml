@@ -32,7 +32,7 @@ jobs:
               run: NODE_OPTIONS="--max-old-space-size=4096" pnpm run build
 
             - name: Clean Up
-              uses: appleboy/scp-action@v4
+              uses: appleboy/scp-action@v1
               with:
                   host: ${{ secrets.HOST }}
                   username: ${{ secrets.USERNAME }}
@@ -41,7 +41,7 @@ jobs:
                   script: "rm -rf /home/qeberodev/public_html/*"
 
             - name: Upload Artifacts
-              uses: appleboy/scp-action@v4
+              uses: appleboy/scp-action@v1
               with:
                   host: ${{ secrets.HOST }}
                   username: ${{ secrets.USERNAME }}
