@@ -30,3 +30,23 @@ jobs:
 
             - name: Build Artifact
               run: NODE_OPTIONS="--max-old-space-size=4096" pnpm run build
+
+            - name: Clean Up
+              uses: appleboy/ssh-action@v4
+              with:
+                  host: ${{ secrets.HOST }}
+                  username: ${{ secrets.USERNAME }}
+                  ssh_key: ${{ secrets.SSH_KEY }}
+                  port: ${{ secrets.PORT }}
+                  script: "rm -rf /home/qeberodev/public_html/*"
+
+            - name: Upload Artifacts
+              uses: appleboy/ssh-action@v4
+              with:
+                  host: ${{ secrets.HOST }}
+                  username: ${{ secrets.USERNAME }}
+                  ssh_key: ${{ secrets.SSH_KEY }}
+                  port: ${{ secrets.PORT }}
+                  source: "apps/web/dist/*"
+                  target: "/home/qeberodev/public_html"
+                  strip_components: 3
