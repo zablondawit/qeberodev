@@ -36,8 +36,9 @@ jobs:
               with:
                   host: ${{ secrets.HOST }}
                   username: ${{ secrets.USERNAME }}
-                  passphrase: ${{ secrets.PASSWORD }}
+                  password: ${{ secrets.PASSWORD }}
                   key: ${{ secrets.SSH_KEY }}
+                  passphrase: ${{ secrets.PASSPHRASE }}
                   port: ${{ secrets.PORT }}
                   script: "whoami && echo 'SSH Connection Successful'"
 
