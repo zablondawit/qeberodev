@@ -3,6 +3,7 @@ import "../styles/index.css";
 import Header from "@components/header.astro";
 import Footer from "@components/footer.astro";
 import FrontmatterRender from "@/components/frontmatter-render.astro";
+import Favicon from "@/components/favicon.astro";
 import type { Frontmatter } from "@/types/frontmatter";
 import type { z } from "astro/zod";
 
@@ -16,10 +17,10 @@ const { title, frontmatter } = Astro.props;
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
+
+        <Favicon />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
