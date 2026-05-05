@@ -1,10 +1,29 @@
 ---
-import "../../styles/articles.section.css";
+import type { CollectionEntry } from "astro:content";
+import "../../styles/sections/articles.css";
 import { getCollection } from "astro:content";
+import { compareAsc } from "date-fns";
 
 const articles = await getCollection("articles");
+
+const filterArticles: Parameters<
+    Array<CollectionEntry<"articles">>["filter"]
+>[0] = (currArticle, index, arr) => {
+    const prevArticle = arr[index - 1];
+    return true;
+};
+
+const sortArticles: Parameters<
+    Array<CollectionEntry<"articles">>["sort"]
+>[0] = (first, second) => compareAsc(first.data.date, second.data.date);
+
+const filteredArticles = articles
+    .filter(filterArticles)
+    .sort(sortArticles)
+    .slice(0, 4);
+
 // Articles Collection Metadata
-const metadata = articles.map((a) => ({
+const metadata = filteredArticles.map((a) => ({
     title: a.data.title,
     slug: a.id,
 }));
