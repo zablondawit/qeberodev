@@ -31,33 +31,34 @@ jobs:
             - name: Build Artifact
               run: NODE_OPTIONS="--max-old-space-size=4096" pnpm run build
 
-            - name: Check
+            - name: SSH Check
               uses: appleboy/ssh-action@v1
               with:
                   host: ${{ secrets.HOST }}
                   username: ${{ secrets.USERNAME }}
-                  password: ${{ secrets.PASSWORD }}
                   key: ${{ secrets.SSH_KEY }}
                   passphrase: ${{ secrets.PASSPHRASE }}
                   port: ${{ secrets.PORT }}
                   script: "whoami && echo 'SSH Connection Successful'"
 
-            # - name: Clean Up
-            #   uses: appleboy/scp-action@v1
-            #   with:
-            #       host: ${{ secrets.HOST }}
-            #       username: ${{ secrets.USERNAME }}
-            #       key: ${{ secrets.SSH_KEY }}
-            #       port: ${{ secrets.PORT }}
-            #       script: "rm -rf /home/qeberodev/public_html/*"
+            - name: Clean Up
+              uses: appleboy/ssh-action@v1
+              with:
+                  host: ${{ secrets.HOST }}
+                  username: ${{ secrets.USERNAME }}
+                  key: ${{ secrets.SSH_KEY }}
+                  passphrase: ${{ secrets.PASSPHRASE }}
+                  port: ${{ secrets.PORT }}
+                  script: "rm -rf /home/qeberodev/public_html/*"
 
-            # - name: Upload Artifacts
-            #   uses: appleboy/scp-action@v1
-            #   with:
-            #       host: ${{ secrets.HOST }}
-            #       username: ${{ secrets.USERNAME }}
-            #       key: ${{ secrets.SSH_KEY }}
-            #       port: ${{ secrets.PORT }}
-            #       source: "apps/web/dist/*"
-            #       target: "/home/qeberodev/public_html"
-            #       strip_components: 3
+            - name: Upload Artifacts
+              uses: appleboy/scp-action@v1
+              with:
+                  host: ${{ secrets.HOST }}
+                  username: ${{ secrets.USERNAME }}
+                  key: ${{ secrets.SSH_KEY }}
+                  passphrase: ${{ secrets.PASSPHRASE }}
+                  port: ${{ secrets.PORT }}
+                  source: "apps/web/dist/*"
+                  target: "/home/qeberodev/public_html"
+                  strip_components: 3
