@@ -6,6 +6,12 @@ div#toc-controls {
     display: flex;
     flex-direction: column-reverse;
 
+    aside#toc-aside {
+        * {
+            text-align: left;
+        }
+    }
+
     button label[for="toc-btn"] {
     }
 }
