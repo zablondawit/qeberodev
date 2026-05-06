@@ -44,7 +44,9 @@ const { headings: articleHeadings } = Astro.props;
 
                     // update url
                     // Note: This will not trigger a page reload, but will update the URL in the address bar
-                    history.pushState(null, "", `#${heading.slug}`);
+                    // History shouldn't be updated when the user clicks the same heading multiple times,
+                    // as it would create multiple entries in the browser's history stack
+                    history.replaceState(null, "", `#${heading.slug}`);
                 });
 
                 return tocBtnBtn;
