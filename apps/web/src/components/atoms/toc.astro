@@ -1,0 +1,92 @@
+---
+import type { MarkdownHeading } from "astro";
+import "../../styles/components/toc.css";
+import Button from "../button.astro";
+
+type Props = {
+    headings: MarkdownHeading[];
+};
+const { headings: articleHeadings } = Astro.props;
+---
+
+<div id="toc-controls">
+    <Button icon="lucide:library" id="toc-btn">Index</Button>
+    <aside hidden id="toc-aside"></aside>
+</div>
+
+<template id="toc-btn-template">
+    <button></button>
+</template>
+
+<script is:inline define:vars={{ articleHeadings }}>
+    document.addEventListener("DOMContentLoaded", () => {
+        const tocAsideContainer = document.querySelector("#toc-aside");
+        const template = document.querySelector("#toc-btn-template");
+        articleHeadings
+            .map((heading) => {
+                const tocBtnContent = template.content.cloneNode(true);
+                const tocBtnBtn = tocBtnContent.querySelector("button");
+                const depthIndentEm = 1 * heading.depth;
+
+                if (tocBtnBtn) {
+                    tocBtnBtn.innerText = heading.text;
+                    tocBtnBtn.style.paddingLeft = `${depthIndentEm}em`;
+                }
+
+                tocBtnBtn.addEventListener("click", () => {
+                    const targetElement = document.getElementById(heading.slug);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                        });
+                    }
+
+                    // update url
+                    // Note: This will not trigger a page reload, but will update the URL in the address bar
+                    history.pushState(null, "", `#${heading.slug}`);
+                });
+
+                return tocBtnBtn;
+            })
+            .forEach((btn) => tocAsideContainer.appendChild(btn));
+    });
+</script>
+
+<script>
+    const tocBtn = document.querySelector<HTMLButtonElement>("#toc-btn");
+    const tocAside = document.querySelector<HTMLElement>("#toc-aside");
+
+    const handleTocToggle: Parameters<
+        NonNullable<typeof tocBtn>["addEventListener"]
+    >[1] = (event) => {
+        if (!tocAside) return;
+        tocAside.toggleAttribute("hidden");
+    };
+
+    tocBtn?.addEventListener("click", handleTocToggle);
+
+    // collapse the TOC when clicking outside of it
+    // Note: This will not work if the TOC contains interactive elements (e.g., links, buttons) that can be clicked without closing the TOC
+    document.addEventListener("click", (event) => {
+        if (!tocAside || !tocBtn) return;
+        const target = event.target as HTMLElement;
+        if (
+            target === tocBtn ||
+            tocBtn.contains(target) ||
+            tocAside.contains(target)
+        ) {
+            // Click is inside the TOC or on the TOC button, do nothing
+            return;
+        }
+        // Click is outside the TOC, hide it
+        tocAside.setAttribute("hidden", "");
+    });
+</script>
+
+<style>
+    #toc-aside {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
