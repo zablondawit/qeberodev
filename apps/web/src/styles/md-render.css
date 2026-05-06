@@ -132,3 +132,13 @@ main article.md {
         font-style: italic;
     }
 }
+
+main article.md {
+    margin: 0 auto;
+    max-width: 60%;
+
+    @media screen and (max-width: 600px) {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+}

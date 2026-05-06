@@ -1,5 +1,6 @@
 ---
 import MdRender from "@/components/md-render.astro";
+import TOC from "@/components/atoms/toc.astro";
 import "../../styles/article/reader.css";
 
 import MainLayout from "@layouts/main.astro";
@@ -17,13 +18,15 @@ interface Props {
 const { post } = Astro.props;
 const metadata = post.data;
 
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 ---
 
-<MainLayout frontmatter={metadata} title="Article">
+<MainLayout frontmatter={metadata} title={`${metadata.title}`}>
     <MdRender>
         <Content />
     </MdRender>
 
     <section class="comment-soon">Comments Arriving Soon 🚀</section>
+
+    <TOC headings={headings} />
 </MainLayout>

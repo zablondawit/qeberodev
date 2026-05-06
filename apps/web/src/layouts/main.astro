@@ -19,13 +19,11 @@ const { title, frontmatter } = Astro.props;
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
-
-        <Favicon />
-
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
         <!-- Page Metadata -->
+        <Favicon />
         <FrontmatterRender frontmatter={frontmatter} />
 
         <title>{title}</title>
