@@ -37,7 +37,7 @@ section#article-toolbar {
         padding-top: 0.625em;
         padding-bottom: 0.625em;
 
-        @apply bg-background border-b-2 border-b-gray-300;
+        @apply bg-background border-b-1 border-b-gray-200;
 
         #toolbar-logo {
             display: unset;

@@ -1,7 +1,9 @@
 div#toc-controls {
     position: fixed;
-    bottom: 0;
-    left: 0;
+    bottom: 1%;
+    left: 3%;
+    padding: 0;
+    margin: 0;
 
     display: flex;
     flex-direction: column-reverse;
@@ -13,5 +15,13 @@ div#toc-controls {
     }
 
     button label[for="toc-btn"] {
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .spread {
+        bottom: 1%;
+        left: 3%;
+        right: 3%;
     }
 }

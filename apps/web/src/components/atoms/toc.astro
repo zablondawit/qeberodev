@@ -59,11 +59,31 @@ const { headings: articleHeadings } = Astro.props;
     const tocBtn = document.querySelector<HTMLButtonElement>("#toc-btn");
     const tocAside = document.querySelector<HTMLElement>("#toc-aside");
 
+    const hideToc = () => {
+        if (!tocAside) return;
+        tocAside.setAttribute("hidden", "hidden");
+        const parent = tocBtn?.parentElement;
+        console.log({
+            parent,
+        });
+
+        parent?.classList.remove("spread");
+    };
+    const showToc = () => {
+        if (!tocAside) return;
+        tocAside.removeAttribute("hidden");
+        const parent = tocBtn?.parentElement;
+        console.log({
+            parent,
+        });
+        parent?.classList.add("spread");
+    };
+
     const handleTocToggle: Parameters<
         NonNullable<typeof tocBtn>["addEventListener"]
     >[1] = (event) => {
         if (!tocAside) return;
-        tocAside.toggleAttribute("hidden");
+        tocAside.hasAttribute("hidden") ? showToc() : hideToc();
     };
 
     tocBtn?.addEventListener("click", handleTocToggle);
@@ -82,7 +102,7 @@ const { headings: articleHeadings } = Astro.props;
             return;
         }
         // Click is outside the TOC, hide it
-        tocAside.setAttribute("hidden", "");
+        hideToc();
     });
 </script>
 

@@ -14,6 +14,7 @@ main article.md {
         margin: 0.5em 0;
         font-weight: 600;
         line-height: 1.3;
+        cursor: pointer;
     }
 
     h1 {

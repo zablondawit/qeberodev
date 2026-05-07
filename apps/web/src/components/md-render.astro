@@ -8,6 +8,34 @@ import "../styles/md-render.css";
 
 <script>
     const images = document.querySelectorAll("img");
+    const headerTagNames = ["H1", "H2", "H3", "H4", "H5", "H6"] as const;
+    const allHeaders = headerTagNames.map((t) => `article.md ${t}`).join(", ");
+    const allHeaderElements = document.querySelectorAll<HTMLElement>(
+        `${allHeaders}`,
+    );
+
+    console.log({
+        allHeaderElements,
+    });
+
+    allHeaderElements.forEach((headerElement) => {
+        const id =
+            headerElement.textContent
+                ?.toLocaleLowerCase()
+                .split(" ")
+                .join("-") ?? "";
+        headerElement.setAttribute("id", id);
+
+        headerElement.addEventListener("click", () => {
+            // update url without history entry
+            history.replaceState(null, "", `#${id}`);
+            // scroll to the header element
+            headerElement.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
+        });
+    });
 
     images.forEach((img) =>
         img.addEventListener("click", () => {

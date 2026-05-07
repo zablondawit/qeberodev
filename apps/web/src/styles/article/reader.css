@@ -1,6 +1,7 @@
 section.comment-soon {
     font-size: 1rem;
-    border: 0.125em solid var(--color-foreground);
+    font-weight: 300;
+    /*border: 0.125em solid var(--color-foreground);*/
     border-radius: 0;
 
     text-align: center;
