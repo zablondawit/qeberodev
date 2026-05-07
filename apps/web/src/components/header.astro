@@ -59,6 +59,8 @@ import Button from "@components/button.astro";
 </script>
 
 <script>
+    import { gsap } from "gsap";
+
     document.addEventListener("astro:page-load", () => {
         const nav = document.querySelector("nav#side-nav");
         const closeBtn = document.querySelector("#side-nav #close-btn");
@@ -68,17 +70,33 @@ import Button from "@components/button.astro";
 
         function closeNav() {
             if (!nav) return;
-            nav.classList.add("nav-hidden");
-            nav.setAttribute("aria-hidden", "true");
+            gsap.to(nav, {
+                opacity: 0,
+                duration: 0.3,
+                onComplete: () => {
+                    nav.classList.add("nav-hidden");
+                    nav.setAttribute("aria-hidden", "true");
+                },
+            });
         }
 
         function openNav() {
             if (!nav) return;
             nav.classList.remove("nav-hidden");
             nav.setAttribute("aria-hidden", "false");
+            gsap.to(nav, { opacity: 1, duration: 0.3 });
         }
 
         navBtn.addEventListener("click", openNav);
         closeBtn.addEventListener("click", closeNav);
+
+        // navbar should not scroll whats underneath it
+        nav.addEventListener("wheel", (e) => {
+            e.preventDefault();
+        });
+        // also for mobile
+        nav.addEventListener("touchmove", (e) => {
+            e.preventDefault();
+        });
     });
 </script>

@@ -3,6 +3,7 @@
 nav#side-nav {
     font-size: 1rem;
     display: none;
+    user-select: none;
 
     &.nav-hidden {
         display: none;
