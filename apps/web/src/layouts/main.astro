@@ -40,6 +40,10 @@ type Props = {
 const { title, frontmatter } = Astro.props;
 ---
 
+<script>
+    import "beautiful-backgrounds";
+</script>
+
 <style is:global>
     @keyframes slideUp {
         from {
@@ -69,13 +73,7 @@ const { title, frontmatter } = Astro.props;
     <body>
         <Header />
 
-        <main
-            transition:animate={slide({
-                duration: "0.2s",
-            })}
-        >
-            <slot />
-        </main>
+        <main transition:animate={slide({ duration: "0.2s" })}><slot /></main>
 
         <Footer />
     </body>

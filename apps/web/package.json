@@ -6,6 +6,7 @@
         "@tailwindcss/vite": "^4.2.2",
         "astro": "6.1.3",
         "astro-icon": "^1.1.5",
+        "beautiful-backgrounds": "^1.0.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "date-fns": "^4.1.0",
