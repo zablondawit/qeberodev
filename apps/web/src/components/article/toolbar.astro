@@ -3,10 +3,10 @@ import Button from "@/components/button.astro";
 import "../../styles/article/toolbar.css";
 ---
 
-<script is:inline>
+<script>
     document.addEventListener("DOMContentLoaded", () => {
-        const toolbar = document.getElementById("article-toolbar");
-        const sentinel = document.getElementById("article-toolbar-sentinel");
+        const toolbar = document.querySelector("#article-toolbar");
+        const sentinel = document.querySelector("#article-toolbar-sentinel");
 
         if (!toolbar || !sentinel) return;
 
@@ -31,6 +31,17 @@ import "../../styles/article/toolbar.css";
     });
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const leaveArticleBtn = document.querySelector("#leave-article");
+        if (!leaveArticleBtn) return;
+
+        leaveArticleBtn.addEventListener("click", () => {
+            history.back();
+        });
+    });
+</script>
+
 <div
     id="article-toolbar-sentinel"
     aria-hidden="true"
@@ -43,7 +54,12 @@ import "../../styles/article/toolbar.css";
     </a>
 
     <section id="controls">
-        <Button variant="ghost" icon="lucide:bookmark">Save</Button>
-        <Button variant="ghost" icon="lucide:share-2">Share</Button>
+        <Button id="leave-article" variant="ghost" icon="lucide:arrow-left"
+            >Back</Button
+        >
+        <span>
+            <Button variant="ghost" icon="lucide:bookmark">Save</Button>
+            <Button variant="ghost" icon="lucide:share-2">Share</Button>
+        </span>
     </section>
 </section>

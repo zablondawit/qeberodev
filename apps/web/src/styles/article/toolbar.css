@@ -13,14 +13,23 @@ section#article-toolbar {
     flex-direction: row;
 
     section#controls {
-        display: flex;
-        flex-direction: row;
-        gap: 1em;
+        flex-grow: 1;
+
+        &,
+        & span {
+            display: flex;
+            flex-direction: row;
+            gap: 1em;
+        }
+
+        & {
+            justify-content: space-between;
+        }
     }
 
     @media screen and (max-width: 600px) {
         max-width: 100%;
-        padding: 0 15px;
+        padding: 0 2%;
     }
 
     #toolbar-logo {
