@@ -4,13 +4,14 @@ import type { HTMLAttributes } from "astro/types";
 import { Icon } from "astro-icon/components";
 
 type Props = HTMLAttributes<"button"> & {
-  icon?: string;
+    icon?: string;
+    variant?: "primary" | "secondary" | "ghost";
 };
 
-const { icon, ...props } = Astro.props;
+const { icon, variant, ...props } = Astro.props;
 ---
 
-<button {...props}>
-  {icon && <Icon name={icon} />}
-  <slot />
+<button data-variant={variant} {...props}>
+    {icon && <Icon name={icon} />}
+    <slot />
 </button>

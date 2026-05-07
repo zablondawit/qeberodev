@@ -1,0 +1,49 @@
+---
+import Button from "@/components/button.astro";
+import "../../styles/article/toolbar.css";
+---
+
+<script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+        const toolbar = document.getElementById("article-toolbar");
+        const sentinel = document.getElementById("article-toolbar-sentinel");
+
+        if (!toolbar || !sentinel) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((e) => {
+                    const isVisible = e.isIntersecting;
+
+                    if (!isVisible) {
+                        toolbar.classList.add("sticky");
+                    } else {
+                        toolbar.classList.remove("sticky");
+                    }
+                });
+            },
+            {
+                threshold: 0,
+            },
+        );
+
+        observer.observe(sentinel);
+    });
+</script>
+
+<div
+    id="article-toolbar-sentinel"
+    aria-hidden="true"
+    style="height: 1px; width: 100%; pointer-events: none;"
+>
+</div>
+<section id="article-toolbar">
+    <a id="toolbar-logo" href="/">
+        <img src="/inline-logo.svg" alt="qeberodev logo" />
+    </a>
+
+    <section id="controls">
+        <Button variant="ghost" icon="lucide:bookmark">Save</Button>
+        <Button variant="ghost" icon="lucide:share-2">Share</Button>
+    </section>
+</section>

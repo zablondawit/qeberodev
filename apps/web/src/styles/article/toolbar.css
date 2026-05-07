@@ -1,0 +1,46 @@
+@import "../global.css";
+
+section#article-toolbar {
+    font-size: 1em;
+    max-width: 60%;
+    margin: 0 auto;
+    z-index: 100;
+    padding: 0;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+
+    section#controls {
+        display: flex;
+        flex-direction: row;
+        gap: 1em;
+    }
+
+    @media screen and (max-width: 600px) {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+
+    #toolbar-logo {
+        display: none;
+
+        img {
+            height: 1.2rem;
+        }
+    }
+
+    &.sticky {
+        position: sticky;
+        top: 0;
+        padding-top: 0.625em;
+        padding-bottom: 0.625em;
+
+        @apply bg-background border-b-2 border-b-gray-300;
+
+        #toolbar-logo {
+            display: unset;
+        }
+    }
+}

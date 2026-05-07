@@ -13,4 +13,9 @@ button {
     gap: 0.25em;
 
     @apply bg-foreground text-background px-2 py-1;
+
+    &[data-variant="ghost"] {
+        padding: 0;
+        @apply bg-transparent text-foreground;
+    }
 }

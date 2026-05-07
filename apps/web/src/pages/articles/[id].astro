@@ -1,6 +1,7 @@
 ---
 import MdRender from "@/components/md-render.astro";
 import TOC from "@/components/atoms/toc.astro";
+import ArticleToolbar from "@/components/article/toolbar.astro";
 import "../../styles/article/reader.css";
 
 import MainLayout from "@layouts/main.astro";
@@ -22,6 +23,8 @@ const { Content, headings } = await render(post);
 ---
 
 <MainLayout frontmatter={metadata} title={`${metadata.title}`}>
+    <ArticleToolbar />
+
     <MdRender>
         <Content />
     </MdRender>
