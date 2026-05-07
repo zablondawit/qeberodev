@@ -1,8 +1,19 @@
 ---
+import type { CollectionEntry } from "astro:content";
 import "../styles/md-render.css";
+import { formatArticleCardDate } from "@/lib/datetime";
+
+type Props = {
+    metadata: CollectionEntry<"articles">["data"];
+};
+const {
+    metadata: { date },
+} = Astro.props;
+const formattedDate = formatArticleCardDate(date);
 ---
 
 <article class="md">
+    <section id="article-header">{formattedDate}</section>
     <slot />
 </article>
 

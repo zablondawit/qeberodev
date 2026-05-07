@@ -4,6 +4,10 @@ main article.md {
     /* Typography */
     line-height: 1.6;
 
+    section#article-header {
+        padding-top: 1em;
+    }
+
     /* Headings */
     h1,
     h2,
@@ -17,9 +21,13 @@ main article.md {
         cursor: pointer;
     }
 
+    & > h1 {
+        margin-top: 0;
+    }
+
     h1 {
         font-size: 3.2em;
-        padding-bottom: 10px;
+        /*padding-bottom: 10px;*/
     }
 
     h2 {
