@@ -18,4 +18,9 @@ button {
         padding: 0;
         @apply bg-transparent text-foreground;
     }
+
+    @media screen and (max-width: 600px) {
+        font-size: 1.1rem;
+        padding: 0.25em 0.5em;
+    }
 }
