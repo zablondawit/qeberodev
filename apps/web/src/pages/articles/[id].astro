@@ -33,3 +33,11 @@ const { Content, headings } = await render(post);
 
     <TOC headings={headings} />
 </MainLayout>
+
+<style>
+    body main {
+        & > * {
+            margin: unset;
+        }
+    }
+</style>

@@ -3,55 +3,57 @@
 @import "./global.css";
 
 :root {
-  /* Debug Border red line */
-  --dbg: 1px solid red;
+    /* Debug Border red line */
+    --dbg: 1px solid red;
 
-  --font-main: "Fira Sans", "Arial", sans-serif;
-  --font-mono: "Fira Mono", monospaced;
+    --font-main: "Fira Sans", "Arial", sans-serif;
+    --font-mono: "Fira Mono", monospaced;
 
-  /* Move to TailwindCSS later */
-  --color-primary: #557550;
-  --color-foreground: #262626;
-  --color-background: #fff;
+    /* Move to TailwindCSS later */
+    --color-primary: #557550;
+    --color-foreground: #262626;
+    --color-background: #fff;
 
-  font-size: 16px;
+    font-size: 16px;
 }
 
 /* Dark-Mode Color */
 @media screen and (prefers-color-scheme: dark) {
-  :root {
-    --color-primary: #a4e09e;
-    --color-background: #fff;
-    --color-foreground: #262626;
-  }
+    :root {
+        --color-primary: #a4e09e;
+        --color-background: #fff;
+        --color-foreground: #262626;
+    }
 }
 
 body {
-  display: block;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    display: block;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 
-  font-family: var(--font-main);
-  font-display: block;
+    font-family: var(--font-main);
+    font-display: block;
 
-  main {
-    & > * {
-      margin: 0 5%;
-      @apply py-4;
+    main {
+        & > * {
+            width: 95%;
+            margin: 0 auto;
+            @apply py-4;
 
-      &.wide-section {
-        margin: 0;
-      }
+            &.wide-section {
+                width: 100%;
+                margin: 0;
+            }
+        }
     }
-  }
 }
 
 pre,
 code {
-  font-family: var(--font-mono);
+    font-family: var(--font-mono);
 }
 
 pre {
-  overflow-x: auto;
+    overflow-x: auto;
 }
