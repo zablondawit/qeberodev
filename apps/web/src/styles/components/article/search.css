@@ -14,6 +14,7 @@ c-article-search {
         gap: 0;
 
         & input.search-input {
+            margin: 0 2%;
             flex-grow: 1;
             line-height: 1.75;
             border: var(--dbg);
