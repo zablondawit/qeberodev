@@ -8,40 +8,31 @@ import "../styles/md-render.css";
 
 <script>
     const images = document.querySelectorAll("img");
-    const headerTagNames = ["H1", "H2", "H3", "H4", "H5", "H6"] as const;
+    const headerTagNames = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;
     const allHeaders = headerTagNames.map((t) => `article.md ${t}`).join(", ");
     const allHeaderElements = document.querySelectorAll<HTMLElement>(
         `${allHeaders}`,
     );
 
-    console.log({
-        allHeaderElements,
-    });
-
     allHeaderElements.forEach((headerElement) => {
-        const id =
-            headerElement.textContent
-                ?.toLocaleLowerCase()
-                .split(" ")
-                .join("-") ?? "";
-        headerElement.setAttribute("id", id);
+        const id = headerElement.getAttribute("id");
 
         headerElement.addEventListener("click", () => {
             // update url without history entry
             history.replaceState(null, "", `#${id}`);
             // scroll to the header element
-            headerElement.scrollIntoView({
+            const offset = 80,
+                bodyRect = document.body.getBoundingClientRect().top,
+                elementRect = headerElement.getBoundingClientRect().top,
+                elementPosition = elementRect - bodyRect,
+                offsetPosition = elementPosition - offset;
+
+            window.scrollTo({
+                top: offsetPosition,
                 behavior: "smooth",
-                block: "start",
             });
         });
     });
 
-    images.forEach((img) =>
-        img.addEventListener("click", () => {
-            console.log("Clicked", {
-                url: img.getAttribute("src"),
-            });
-        }),
-    );
+    images.forEach((img) => img.addEventListener("click", () => {}));
 </script>

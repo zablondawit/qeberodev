@@ -22,6 +22,7 @@ const { headings: articleHeadings } = Astro.props;
     document.addEventListener("DOMContentLoaded", () => {
         const tocAsideContainer = document.querySelector("#toc-aside");
         const template = document.querySelector("#toc-btn-template");
+
         articleHeadings
             .map((heading) => {
                 const tocBtnContent = template.content.cloneNode(true);
@@ -35,10 +36,19 @@ const { headings: articleHeadings } = Astro.props;
 
                 tocBtnBtn.addEventListener("click", () => {
                     const targetElement = document.getElementById(heading.slug);
+
                     if (targetElement) {
-                        targetElement.scrollIntoView({
+                        const offset = 80,
+                            bodyRect =
+                                document.body.getBoundingClientRect().top,
+                            elementRect =
+                                targetElement.getBoundingClientRect().top,
+                            elementPosition = elementRect - bodyRect,
+                            offsetPosition = elementPosition - offset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
                             behavior: "smooth",
-                            block: "start",
                         });
                     }
 
@@ -63,9 +73,6 @@ const { headings: articleHeadings } = Astro.props;
         if (!tocAside) return;
         tocAside.setAttribute("hidden", "hidden");
         const parent = tocBtn?.parentElement;
-        console.log({
-            parent,
-        });
 
         parent?.classList.remove("spread");
     };
@@ -73,9 +80,6 @@ const { headings: articleHeadings } = Astro.props;
         if (!tocAside) return;
         tocAside.removeAttribute("hidden");
         const parent = tocBtn?.parentElement;
-        console.log({
-            parent,
-        });
         parent?.classList.add("spread");
     };
 
