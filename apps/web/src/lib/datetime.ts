@@ -4,10 +4,6 @@ import { format, formatDistance, subDays } from "date-fns";
 // author: Zablon Dawit
 
 const formatArticleCardDate = (date: Date) => {
-    console.log({
-        date,
-    });
-
     return format(date, "MMMM d, yyyy");
 };
 
