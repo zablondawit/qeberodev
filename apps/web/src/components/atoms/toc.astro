@@ -97,21 +97,24 @@ const { headings: articleHeadings } = Astro.props;
         tocBtn?.addEventListener("click", handleTocToggle);
         tocCloseBtn?.addEventListener("click", hideToc);
 
+        const events = ["click", "touchstart", "scroll"] as const;
         // collapse the TOC when clicking outside of it
         // Note: This will not work if the TOC contains interactive elements (e.g., links, buttons) that can be clicked without closing the TOC
-        document.addEventListener("click", (event) => {
-            if (!tocAside || !tocBtn) return;
-            const target = event.target as HTMLElement;
-            if (
-                target === tocBtn ||
-                tocBtn.contains(target) ||
-                tocAside.contains(target)
-            ) {
-                // Click is inside the TOC or on the TOC button, do nothing
-                return;
-            }
-            // Click is outside the TOC, hide it
-            hideToc();
+        events.forEach((e) => {
+            document.addEventListener(e, (event) => {
+                if (!tocAside || !tocBtn) return;
+                const target = event.target as HTMLElement;
+                if (
+                    target === tocBtn ||
+                    tocBtn.contains(target) ||
+                    tocAside.contains(target)
+                ) {
+                    // Click is inside the TOC or on the TOC button, do nothing
+                    return;
+                }
+                // Click is outside the TOC, hide it
+                hideToc();
+            });
         });
     });
 </script>
