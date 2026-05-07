@@ -51,5 +51,13 @@ section#article-toolbar {
         #toolbar-logo {
             display: unset;
         }
+
+        #leave-article {
+            display: none;
+        }
+
+        #controls {
+            justify-content: flex-end;
+        }
     }
 }

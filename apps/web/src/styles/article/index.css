@@ -10,6 +10,10 @@ section#article-list {
     &.hide-list {
         display: none;
     }
+
+    @media screen and (min-width: 600px) {
+        max-width: 80%;
+    }
 }
 
 section#article-search-list {

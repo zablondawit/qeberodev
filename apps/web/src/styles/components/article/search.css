@@ -14,7 +14,8 @@ c-article-search {
         gap: 0;
 
         & input.search-input {
-            margin: 0 2%;
+            max-width: 80%;
+            margin: 0 auto;
             flex-grow: 1;
             line-height: 1.75;
             border: var(--dbg);
@@ -24,6 +25,11 @@ c-article-search {
 
             &:focus {
                 outline: none;
+            }
+
+            @media screen and (max-width: 600px) {
+                max-width: 100%;
+                margin: 0 2%;
             }
         }
     }
