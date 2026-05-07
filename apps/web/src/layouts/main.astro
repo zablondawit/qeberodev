@@ -1,11 +1,37 @@
 ---
-import "../styles/index.css";
-import Header from "@components/header.astro";
-import Footer from "@components/footer.astro";
-import FrontmatterRender from "@/components/frontmatter-render.astro";
 import Favicon from "@/components/favicon.astro";
+import FrontmatterRender from "@/components/frontmatter-render.astro";
 import type { Frontmatter } from "@/types/frontmatter";
+import Footer from "@components/footer.astro";
+import Header from "@components/header.astro";
 import type { z } from "astro/zod";
+import { ClientRouter, slide, fade } from "astro:transitions";
+import "../styles/index.css";
+import { transitionEnabledOnThisPage } from "astro:transitions/client";
+import type { TransitionAnimation, TransitionAnimationPair } from "astro";
+
+// const transitionAnimation = {
+//     old: {
+//         name: "slideUp",
+//         duration: "0.4s",
+//         easing: "ease-out",
+//         fillMode: "forwards",
+//     },
+//     new: {
+//         name: "slideUp",
+//         duration: "0.4s",
+//         easing: "ease-out",
+//         fillMode: "backwards",
+//     },
+// } as { new: TransitionAnimation; old: TransitionAnimation };
+
+// const customTransition = {
+//     forwards: transitionAnimation,
+//     backwards: transitionAnimation,
+// } satisfies {
+//     forwards: TransitionAnimationPair;
+//     backwards: TransitionAnimationPair;
+// };
 
 type Props = {
     title: string;
@@ -13,6 +39,17 @@ type Props = {
 };
 const { title, frontmatter } = Astro.props;
 ---
+
+<style is:global>
+    @keyframes slideUp {
+        from {
+            transform: translateY(100%);
+        }
+        from {
+            transform: translateY(0);
+        }
+    }
+</style>
 
 <html lang="en">
     <head>
@@ -27,11 +64,13 @@ const { title, frontmatter } = Astro.props;
         <FrontmatterRender frontmatter={frontmatter} />
 
         <title>{title}</title>
+        <ClientRouter />
     </head>
     <body>
         <Header />
 
-        <main>
+        <!-- @ts-ignore -->
+        <main transition:animate={slide({ duration: "0.4s" })}>
             <slot />
         </main>
 

@@ -60,7 +60,7 @@ const showcasing_topics = [
 <script>
     import { gsap } from "gsap";
 
-    window.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("astro:page-load", () => {
         // rotating topics (existing)
         const topics = gsap.utils.toArray<HTMLElement>(
             "#showcase .showcase-topic",

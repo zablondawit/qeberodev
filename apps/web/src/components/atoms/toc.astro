@@ -19,7 +19,7 @@ const { headings: articleHeadings } = Astro.props;
 </template>
 
 <script is:inline define:vars={{ articleHeadings }}>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("astro:page-load", () => {
         const tocAsideContainer = document.querySelector("#toc-aside");
         const template = document.querySelector("#toc-btn-template");
 

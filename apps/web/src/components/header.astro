@@ -33,48 +33,52 @@ import Button from "@components/button.astro";
 </nav>
 
 <script>
-    const main = document.body.querySelector<HTMLElement>("body main");
+    document.addEventListener("astro:page-load", () => {
+        const main = document.body.querySelector<HTMLElement>("body main");
 
-    const url = new URL(window.location.href);
+        const url = new URL(window.location.href);
 
-    function getBasePath(pathname: string) {
-        const parts = pathname.split("/").filter(Boolean);
-        return parts.length > 0 ? parts[0] : "home";
-    }
+        function getBasePath(pathname: string) {
+            const parts = pathname.split("/").filter(Boolean);
+            return parts.length > 0 ? parts[0] : "home";
+        }
 
-    const path = getBasePath(url.pathname);
-    const navElements = document.querySelectorAll("section a");
-    const sideNavElements = document.querySelectorAll("#side-nav a");
-    const selectedSideNavElement = sideNavElements
-        .entries()
-        .find(([, el]) => el.textContent.toLowerCase() === path)?.[1];
-    const selectedNavElement = navElements
-        .entries()
-        .find(([, el]) => el.textContent.toLowerCase() === path)?.[1];
+        const path = getBasePath(url.pathname);
+        const navElements = document.querySelectorAll("section a");
+        const sideNavElements = document.querySelectorAll("#side-nav a");
+        const selectedSideNavElement = sideNavElements
+            .entries()
+            .find(([, el]) => el.textContent.toLowerCase() === path)?.[1];
+        const selectedNavElement = navElements
+            .entries()
+            .find(([, el]) => el.textContent.toLowerCase() === path)?.[1];
 
-    selectedNavElement?.classList.add("selected");
-    selectedSideNavElement?.classList.add("selected");
+        selectedNavElement?.classList.add("selected");
+        selectedSideNavElement?.classList.add("selected");
+    });
 </script>
 
 <script>
-    const nav = document.querySelector("nav#side-nav");
-    const closeBtn = document.querySelector("#side-nav #close-btn");
-    const navBtn = document.querySelector("#nav-btn");
+    document.addEventListener("astro:page-load", () => {
+        const nav = document.querySelector("nav#side-nav");
+        const closeBtn = document.querySelector("#side-nav #close-btn");
+        const navBtn = document.querySelector("#nav-btn");
 
-    function closeNav() {
-        nav?.classList.add("nav-hidden");
-        nav?.setAttribute("aria-hidden", "true");
-    }
+        if (!nav || !closeBtn || !navBtn) return;
 
-    function openNav() {
-        nav?.classList.remove("nav-hidden");
-        nav?.setAttribute("aria-hidden", "false");
-    }
+        function closeNav() {
+            if (!nav) return;
+            nav.classList.add("nav-hidden");
+            nav.setAttribute("aria-hidden", "true");
+        }
 
-    if (!nav || !closeBtn || !navBtn) {
-        console.error("Navigation elements not found");
-    } else {
-        navBtn?.addEventListener("click", openNav);
-        closeBtn?.addEventListener("click", closeNav);
-    }
+        function openNav() {
+            if (!nav) return;
+            nav.classList.remove("nav-hidden");
+            nav.setAttribute("aria-hidden", "false");
+        }
+
+        navBtn.addEventListener("click", openNav);
+        closeBtn.addEventListener("click", closeNav);
+    });
 </script>

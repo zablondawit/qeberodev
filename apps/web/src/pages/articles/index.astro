@@ -19,7 +19,7 @@ const articles = await getCollection("articles");
 
     type ArticleList = CollectionEntry<"articles">[];
 
-    document.addEventListener("DOMContentLoaded", async () => {
+    document.addEventListener("astro:page-load", async () => {
         const searchComponent = document.querySelector("c-article-search");
         const articleList = document.querySelector("#article-list");
         const articleSearchList = document.querySelector(

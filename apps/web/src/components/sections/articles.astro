@@ -33,7 +33,7 @@ const metadata = filteredArticles.map((a) => ({
     import { gsap } from "gsap";
 
     // Hover text animation for links
-    window.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("astro:page-load", () => {
         const hoverLinks = document.querySelectorAll(".hover-link");
         hoverLinks.forEach((link) => {
             const txt = link.querySelector(".text");

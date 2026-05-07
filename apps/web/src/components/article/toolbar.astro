@@ -4,7 +4,7 @@ import "../../styles/article/toolbar.css";
 ---
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("astro:page-load", () => {
         const toolbar = document.querySelector("#article-toolbar");
         const sentinel = document.querySelector("#article-toolbar-sentinel");
 
@@ -31,13 +31,17 @@ import "../../styles/article/toolbar.css";
     });
 </script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
+<script is:inline>
+    document.addEventListener("astro:page-load", () => {
         const leaveArticleBtn = document.querySelector("#leave-article");
         if (!leaveArticleBtn) return;
 
         leaveArticleBtn.addEventListener("click", () => {
-            history.back();
+            console.log({
+                pressed: "true",
+            });
+
+            window.history.back();
         });
     });
 </script>
@@ -54,8 +58,11 @@ import "../../styles/article/toolbar.css";
     </a>
 
     <section id="controls">
-        <Button id="leave-article" variant="ghost" icon="lucide:arrow-left"
-            >Back</Button
+        <Button
+            transition:persist
+            id="leave-article"
+            variant="ghost"
+            icon="lucide:arrow-left">Back</Button
         >
         <span>
             <Button variant="ghost" icon="lucide:bookmark">Save</Button>
