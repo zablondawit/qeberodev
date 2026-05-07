@@ -29,7 +29,7 @@ section#article-toolbar {
 
     @media screen and (max-width: 600px) {
         max-width: 100%;
-        padding: 0 2%;
+        padding: 0 1%;
     }
 
     #toolbar-logo {

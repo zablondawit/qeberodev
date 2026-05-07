@@ -31,16 +31,12 @@ import "../../styles/article/toolbar.css";
     });
 </script>
 
-<script is:inline>
+<script>
     document.addEventListener("astro:page-load", () => {
         const leaveArticleBtn = document.querySelector("#leave-article");
         if (!leaveArticleBtn) return;
 
         leaveArticleBtn.addEventListener("click", () => {
-            console.log({
-                pressed: "true",
-            });
-
             window.history.back();
         });
     });
