@@ -8,9 +8,8 @@ const articles = await getCollection("articles");
 
 const filterArticles: Parameters<
     Array<CollectionEntry<"articles">>["filter"]
->[0] = (currArticle, index, arr) => {
-    const prevArticle = arr[index - 1];
-    return true;
+>[0] = (article, index, arr) => {
+    return !article.data.draft;
 };
 
 const sortArticles: Parameters<

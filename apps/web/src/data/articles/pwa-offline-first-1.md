@@ -1,7 +1,7 @@
 ---
 title: "Offline-First: The PWA Competitive Advantage"
 description: "How Progressive Web Apps bridge the gap between web and native mobile."
-date: 2024-06-01T10:00:00Z
+date: 2025-12-02T10:00:00Z
 author:
   name: "Zablon Dawit"
 tags:

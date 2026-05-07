@@ -1,7 +1,7 @@
 ---
 title: "From Coder to Consultant: Strategic Communication"
 description: "How to explain complex technical trade-offs to non-technical stakeholders."
-date: 2024-06-15T09:00:00Z
+date: 2026-02-10T09:00:00Z
 author:
   name: "Zablon Dawit"
 tags:

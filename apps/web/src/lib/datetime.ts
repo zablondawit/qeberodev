@@ -1,10 +1,14 @@
-import { formatDistance, subDays } from "date-fns";
+import { format, formatDistance, subDays } from "date-fns";
 
 // Date Related
 // author: Zablon Dawit
 
 const formatArticleCardDate = (date: Date) => {
-  return formatDistance(subDays(date, 7), date, { addSuffix: true });
+    console.log({
+        date,
+    });
+
+    return format(date, "MMMM d, yyyy");
 };
 
 export { formatArticleCardDate };

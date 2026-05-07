@@ -11,7 +11,7 @@ tags:
 categories:
   - qa
 slug: "rich-article-test"
-draft: false
+draft: true
 layout: "post"
 cover: "/assets/images/rich-test-cover.jpg"
 toc: true

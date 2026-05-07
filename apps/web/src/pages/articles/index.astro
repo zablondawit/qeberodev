@@ -1,12 +1,29 @@
 ---
 import "../../styles/article/index.css";
 import MainLayout from "@layouts/main.astro";
-import { getCollection } from "astro:content";
 import ArticleCard from "@/components/article/card.astro";
 import ArticleSearch from "@/components/article/search.astro";
 import "@/components/article/search.astro";
+// TODO: Refactor to use API route instead of fetching all articles on page load
+import { retrieveArticles } from "@/lib/articles";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { compareDesc } from "date-fns";
 
 const articles = await getCollection("articles");
+
+const filterArticles: Parameters<
+    Array<CollectionEntry<"articles">>["filter"]
+>[0] = (article, index, arr) => {
+    return !article.data.draft;
+};
+
+const sortArticles: Parameters<
+    Array<CollectionEntry<"articles">>["sort"]
+>[0] = (first, second) => compareDesc(first.data.date, second.data.date);
+
+const filteredArticles = articles.filter(filterArticles);
+filteredArticles.sort(sortArticles);
 ---
 
 <script>
@@ -94,7 +111,7 @@ const articles = await getCollection("articles");
     <ArticleSearch id="article-search" />
 
     <section id="article-list">
-        {articles.map((article) => <ArticleCard article={article} />)}
+        {filteredArticles.map((article) => <ArticleCard article={article} />)}
     </section>
 
     <section hidden id="article-search-list"></section>
