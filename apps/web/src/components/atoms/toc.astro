@@ -1,7 +1,7 @@
 ---
 import type { MarkdownHeading } from "astro";
 import "../../styles/components/toc.css";
-import Button from "../button.astro";
+import Button from "@components/button.astro";
 
 type Props = {
     headings: MarkdownHeading[];
@@ -9,9 +9,13 @@ type Props = {
 const { headings: articleHeadings } = Astro.props;
 ---
 
-<div is:raw id="toc-controls">
-    <Button icon="lucide:library" id="toc-btn">Index</Button> <aside hidden
-    id="toc-aside"></aside>
+<div id="toc-controls">
+    <Button icon="lucide:library" id="toc-btn">Index</Button>
+    <aside hidden id="toc-aside">
+        <div id="toc-header">
+            <Button icon="lucide:x" id="toc-close-btn" />
+        </div>
+    </aside>
 </div>
 
 <script is:inline define:vars={{ articleHeadings }}>
@@ -66,6 +70,8 @@ const { headings: articleHeadings } = Astro.props;
     document.addEventListener("astro:page-load", () => {
         const tocBtn = document.querySelector<HTMLButtonElement>("#toc-btn");
         const tocAside = document.querySelector<HTMLElement>("#toc-aside");
+        const tocCloseBtn =
+            document.querySelector<HTMLButtonElement>("#toc-close-btn");
 
         const hideToc = () => {
             if (!tocAside) return;
@@ -89,6 +95,7 @@ const { headings: articleHeadings } = Astro.props;
         };
 
         tocBtn?.addEventListener("click", handleTocToggle);
+        tocCloseBtn?.addEventListener("click", hideToc);
 
         // collapse the TOC when clicking outside of it
         // Note: This will not work if the TOC contains interactive elements (e.g., links, buttons) that can be clicked without closing the TOC
@@ -108,10 +115,3 @@ const { headings: articleHeadings } = Astro.props;
         });
     });
 </script>
-
-<style>
-    #toc-aside {
-        display: flex;
-        flex-direction: column;
-    }
-</style>

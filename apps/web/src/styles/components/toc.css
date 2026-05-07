@@ -13,6 +13,22 @@ div#toc-controls {
     @apply bg-foreground;
 
     aside#toc-aside {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1em;
+
+        #toc-header {
+            display: flex;
+            flex-direction: column;
+            margin-left: auto;
+            padding-top: 0.25em;
+            padding-botton: 0.25em;
+
+            #toc-close-btn {
+                width: fit-content;
+            }
+        }
+
         * {
             text-align: left;
         }
