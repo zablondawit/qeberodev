@@ -22,6 +22,11 @@ const { headings: articleHeadings } = Astro.props;
     document.addEventListener("astro:page-load", () => {
         const tocAsideContainer = document.querySelector("#toc-aside");
 
+        // CLEAN container
+        tocAsideContainer
+            ?.querySelectorAll("button")
+            .forEach((btn) => btn.remove());
+
         articleHeadings
             .map((heading) => {
                 const tocBtnBtn = document.createElement("button");
