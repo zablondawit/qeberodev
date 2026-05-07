@@ -69,8 +69,11 @@ const { title, frontmatter } = Astro.props;
     <body>
         <Header />
 
-        <!-- @ts-ignore -->
-        <main transition:animate={slide({ duration: "0.4s" })}>
+        <main
+            transition:animate={slide({
+                duration: "0.2s",
+            })}
+        >
             <slot />
         </main>
 
