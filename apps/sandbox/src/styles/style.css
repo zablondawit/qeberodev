@@ -1,0 +1,72 @@
+:root {
+    --font-family: "Fira Sans", sans-serif;
+    --font-size-base: 16px;
+    --font-size-small: 14px;
+    --font-size-large: 18px;
+    --font-size-heading-1: 32px;
+    --font-size-heading-2: 28px;
+    --font-size-heading-3: 24px;
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+    --color-background: #ffffff;
+    --color-text: #333333;
+    --color-text-secondary: #666666;
+    --color-border: #e0e0e0;
+
+    --dbg: 0.1666666667rem solid red;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: var(--font-size-base);
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text);
+    background-color: var(--color-background);
+    line-height: 1.6;
+}
+
+h1 {
+    font-size: var(--font-size-heading-1);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: var(--font-size-heading-2);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 0.875rem;
+}
+
+h3 {
+    font-size: var(--font-size-heading-3);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 0.75rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+button {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    cursor: pointer;
+    border: none;
+}
