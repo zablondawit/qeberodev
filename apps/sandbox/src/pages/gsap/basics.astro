@@ -15,8 +15,76 @@ import MainLayout from "@/layouts/main.astro";
         height: 100px;
         background-color: #3498db;
     }
+
+    header#timeline-controls {
+        font-size: 1em;
+        margin-bottom: 1em;
+        display: flex;
+        flex-direction: row;
+        gap: 0.25em;
+    }
 </style>
 
 <MainLayout title="GSAP - Basics">
+    <header id="timeline-controls">
+        <button id="play-btn">Play</button>
+        <button id="pause-btn">Pause</button>
+        <button id="restart-btn">Restart</button>
+        <button id="reverse-btn">Reverse</button>
+    </header>
+
     <div id="shape"></div>
 </MainLayout>
+
+<script>
+    import { onPageLoad } from "@/lib/astro";
+    import { gsap } from "gsap";
+
+    const initControls = (tl: GSAPTimeline) => {
+        const controls = document.querySelector("#timeline-controls");
+        const BtnControlMap: [
+            HTMLButtonElement | undefined | null,
+            EventListener,
+        ][] = [
+            [
+                controls?.querySelector<HTMLButtonElement>("#play-btn"),
+                () => tl.play(),
+            ],
+            [
+                controls?.querySelector<HTMLButtonElement>("#pause-btn"),
+                () => tl.pause(),
+            ],
+            [
+                controls?.querySelector<HTMLButtonElement>("#reverse-btn"),
+                () => tl.reverse(),
+            ],
+            [
+                controls?.querySelector<HTMLButtonElement>("#restart-btn"),
+                () => tl.restart(),
+            ],
+        ];
+
+        BtnControlMap.forEach(([btn, handler]) => {
+            if (!btn) return;
+            btn.addEventListener("click", handler);
+        });
+    };
+
+    onPageLoad(() => {
+        const shape = document.querySelector("#shape");
+        if (!shape) return;
+
+        const tl = gsap.timeline({});
+        initControls(tl);
+
+        tl.from(shape, {
+            rotate: 360,
+            x: "20em",
+            duration: 2,
+            ease: "sine.inOut",
+        }).addLabel("step-2", 3);
+
+        tl.pause();
+        // tl.seek("step-2");
+    });
+</script>
