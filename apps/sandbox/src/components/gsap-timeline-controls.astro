@@ -1,0 +1,132 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = {
+    startPlaying?: boolean;
+} & HTMLAttributes<"header">;
+
+const { startPlaying, ...props } = Astro.props;
+---
+
+<style>
+    gsap-timeline-controls {
+        font-size: 1em;
+        margin-bottom: 1em;
+        display: flex;
+        flex-direction: row;
+        gap: 0.25em;
+    }
+</style>
+
+<gsap-timeline-controls start-playing={startPlaying} {...props}>
+    <button id="restart-btn">Restart</button>
+    <button id="play-pause-btn">
+        {startPlaying ? "Pause" : "Play"}
+    </button>
+    <button id="reverse-btn">Reverse</button>
+</gsap-timeline-controls>
+
+<script>
+    class GSAPTimelineControlsElement extends HTMLElement {
+        playPauseBtn: HTMLButtonElement | null = null;
+        reverseBtn: HTMLButtonElement | null = null;
+        restartBtn: HTMLButtonElement | null = null;
+        isPlaying: boolean = Boolean(this.getAttribute("start-playing"));
+
+        connectedCallback() {
+            this.reverseBtn = this?.querySelector("#reverse-btn");
+            this.restartBtn = this?.querySelector("#restart-btn");
+            this.playPauseBtn = this?.querySelector("#play-pause-btn");
+        }
+
+        private togglePlayPauseUI() {
+            if (!this.playPauseBtn) return;
+
+            if (!this.isPlaying) {
+                this.playPauseBtn.textContent = "Play";
+            } else {
+                this.playPauseBtn.textContent = "Pause";
+            }
+        }
+
+        attachEvents(
+            eventHandlers: Partial<
+                Record<GSAPTimelineControlsAction, () => void>
+            >,
+            actions: {
+                isComplete: () => boolean;
+            },
+        ) {
+            if (!this.reverseBtn || !this.restartBtn || !this.playPauseBtn) {
+                throw new Error("One or more control buttons not found");
+            }
+            const {
+                pause,
+                play,
+                restart: _restart,
+                reverse: _reverse,
+            } = eventHandlers;
+            const restart = () => {
+                _restart?.();
+                this.isPlaying = true;
+                this.togglePlayPauseUI();
+            };
+            const reverse = () => {
+                _reverse?.();
+                this.isPlaying = !actions.isComplete();
+                this.togglePlayPauseUI();
+            };
+
+            this.playPauseBtn.addEventListener("click", () => {
+                if (!this.playPauseBtn) return;
+
+                console.log({
+                    playing: this.isPlaying,
+                });
+
+                if (this.isPlaying) {
+                    this.isPlaying = false;
+                    pause?.();
+                } else {
+                    this.isPlaying = true;
+                    play?.();
+                }
+
+                this.togglePlayPauseUI();
+            });
+
+            reverse && this.reverseBtn.addEventListener("click", reverse);
+            restart && this.restartBtn.addEventListener("click", restart);
+        }
+
+        get playPauseElement(): HTMLButtonElement {
+            if (!this.playPauseBtn) {
+                throw new Error("Play button not found");
+            }
+            return this.playPauseBtn;
+        }
+        get reverseElement(): HTMLButtonElement {
+            if (!this.reverseBtn) {
+                throw new Error("Reverse button not found");
+            }
+            return this.reverseBtn;
+        }
+        get restartElement(): HTMLButtonElement {
+            if (!this.restartBtn) {
+                throw new Error("Restart button not found");
+            }
+            return this.restartBtn;
+        }
+
+        onComplete() {
+            if (!this.playPauseBtn) return;
+            this.isPlaying = false;
+            this.playPauseBtn.textContent = "Play";
+        }
+    }
+
+    customElements.define(
+        "gsap-timeline-controls",
+        GSAPTimelineControlsElement,
+    );
+</script>

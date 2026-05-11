@@ -1,0 +1,65 @@
+---
+import GsapTimelineControls from "@/components/gsap-timeline-controls.astro";
+import MainLayout from "@/layouts/main.astro";
+---
+
+<style>
+    body {
+        font-size: 2em;
+        margin: 1em;
+    }
+
+    #shape {
+        /*border: var(--dbg);*/
+
+        width: 100px;
+        height: 100px;
+        background-color: #3498db;
+    }
+</style>
+
+<MainLayout title="GSAP - Basics">
+    <GsapTimelineControls startPlaying={true} id="timeline-controls" />
+
+    <div id="shape"></div>
+</MainLayout>
+
+<script>
+    import { onPageLoad } from "@/lib/astro";
+    import { gsap } from "gsap";
+
+    onPageLoad(() => {
+        const shape = document.querySelector("#shape");
+        if (!shape) return;
+
+        const tl = gsap.timeline({});
+
+        const timelineControls =
+            document.querySelector<GSAPTimelineControlsElement>(
+                "#timeline-controls",
+            );
+
+        timelineControls?.attachEvents(
+            {
+                pause: () => tl.pause(),
+                play: () => tl.play(),
+                reverse: () => tl.reverse(),
+                restart: () => tl.restart(),
+            },
+            {
+                isComplete: () => tl.progress() === 1,
+            },
+        );
+
+        tl.from(shape, {
+            rotate: 360,
+            x: "20em",
+            duration: 2,
+            ease: "sine.inOut",
+        }).addLabel("step-2", 3);
+
+        tl.eventCallback("onComplete", () => {
+            timelineControls?.onComplete();
+        });
+    });
+</script>
