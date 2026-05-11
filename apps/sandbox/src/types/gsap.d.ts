@@ -6,12 +6,16 @@ declare global {
             eventHandlers: Partial<
                 Record<GSAPTimelineControlsAction, EventListener>
             >,
+            actions: {
+                isComplete: () => boolean;
+            },
         ): void;
 
-        get playElement(): HTMLButtonElement;
-        get pauseElement(): HTMLButtonElement;
-        get reverseElement(): HTMLButtonElement;
         get restartElement(): HTMLButtonElement;
+        get reverseElement(): HTMLButtonElement;
+        get playPauseElement(): HTMLButtonElement;
+
+        onComplete: () => void;
     }
 
     interface HTMLElementTagNameMap {

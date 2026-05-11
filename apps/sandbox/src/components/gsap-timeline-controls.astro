@@ -1,9 +1,11 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-type Props = {} & HTMLAttributes<"header">;
+type Props = {
+    startPlaying?: boolean;
+} & HTMLAttributes<"header">;
 
-const { ...props } = Astro.props;
+const { startPlaying, ...props } = Astro.props;
 ---
 
 <style>
@@ -16,58 +18,92 @@ const { ...props } = Astro.props;
     }
 </style>
 
-<gsap-timeline-controls {...props}>
-    <button id="play-btn">Play</button>
-    <button id="pause-btn">Pause</button>
+<gsap-timeline-controls start-playing={startPlaying} {...props}>
     <button id="restart-btn">Restart</button>
+    <button id="play-pause-btn">
+        {startPlaying ? "Pause" : "Play"}
+    </button>
     <button id="reverse-btn">Reverse</button>
 </gsap-timeline-controls>
 
 <script>
     class GSAPTimelineControlsElement extends HTMLElement {
-        playBtn: HTMLButtonElement | null = null;
-        pauseBtn: HTMLButtonElement | null = null;
+        playPauseBtn: HTMLButtonElement | null = null;
         reverseBtn: HTMLButtonElement | null = null;
         restartBtn: HTMLButtonElement | null = null;
+        isPlaying: boolean = Boolean(this.getAttribute("start-playing"));
 
         connectedCallback() {
-            this.playBtn = this.querySelector("#play-btn");
-            this.pauseBtn = this?.querySelector("#pause-btn");
             this.reverseBtn = this?.querySelector("#reverse-btn");
             this.restartBtn = this?.querySelector("#restart-btn");
+            this.playPauseBtn = this?.querySelector("#play-pause-btn");
+        }
+
+        private togglePlayPauseUI() {
+            if (!this.playPauseBtn) return;
+
+            if (!this.isPlaying) {
+                this.playPauseBtn.textContent = "Play";
+            } else {
+                this.playPauseBtn.textContent = "Pause";
+            }
         }
 
         attachEvents(
             eventHandlers: Partial<
-                Record<GSAPTimelineControlsAction, EventListener>
+                Record<GSAPTimelineControlsAction, () => void>
             >,
+            actions: {
+                isComplete: () => boolean;
+            },
         ) {
-            if (
-                !this.playBtn ||
-                !this.pauseBtn ||
-                !this.reverseBtn ||
-                !this.restartBtn
-            ) {
+            if (!this.reverseBtn || !this.restartBtn || !this.playPauseBtn) {
                 throw new Error("One or more control buttons not found");
             }
+            const {
+                pause,
+                play,
+                restart: _restart,
+                reverse: _reverse,
+            } = eventHandlers;
+            const restart = () => {
+                _restart?.();
+                this.isPlaying = true;
+                this.togglePlayPauseUI();
+            };
+            const reverse = () => {
+                _reverse?.();
+                this.isPlaying = !actions.isComplete();
+                this.togglePlayPauseUI();
+            };
 
-            this.playBtn.addEventListener("click", eventHandlers.play);
-            this.pauseBtn.addEventListener("click", eventHandlers.pause);
-            this.reverseBtn.addEventListener("click", eventHandlers.reverse);
-            this.restartBtn.addEventListener("click", eventHandlers.restart);
+            this.playPauseBtn.addEventListener("click", () => {
+                if (!this.playPauseBtn) return;
+
+                console.log({
+                    playing: this.isPlaying,
+                });
+
+                if (this.isPlaying) {
+                    this.isPlaying = false;
+                    pause?.();
+                } else {
+                    this.isPlaying = true;
+                    play?.();
+                }
+
+                this.togglePlayPauseUI();
+            });
+
+            reverse && this.reverseBtn.addEventListener("click", reverse);
+            restart && this.restartBtn.addEventListener("click", restart);
         }
 
-        get playElement(): HTMLButtonElement {
-            if (!this.playBtn) {
+        get playPauseElement(): HTMLButtonElement {
+            if (!this.playPauseBtn) {
                 throw new Error("Play button not found");
             }
-            return this.playBtn;
-        }
-        get pauseElement(): HTMLButtonElement {
-            if (!this.pauseBtn) {
-                throw new Error("Pause button not found");
-            }
-            return this.pauseBtn;
+            return this.playPauseBtn;
         }
         get reverseElement(): HTMLButtonElement {
             if (!this.reverseBtn) {
@@ -80,6 +116,12 @@ const { ...props } = Astro.props;
                 throw new Error("Restart button not found");
             }
             return this.restartBtn;
+        }
+
+        onComplete() {
+            if (!this.playPauseBtn) return;
+            this.isPlaying = false;
+            this.playPauseBtn.textContent = "Play";
         }
     }
 

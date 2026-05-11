@@ -19,7 +19,7 @@ import MainLayout from "@/layouts/main.astro";
 </style>
 
 <MainLayout title="GSAP - Basics">
-    <GsapTimelineControls id="timeline-controls" />
+    <GsapTimelineControls startPlaying={true} id="timeline-controls" />
 
     <div id="shape"></div>
 </MainLayout>
@@ -28,26 +28,28 @@ import MainLayout from "@/layouts/main.astro";
     import { onPageLoad } from "@/lib/astro";
     import { gsap } from "gsap";
 
-    const initControls = (tl: GSAPTimeline) => {
-        const timelineControls =
-            document.querySelector<GSAPTimelineControlsElement>(
-                "#timeline-controls",
-            );
-
-        timelineControls?.attachEvents({
-            pause: () => tl.pause(),
-            play: () => tl.play(),
-            reverse: () => tl.reverse(),
-            restart: () => tl.restart(),
-        });
-    };
-
     onPageLoad(() => {
         const shape = document.querySelector("#shape");
         if (!shape) return;
 
         const tl = gsap.timeline({});
-        initControls(tl);
+
+        const timelineControls =
+            document.querySelector<GSAPTimelineControlsElement>(
+                "#timeline-controls",
+            );
+
+        timelineControls?.attachEvents(
+            {
+                pause: () => tl.pause(),
+                play: () => tl.play(),
+                reverse: () => tl.reverse(),
+                restart: () => tl.restart(),
+            },
+            {
+                isComplete: () => tl.progress() === 1,
+            },
+        );
 
         tl.from(shape, {
             rotate: 360,
@@ -55,5 +57,9 @@ import MainLayout from "@/layouts/main.astro";
             duration: 2,
             ease: "sine.inOut",
         }).addLabel("step-2", 3);
+
+        tl.eventCallback("onComplete", () => {
+            timelineControls?.onComplete();
+        });
     });
 </script>
