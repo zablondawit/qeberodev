@@ -1,0 +1,90 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = {} & HTMLAttributes<"header">;
+
+const { ...props } = Astro.props;
+---
+
+<style>
+    gsap-timeline-controls {
+        font-size: 1em;
+        margin-bottom: 1em;
+        display: flex;
+        flex-direction: row;
+        gap: 0.25em;
+    }
+</style>
+
+<gsap-timeline-controls {...props}>
+    <button id="play-btn">Play</button>
+    <button id="pause-btn">Pause</button>
+    <button id="restart-btn">Restart</button>
+    <button id="reverse-btn">Reverse</button>
+</gsap-timeline-controls>
+
+<script>
+    class GSAPTimelineControlsElement extends HTMLElement {
+        playBtn: HTMLButtonElement | null = null;
+        pauseBtn: HTMLButtonElement | null = null;
+        reverseBtn: HTMLButtonElement | null = null;
+        restartBtn: HTMLButtonElement | null = null;
+
+        connectedCallback() {
+            this.playBtn = this.querySelector("#play-btn");
+            this.pauseBtn = this?.querySelector("#pause-btn");
+            this.reverseBtn = this?.querySelector("#reverse-btn");
+            this.restartBtn = this?.querySelector("#restart-btn");
+        }
+
+        attachEvents(
+            eventHandlers: Partial<
+                Record<GSAPTimelineControlsAction, EventListener>
+            >,
+        ) {
+            if (
+                !this.playBtn ||
+                !this.pauseBtn ||
+                !this.reverseBtn ||
+                !this.restartBtn
+            ) {
+                throw new Error("One or more control buttons not found");
+            }
+
+            this.playBtn.addEventListener("click", eventHandlers.play);
+            this.pauseBtn.addEventListener("click", eventHandlers.pause);
+            this.reverseBtn.addEventListener("click", eventHandlers.reverse);
+            this.restartBtn.addEventListener("click", eventHandlers.restart);
+        }
+
+        get playElement(): HTMLButtonElement {
+            if (!this.playBtn) {
+                throw new Error("Play button not found");
+            }
+            return this.playBtn;
+        }
+        get pauseElement(): HTMLButtonElement {
+            if (!this.pauseBtn) {
+                throw new Error("Pause button not found");
+            }
+            return this.pauseBtn;
+        }
+        get reverseElement(): HTMLButtonElement {
+            if (!this.reverseBtn) {
+                throw new Error("Reverse button not found");
+            }
+            return this.reverseBtn;
+        }
+        get restartElement(): HTMLButtonElement {
+            if (!this.restartBtn) {
+                throw new Error("Restart button not found");
+            }
+            return this.restartBtn;
+        }
+    }
+
+    customElements.define(
+        "gsap-timeline-controls",
+        GSAPTimelineControlsElement,
+    );
+</script>
