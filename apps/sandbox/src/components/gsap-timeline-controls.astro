@@ -79,11 +79,6 @@ const { startPlaying, ...props } = Astro.props;
 
             this.playPauseBtn.addEventListener("click", () => {
                 if (!this.playPauseBtn) return;
-
-                console.log({
-                    playing: this.isPlaying,
-                });
-
                 if (this.isPlaying) {
                     this.isPlaying = false;
                     pause?.();
