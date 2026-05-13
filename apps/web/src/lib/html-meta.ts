@@ -2,6 +2,7 @@ import type { z } from "astro/zod";
 import type { Frontmatter } from "../types/frontmatter";
 
 type PageMetadata = {
+    slug: string;
     author: string;
     canonical: string;
     description: string;
@@ -27,6 +28,7 @@ type PageMetadata = {
 
 const generatePageMetadata = (f: z.infer<typeof Frontmatter>) => {
     const meta: PageMetadata = {
+        slug: f.slug || "",
         article: {
             author: f.author?.name || "Qebero",
             modified_time: f.updated
