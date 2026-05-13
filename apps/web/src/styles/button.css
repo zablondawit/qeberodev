@@ -1,12 +1,13 @@
 @import "./global.css";
 
-button {
-    font-size: 1rem;
+button.c-btn {
+    /*font-size: 1rem;*/
     border: none;
     border-radius: 0;
     cursor: pointer;
 
     display: inline-flex;
+    width: fit-content;
     flex-direction: row;
     align-items: center;
     /* 4px gap */
@@ -20,7 +21,7 @@ button {
     }
 
     @media screen and (max-width: 600px) {
-        font-size: 1.1rem;
-        padding: 0.25em 0.5em;
+        /*font-size: 1.1rem;*/
+        /*padding: 0.25em 0.5em;*/
     }
 }

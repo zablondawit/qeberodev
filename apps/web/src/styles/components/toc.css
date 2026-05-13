@@ -35,6 +35,7 @@ div#toc-controls {
     }
 
     button label[for="toc-btn"] {
+        @apply text-background;
     }
 }
 

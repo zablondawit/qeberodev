@@ -33,7 +33,9 @@ import Button from "@components/button.astro";
 </nav>
 
 <script>
-    document.addEventListener("astro:page-load", () => {
+    import { onPageLoad } from "@/lib/astro";
+
+    onPageLoad(() => {
         const main = document.body.querySelector<HTMLElement>("body main");
 
         const url = new URL(window.location.href);
@@ -59,9 +61,10 @@ import Button from "@components/button.astro";
 </script>
 
 <script>
+    import { onPageLoad } from "@/lib/astro";
     import { gsap } from "gsap";
 
-    document.addEventListener("astro:page-load", () => {
+    onPageLoad(() => {
         const nav = document.querySelector("nav#side-nav");
         const closeBtn = document.querySelector("#side-nav #close-btn");
         const navBtn = document.querySelector("#nav-btn");

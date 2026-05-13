@@ -7,6 +7,15 @@ type Props = {
     headings: MarkdownHeading[];
 };
 const { headings: articleHeadings } = Astro.props;
+
+const tocData = articleHeadings.map((heading) => {
+    const depthIndent = 1 * heading.depth;
+
+    return {
+        ...heading,
+        depthIndent,
+    };
+});
 ---
 
 <div id="toc-controls">
@@ -15,30 +24,33 @@ const { headings: articleHeadings } = Astro.props;
         <div id="toc-header">
             <Button icon="lucide:x" id="toc-close-btn" />
         </div>
+        {
+            tocData.map((heading) => (
+                <Button
+                    class="toc-btn"
+                    data-slug={heading.slug}
+                    style={`padding-left: ${heading.depthIndent}em`}
+                >
+                    {heading.text}
+                </Button>
+            ))
+        }
     </aside>
 </div>
 
-<script is:inline define:vars={{ articleHeadings }}>
-    document.addEventListener("astro:page-load", () => {
-        const tocAsideContainer = document.querySelector("#toc-aside");
+<script>
+    import { onPageLoad } from "@/lib/astro";
 
-        // CLEAN container
-        tocAsideContainer
-            ?.querySelectorAll("button")
-            .forEach((btn) => btn.remove());
+    onPageLoad(async () => {
+        // Add click event listeners to all TOC buttons
+        document
+            .querySelectorAll<HTMLButtonElement>(".toc-btn")
+            .forEach((tocBtn) => {
+                const slug = tocBtn.dataset.slug;
+                if (!slug) return;
 
-        articleHeadings
-            .map((heading) => {
-                const tocBtnBtn = document.createElement("button");
-                const depthIndentEm = 1 * heading.depth;
-
-                if (tocBtnBtn) {
-                    tocBtnBtn.innerText = heading.text;
-                    tocBtnBtn.style.paddingLeft = `${depthIndentEm}em`;
-                }
-
-                tocBtnBtn.addEventListener("click", () => {
-                    const targetElement = document.getElementById(heading.slug);
+                tocBtn.addEventListener("click", () => {
+                    const targetElement = document.getElementById(slug);
 
                     if (targetElement) {
                         const offset = 80,
@@ -59,20 +71,16 @@ const { headings: articleHeadings } = Astro.props;
                     // Note: This will not trigger a page reload, but will update the URL in the address bar
                     // History shouldn't be updated when the user clicks the same heading multiple times,
                     // as it would create multiple entries in the browser's history stack
-                    history.replaceState(null, "", `#${heading.slug}`);
+                    history.replaceState(null, "", `#${slug}`);
                 });
-
-                return tocBtnBtn;
-            })
-            .forEach((btn) => {
-                if (!tocAsideContainer) return;
-                tocAsideContainer.appendChild(btn);
             });
     });
 </script>
 
 <script>
-    document.addEventListener("astro:page-load", () => {
+    import { onPageLoad } from "@/lib/astro";
+
+    onPageLoad(() => {
         const tocBtn = document.querySelector<HTMLButtonElement>("#toc-btn");
         const tocAside = document.querySelector<HTMLElement>("#toc-aside");
         const tocCloseBtn =

@@ -29,10 +29,11 @@ const metadata = filteredArticles.map((a) => ({
 ---
 
 <script>
+    import { onPageLoad } from "@/lib/astro";
     import { gsap } from "gsap";
 
     // Hover text animation for links
-    document.addEventListener("astro:page-load", () => {
+    onPageLoad(() => {
         const hoverLinks = document.querySelectorAll(".hover-link");
         hoverLinks.forEach((link) => {
             const txt = link.querySelector(".text");
