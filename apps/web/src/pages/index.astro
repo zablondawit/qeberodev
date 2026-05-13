@@ -3,9 +3,11 @@ import MainLayout from "@layouts/main.astro";
 import Articles from "@/components/sections/articles.astro";
 import Hero from "@/components/sections/hero.astro";
 import Showcase from "@/components/sections/showcase.astro";
+import { join } from "path";
+import { getPageOGLink } from "@/lib/html-meta";
 ---
 
-<MainLayout title="Home">
+<MainLayout ogImage={getPageOGLink("index", Astro.url.origin)} title="Home">
     <Hero />
     <Showcase />
     <Articles />

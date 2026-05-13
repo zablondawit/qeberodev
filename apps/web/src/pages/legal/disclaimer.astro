@@ -1,6 +1,7 @@
 ---
 import MdRender from "@/components/md-render.astro";
 import MainLayout from "@/layouts/main.astro";
+import { getPageOGLink } from "@/lib/html-meta";
 
 import { getCollection, render } from "astro:content";
 
@@ -15,7 +16,10 @@ if (!document) {
 const { Content } = await render(document);
 ---
 
-<MainLayout title="Website Disclaimer">
+<MainLayout
+    ogImage={getPageOGLink("legal", Astro.url.origin)}
+    title="Website Disclaimer"
+>
     <MdRender>
         <Content />
     </MdRender>

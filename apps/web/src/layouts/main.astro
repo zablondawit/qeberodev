@@ -36,8 +36,9 @@ import type { TransitionAnimation, TransitionAnimationPair } from "astro";
 type Props = {
     title: string;
     frontmatter?: z.infer<typeof Frontmatter>;
+    ogImage?: URL;
 };
-const { title, frontmatter } = Astro.props;
+const { title, frontmatter, ogImage } = Astro.props;
 ---
 
 <style is:global>
@@ -62,6 +63,7 @@ const { title, frontmatter } = Astro.props;
         <!-- Page Metadata -->
         <Favicon />
         <FrontmatterRender frontmatter={frontmatter} />
+        {ogImage && <meta property="og:image" content={ogImage} />}
 
         <title>{title}</title>
         <ClientRouter />

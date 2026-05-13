@@ -1,5 +1,6 @@
 import type { z } from "astro/zod";
 import type { Frontmatter } from "../types/frontmatter";
+import { join } from "path/posix";
 
 type PageMetadata = {
     slug: string;
@@ -25,7 +26,6 @@ type PageMetadata = {
         image: string;
     };
 };
-
 const generatePageMetadata = (f: z.infer<typeof Frontmatter>) => {
     const meta: PageMetadata = {
         slug: f.slug || "",
@@ -57,5 +57,11 @@ const generatePageMetadata = (f: z.infer<typeof Frontmatter>) => {
     return meta;
 };
 
-export { generatePageMetadata };
+/**
+ * for regular pages, the og image is generated at build time and stored in the public folder
+ */
+const getPageOGLink = (page: string, origin: string) =>
+    new URL(join("og", `page_${page}.png`), origin);
+
+export { generatePageMetadata, getPageOGLink };
 export type { PageMetadata };

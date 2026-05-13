@@ -3,6 +3,7 @@ import MainLayout from "@layouts/main.astro";
 import MdRender from "@/components/md-render.astro";
 
 import { getEntry, render } from "astro:content";
+import { getPageOGLink } from "@/lib/html-meta";
 
 const about = await getEntry({
     collection: "general",
@@ -12,7 +13,7 @@ const about = await getEntry({
 const { Content } = await render(about);
 ---
 
-<MainLayout title="About">
+<MainLayout ogImage={getPageOGLink("about", Astro.url.origin)} title="About">
     <MdRender>
         <Content />
     </MdRender>

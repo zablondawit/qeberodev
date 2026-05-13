@@ -9,6 +9,7 @@ import { retrieveArticles } from "@/lib/articles";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import { compareDesc } from "date-fns";
+import { getPageOGLink } from "@/lib/html-meta";
 
 const articles = await getCollection("articles");
 
@@ -107,7 +108,10 @@ filteredArticles.sort(sortArticles);
     });
 </script>
 
-<MainLayout title="Articles">
+<MainLayout
+    ogImage={getPageOGLink("articles", Astro.url.origin)}
+    title="Articles"
+>
     <ArticleSearch id="article-search" />
 
     <section id="article-list">
