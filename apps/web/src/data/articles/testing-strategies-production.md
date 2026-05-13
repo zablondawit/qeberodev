@@ -18,6 +18,7 @@ draft: false
 toc: true
 reading_time: 9
 lang: en
+og_image: "/images/og-default.png"    
 ---
 
 # Testing Strategies for Production Applications
