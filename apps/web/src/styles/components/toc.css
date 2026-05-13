@@ -21,8 +21,8 @@ div#toc-controls {
             display: flex;
             flex-direction: column;
             margin-left: auto;
-            padding-top: 0.25em;
-            padding-botton: 0.25em;
+            padding-top: 0.125em;
+            padding-bottom: 0.125em;
 
             #toc-close-btn {
                 width: fit-content;

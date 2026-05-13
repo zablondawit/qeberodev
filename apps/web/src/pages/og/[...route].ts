@@ -1,7 +1,6 @@
 import { OGImageRoute } from "astro-og-canvas";
 import { getCollection } from "astro:content";
 import type { CanvasKit } from "canvaskit-wasm/full";
-import Contact from "../contact.astro";
 
 type RGBColor = [number, number, number];
 interface FontConfig {
