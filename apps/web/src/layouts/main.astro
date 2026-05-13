@@ -66,12 +66,11 @@ const { title, frontmatter, ogImage } = Astro.props;
         {ogImage && <meta property="og:image" content={ogImage} />}
 
         <title>{title}</title>
-        <ClientRouter />
     </head>
     <body>
         <Header />
 
-        <main transition:animate={slide({ duration: "0.2s" })}><slot /></main>
+        <main><slot /></main>
 
         <Footer />
     </body>

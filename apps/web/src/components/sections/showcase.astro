@@ -59,8 +59,9 @@ const showcasing_topics = [
 
 <script>
     import { gsap } from "gsap";
+    import { onPageLoad } from "@/lib/astro";
 
-    document.addEventListener("astro:page-load", () => {
+    onPageLoad(() => {
         // rotating topics (existing)
         const topics = gsap.utils.toArray<HTMLElement>(
             "#showcase .showcase-topic",

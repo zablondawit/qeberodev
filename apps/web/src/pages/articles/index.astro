@@ -31,13 +31,14 @@ filteredArticles.sort(sortArticles);
     import debounce from "debounce";
     import type { CollectionEntry } from "astro:content";
     import { formatArticleCardDate } from "@/lib/datetime";
+    import { onPageLoad } from "@/lib/astro";
 
     /** Delay in milliseconds for the search debounce */
     const SEARCH_DELAY = 300;
 
     type ArticleList = CollectionEntry<"articles">[];
 
-    document.addEventListener("astro:page-load", async () => {
+    onPageLoad(async () => {
         const searchComponent = document.querySelector("c-article-search");
         const articleList = document.querySelector("#article-list");
         const articleSearchList = document.querySelector(

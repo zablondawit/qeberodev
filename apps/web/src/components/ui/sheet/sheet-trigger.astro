@@ -1,0 +1,30 @@
+---
+import type { HTMLAttributes } from "astro/types"
+
+import { cn } from "@/lib/utils"
+import {
+  buttonVariants,
+  type ButtonVariantProps,
+} from "@/components/ui/button/button-variants"
+
+interface Props extends HTMLAttributes<"button">, ButtonVariantProps {}
+
+const {
+  class: className,
+  variant = "ghost",
+  size = "icon",
+  type = "button",
+  name = "open-sheet-button",
+  ...props
+} = Astro.props
+---
+
+<button
+  data-slot="sheet-trigger"
+  class={cn(buttonVariants({ variant, size }), className)}
+  type={type}
+  name={name}
+  {...props}
+>
+  <slot />
+</button>

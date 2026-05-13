@@ -1,0 +1,10 @@
+---
+import type { HTMLAttributes, HTMLTag, Polymorphic } from "astro/types";
+import { Input } from "./ui/input";
+import { cn } from "@/lib/utils";
+
+interface Props extends HTMLAttributes<"input"> {}
+const { class: className, ...props } = Astro.props;
+---
+
+<Input class={cn("rounded-none", className)} {...props} />

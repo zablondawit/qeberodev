@@ -4,7 +4,9 @@ import "../../styles/article/toolbar.css";
 ---
 
 <script>
-    document.addEventListener("astro:page-load", () => {
+    import { onPageLoad } from "@/lib/astro";
+
+    onPageLoad(() => {
         const toolbar = document.querySelector("#article-toolbar");
         const sentinel = document.querySelector("#article-toolbar-sentinel");
 
@@ -32,7 +34,9 @@ import "../../styles/article/toolbar.css";
 </script>
 
 <script>
-    document.addEventListener("astro:page-load", () => {
+    import { onPageLoad } from "@/lib/astro";
+
+    onPageLoad(() => {
         const leaveArticleBtn = document.querySelector("#leave-article");
         if (!leaveArticleBtn) return;
 

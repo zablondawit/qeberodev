@@ -1,0 +1,58 @@
+---
+import {
+    FieldLegend,
+    FieldSet,
+    FieldGroup,
+    FieldDescription,
+} from "@/components/ui/field";
+import Input from "@/components/input.astro";
+import Button from "@/components/button.astro";
+import { getPageOGLink } from "@/lib/html-meta";
+import MainLayout from "@layouts/main.astro";
+---
+
+<style>
+    .input {
+        border-radius: 0;
+    }
+</style>
+
+<MainLayout
+    ogImage={getPageOGLink("articles", Astro.url.origin)}
+    title="Contact Us"
+>
+    <section>
+        <FieldSet class="pb-3">
+            <FieldLegend>Get in Touch!</FieldLegend>
+
+            <FieldGroup>
+                <FieldDescription>
+                    We would love to hear from you! Please fill out the form
+                    below and we will get back to you as soon as possible.
+                </FieldDescription>
+
+                <Input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    required
+                />
+                <Input
+                    type="email"
+                    name="email"
+                    placeholder="Your Email"
+                    required
+                />
+                <Input
+                    type="text"
+                    name="message"
+                    placeholder="Your Message"
+                    required
+                />
+            </FieldGroup>
+        </FieldSet>
+        <Button icon="lucide:circle" variant="default" size="lg">
+            Get in Touch
+        </Button>
+    </section>
+</MainLayout>

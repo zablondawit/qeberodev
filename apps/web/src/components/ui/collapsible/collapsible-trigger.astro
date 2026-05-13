@@ -1,0 +1,17 @@
+---
+import type { HTMLAttributes } from "astro/types"
+
+import { cn } from "@/lib/utils"
+
+interface Props extends HTMLAttributes<"summary"> {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<summary
+  data-slot="collapsible-trigger"
+  class={cn("list-none [&::-webkit-details-marker]:hidden", className)}
+  {...props}
+>
+  <slot />
+</summary>
