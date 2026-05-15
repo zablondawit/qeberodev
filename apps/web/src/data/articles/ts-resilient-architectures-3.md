@@ -9,8 +9,7 @@ tags:
   - monorepo
   - architecture
   - scaling
-categories:
-  - engineering
+category: "engineering"
 slug: "ts-resilient-architectures-3"
 series: "Mastering TypeScript"
 weight: 3

@@ -8,8 +8,7 @@ tags:
   - database
   - performance
   - sql
-categories:
-  - engineering
+category: "engineering"
 slug: "database-indexing-guide"
 series: "Database Optimization"
 weight: 1

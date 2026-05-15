@@ -8,8 +8,7 @@ author:
 tags:
   - test
   - seo
-categories:
-  - qa
+category: "qa"
 slug: "rich-article-test"
 draft: true
 layout: "post"

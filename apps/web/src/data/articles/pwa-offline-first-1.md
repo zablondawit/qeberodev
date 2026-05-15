@@ -8,8 +8,7 @@ tags:
   - pwa
   - web
   - offline
-categories:
-  - engineering
+category: "engineering"
 slug: "pwa-offline-first-1"
 series: "Modern PWA Guide"
 weight: 1

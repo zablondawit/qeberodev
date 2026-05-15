@@ -8,8 +8,7 @@ tags:
   - documentation
   - communication
   - best-practices
-categories:
-  - strategy
+category: "strategy"
 slug: "technical-documentation-guide"
 series: "Developer Experience"
 weight: 1

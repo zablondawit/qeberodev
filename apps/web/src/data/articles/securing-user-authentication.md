@@ -8,8 +8,7 @@ tags:
   - security
   - authentication
   - backend
-categories:
-  - engineering
+category: "engineering"
 slug: "securing-user-authentication"
 series: "Security Fundamentals"
 weight: 1

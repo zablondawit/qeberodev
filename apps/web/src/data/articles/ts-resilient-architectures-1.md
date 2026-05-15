@@ -8,8 +8,7 @@ tags:
   - typescript
   - architecture
   - interfaces
-categories:
-  - engineering
+category: "engineering"
 slug: "ts-resilient-architectures-1"
 series: "Mastering TypeScript"
 weight: 1

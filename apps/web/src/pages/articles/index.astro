@@ -10,6 +10,7 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import { compareDesc } from "date-fns";
 import { getPageOGLink } from "@/lib/html-meta";
+import Button from "@/components/button.astro";
 
 const articles = await getCollection("articles");
 
@@ -25,6 +26,23 @@ const sortArticles: Parameters<
 
 const filteredArticles = articles.filter(filterArticles);
 filteredArticles.sort(sortArticles);
+
+const articleCategories = (await getCollection("articles"))
+    .map((a) => a.data.category)
+    .filter((a): a is string => !!a)
+    .reduce((acc, val: string) => {
+        console.log({
+            acc,
+            val,
+        });
+
+        if (acc.includes(val)) return acc;
+        return [...acc, val];
+    }, [] as string[])
+    .map((a) => (a.length < 4 ? a.toUpperCase() : a))
+    .map(([first, ...rest]) => [first.toUpperCase(), ...rest].join(""));
+
+const categories = articleCategories;
 ---
 
 <script>
@@ -115,9 +133,36 @@ filteredArticles.sort(sortArticles);
 >
     <ArticleSearch id="article-search" />
 
+    <section id="article-categories">
+        {
+            categories.map((category) => (
+                <Button class="filter-btn" data-category={category}>
+                    {category}
+                </Button>
+            ))
+        }
+    </section>
+
     <section id="article-list">
         {filteredArticles.map((article) => <ArticleCard article={article} />)}
     </section>
 
     <section hidden id="article-search-list"></section>
 </MainLayout>
+
+<script>
+    import { onPageLoad } from "@/lib/astro";
+
+    onPageLoad(() => {
+        const filterBtns = document.querySelectorAll(".filter-btn");
+
+        filterBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const category = btn.getAttribute("data-category");
+                console.log({
+                    category,
+                });
+            });
+        });
+    });
+</script>
