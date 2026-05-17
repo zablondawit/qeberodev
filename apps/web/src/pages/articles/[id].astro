@@ -24,7 +24,7 @@ const { Content, headings } = await render(post);
 ---
 
 <MainLayout frontmatter={metadata} title={`${metadata.title}`}>
-    <ArticleToolbar />
+    <ArticleToolbar articleId={post.id} />
 
     <MdRender metadata={metadata}>
         <Content />

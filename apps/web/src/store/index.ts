@@ -1,10 +1,12 @@
 import { atom } from "nanostores";
+import { persistentAtom } from "@nanostores/persistent";
 
-const $categories = atom<string[]>([
-    "All",
-    "Web Development",
-    "Mobile Development",
-    "Data Science",
-]);
+type PostKey = string;
 
-export { $categories };
+const $searchQuery = atom<string>("");
+const $savedPosts = persistentAtom<PostKey[]>("", [], {
+    encode: JSON.stringify,
+    decode: JSON.parse,
+});
+
+export { $searchQuery, $savedPosts };

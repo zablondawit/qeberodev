@@ -1,5 +1,6 @@
 @import "../global.css";
 
+section#header,
 section#article-search-list,
 section#article-categories,
 section#article-list {

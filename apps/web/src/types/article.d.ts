@@ -1,3 +1,5 @@
+import { DOMAttributes } from "react";
+
 /**
  * Article related data types
  */
@@ -59,6 +61,17 @@ declare global {
     }
 
     interface GlobalEventHandlersEventMap {}
+}
+
+declare module "react" {
+    namespace JSX {
+        interface IntrinsicElements {
+            "c-article-card": React.DetailedHTMLProps<
+                React.HTMLAttributes<ArticleCardElement>,
+                ArticleCardElement
+            >;
+        }
+    }
 }
 
 export {};

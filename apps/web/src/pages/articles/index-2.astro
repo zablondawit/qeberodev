@@ -1,0 +1,163 @@
+---
+import "../../styles/article/index.css";
+import MainLayout from "@layouts/main.astro";
+import ArticleCard from "@/components/article/card.astro";
+import ArticleSearch from "@/components/article/search.astro";
+import "@/components/article/search.astro";
+// TODO: Refactor to use API route instead of fetching all articles on page load
+import { retrieveArticles } from "@/lib/articles";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { compareDesc } from "date-fns";
+import { getPageOGLink } from "@/lib/html-meta";
+import Button from "@/components/button.astro";
+
+const articles = await getCollection("articles");
+
+const filterArticles: Parameters<
+    Array<CollectionEntry<"articles">>["filter"]
+>[0] = (article, index, arr) => {
+    return !article.data.draft;
+};
+
+const sortArticles: Parameters<
+    Array<CollectionEntry<"articles">>["sort"]
+>[0] = (first, second) => compareDesc(first.data.date, second.data.date);
+
+const filteredArticles = articles.filter(filterArticles);
+filteredArticles.sort(sortArticles);
+
+const articleCategories = (await getCollection("articles"))
+    .map((a) => a.data.category)
+    .filter((a): a is string => !!a)
+    .reduce((acc, val: string) => {
+        if (acc.includes(val)) return acc;
+        return [...acc, val];
+    }, [] as string[])
+    .map((a) => (a.length < 4 ? a.toUpperCase() : a))
+    .map(([first, ...rest]) => [first.toUpperCase(), ...rest].join(""));
+
+const categories = articleCategories;
+---
+
+<script>
+    import debounce from "debounce";
+    import type { CollectionEntry } from "astro:content";
+    import { formatArticleCardDate } from "@/lib/datetime";
+    import { onPageLoad } from "@/lib/astro";
+
+    /** Delay in milliseconds for the search debounce */
+    const SEARCH_DELAY = 300;
+
+    type ArticleList = CollectionEntry<"articles">[];
+
+    onPageLoad(async () => {
+        const searchComponent = document.querySelector("c-article-search");
+        const articleList = document.querySelector("#article-list");
+        const articleSearchList = document.querySelector(
+            "#article-search-list",
+        );
+
+        if (!articleList || !articleSearchList) return;
+
+        const availableArticles: ArticleList = await fetch(
+            "/api/articles.json",
+        ).then((r) => r.json());
+
+        const handleSearch = debounce(
+            (
+                query: string,
+                articles: ArticleList,
+                options: {
+                    quick: boolean;
+                },
+            ) => {
+                articleSearchList.innerHTML = "";
+                if (query === "") {
+                    articleList.classList.remove("hide-list");
+                    articleList.removeAttribute("hidden");
+                    articleSearchList.setAttribute("hidden", "");
+                    return;
+                } else {
+                    articleList.classList.add("hide-list");
+                    articleList.setAttribute("hidden", "");
+                    articleSearchList.removeAttribute("hidden");
+                }
+
+                const results = articles.filter((a) =>
+                    a.data.title.toLowerCase().includes(query.toLowerCase()),
+                );
+
+                if (!results.length) {
+                    articleSearchList.innerHTML = `<p>No Match Found</p>`;
+                    return;
+                }
+
+                results.forEach((article) => {
+                    const articleCard =
+                        document.createElement("c-article-card");
+
+                    articleCard.update({
+                        id: article.id,
+                        title: article.data.title,
+                        description: article.data.description,
+                        publishedDate: formatArticleCardDate(article.data.date),
+                    });
+                    articleSearchList.appendChild(articleCard);
+                });
+            },
+            SEARCH_DELAY,
+        );
+
+        searchComponent?.addEventListener("search-change", ({ detail }) => {
+            const {
+                query,
+                options: { quickSearch },
+            } = detail;
+
+            handleSearch(query, availableArticles, {
+                quick: quickSearch,
+            });
+        });
+    });
+</script>
+
+<MainLayout
+    ogImage={getPageOGLink("articles", Astro.url.origin)}
+    title="Articles"
+>
+    <ArticleSearch id="article-search" />
+
+    <section id="article-categories">
+        {
+            categories.map((category) => (
+                <Button class="filter-btn" data-category={category}>
+                    {category}
+                </Button>
+            ))
+        }
+    </section>
+
+    <section id="article-list">
+        {filteredArticles.map((article) => <ArticleCard article={article} />)}
+    </section>
+
+    <section hidden id="article-search-list"></section>
+</MainLayout>
+
+<script>
+    import { onPageLoad } from "@/lib/astro";
+
+    onPageLoad(() => {
+        const filterBtns = document.querySelectorAll(".filter-btn");
+
+        filterBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const category = btn.getAttribute("data-category");
+                console.log({
+                    category,
+                });
+            });
+        });
+    });
+</script>

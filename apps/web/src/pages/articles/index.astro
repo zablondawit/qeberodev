@@ -1,9 +1,9 @@
 ---
 import "../../styles/article/index.css";
 import MainLayout from "@layouts/main.astro";
-import ArticleCard from "@/components/article/card.astro";
 import ArticleSearch from "@/components/article/search.astro";
 import "@/components/article/search.astro";
+import { FilterComponent } from "@/components/rc/filter";
 // TODO: Refactor to use API route instead of fetching all articles on page load
 import { retrieveArticles } from "@/lib/articles";
 import { getCollection } from "astro:content";
@@ -11,6 +11,7 @@ import type { CollectionEntry } from "astro:content";
 import { compareDesc } from "date-fns";
 import { getPageOGLink } from "@/lib/html-meta";
 import Button from "@/components/button.astro";
+import { $savedPosts } from "@/store";
 
 const articles = await getCollection("articles");
 
@@ -31,11 +32,6 @@ const articleCategories = (await getCollection("articles"))
     .map((a) => a.data.category)
     .filter((a): a is string => !!a)
     .reduce((acc, val: string) => {
-        console.log({
-            acc,
-            val,
-        });
-
         if (acc.includes(val)) return acc;
         return [...acc, val];
     }, [] as string[])
@@ -45,98 +41,31 @@ const articleCategories = (await getCollection("articles"))
 const categories = articleCategories;
 ---
 
-<script>
-    import debounce from "debounce";
-    import type { CollectionEntry } from "astro:content";
-    import { formatArticleCardDate } from "@/lib/datetime";
-    import { onPageLoad } from "@/lib/astro";
-
-    /** Delay in milliseconds for the search debounce */
-    const SEARCH_DELAY = 300;
-
-    type ArticleList = CollectionEntry<"articles">[];
-
-    onPageLoad(async () => {
-        const searchComponent = document.querySelector("c-article-search");
-        const articleList = document.querySelector("#article-list");
-        const articleSearchList = document.querySelector(
-            "#article-search-list",
-        );
-
-        if (!articleList || !articleSearchList) return;
-
-        const availableArticles: ArticleList = await fetch(
-            "/api/articles.json",
-        ).then((r) => r.json());
-
-        const handleSearch = debounce(
-            (
-                query: string,
-                articles: ArticleList,
-                options: {
-                    quick: boolean;
-                },
-            ) => {
-                articleSearchList.innerHTML = "";
-                if (query === "") {
-                    articleList.classList.remove("hide-list");
-                    articleList.removeAttribute("hidden");
-                    articleSearchList.setAttribute("hidden", "");
-                    return;
-                } else {
-                    articleList.classList.add("hide-list");
-                    articleList.setAttribute("hidden", "");
-                    articleSearchList.removeAttribute("hidden");
-                }
-
-                const results = articles.filter((a) =>
-                    a.data.title.toLowerCase().includes(query.toLowerCase()),
-                );
-
-                if (!results.length) {
-                    articleSearchList.innerHTML = `<p>No Match Found</p>`;
-                    return;
-                }
-
-                results.forEach((article) => {
-                    const articleCard =
-                        document.createElement("c-article-card");
-
-                    articleCard.update({
-                        id: article.id,
-                        title: article.data.title,
-                        description: article.data.description,
-                        publishedDate: formatArticleCardDate(article.data.date),
-                    });
-                    articleSearchList.appendChild(articleCard);
-                });
-            },
-            SEARCH_DELAY,
-        );
-
-        searchComponent?.addEventListener("search-change", ({ detail }) => {
-            const {
-                query,
-                options: { quickSearch },
-            } = detail;
-
-            handleSearch(query, availableArticles, {
-                quick: quickSearch,
-            });
-        });
-    });
-</script>
-
 <MainLayout
     ogImage={getPageOGLink("articles", Astro.url.origin)}
     title="Articles"
 >
+    <section id="header">
+        <Button
+            id="saved-articles-btn"
+            variant={"outline"}
+            icon="lucide:bookmark"
+            title="Saved Articles"
+        >
+            Saved
+        </Button>
+    </section>
+
     <ArticleSearch id="article-search" />
 
     <section id="article-categories">
         {
             categories.map((category) => (
-                <Button class="filter-btn" data-category={category}>
+                <Button
+                    variant={"outline"}
+                    class="filter-btn"
+                    data-category={category}
+                >
                     {category}
                 </Button>
             ))
@@ -144,14 +73,16 @@ const categories = articleCategories;
     </section>
 
     <section id="article-list">
-        {filteredArticles.map((article) => <ArticleCard article={article} />)}
+        <FilterComponent articles={articles} client:only>
+            <h1 slot="fallback">Loading Articles...</h1>
+        </FilterComponent>
     </section>
-
-    <section hidden id="article-search-list"></section>
 </MainLayout>
 
 <script>
     import { onPageLoad } from "@/lib/astro";
+    import { $savedPosts, $searchQuery } from "@/store";
+    import debounce from "debounce";
 
     onPageLoad(() => {
         const filterBtns = document.querySelectorAll(".filter-btn");
@@ -162,6 +93,31 @@ const categories = articleCategories;
                 console.log({
                     category,
                 });
+            });
+        });
+
+        const SEARCH_DELAY = 300;
+        const searchComponent =
+            document.querySelector<ArticleSearchElement>("#article-search");
+        searchComponent?.addEventListener(
+            "search-change",
+            debounce(({ detail }) => {
+                const {
+                    query,
+                    options: { quickSearch },
+                } = detail;
+
+                $searchQuery.set(query);
+            }, SEARCH_DELAY),
+        );
+
+        const savedArticlesBtn = document.querySelector<HTMLButtonElement>(
+            "#saved-articles-btn",
+        );
+
+        savedArticlesBtn?.addEventListener("click", () => {
+            console.log({
+                saved: $savedPosts.get(),
             });
         });
     });
