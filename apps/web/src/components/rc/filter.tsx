@@ -3,7 +3,7 @@ import { useEffect, useMemo, type FC } from "react";
 import "@/components/web-components/article-card";
 import { useStore } from "@nanostores/react";
 import { ArticleCard } from "./article-card";
-import { $searchQuery } from "@/store";
+import { $filterBy, $searchQuery } from "@/store";
 
 type FilterComponentProps = {
     articles: CollectionEntry<"articles">[];
@@ -17,10 +17,13 @@ type FilterComponentProps = {
  */
 const FilterComponent: FC<FilterComponentProps> = (props) => {
     const { articles } = props;
-    const query = useStore($searchQuery);
+    const filterBy = useStore($filterBy);
 
-    const filteredArticles = useMemo(() => {
-        return articles.filter(
+    const filterBySearch = (
+        articles: CollectionEntry<"articles">[],
+        query: string,
+    ) =>
+        articles.filter(
             (article) =>
                 article.data.title
                     .toLowerCase()
@@ -32,7 +35,15 @@ const FilterComponent: FC<FilterComponentProps> = (props) => {
                     tag.toLowerCase().includes(query.toLowerCase()),
                 ),
         );
-    }, [articles, query]);
+
+    const filteredArticles = useMemo(() => {
+        if (filterBy?.type === "search") {
+            const query = filterBy.query;
+            return filterBySearch(articles, query);
+        }
+
+        return articles;
+    }, [filterBy]);
 
     return (
         <>
