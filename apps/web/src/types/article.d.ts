@@ -11,6 +11,7 @@ interface ArticleSearchEventMap extends HTMLElementEventMap {
 declare global {
     declare class ArticleSearchElement extends HTMLElement {
         dispatchSearch(query: string): void;
+        clearSearch(): void;
 
         addEventListener<K extends keyof ArticleSearchEventMap>(
             type: K,

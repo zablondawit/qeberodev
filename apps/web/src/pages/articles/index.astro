@@ -11,7 +11,6 @@ import type { CollectionEntry } from "astro:content";
 import { compareDesc } from "date-fns";
 import { getPageOGLink } from "@/lib/html-meta";
 import Button from "@/components/button.astro";
-import { FilterTags } from "@/components/rc/filter-by-tags";
 
 const articles = await getCollection("articles");
 
@@ -55,12 +54,12 @@ const categories = articleCategories;
             size={"xs"}
             data-category={"all"}
             icon="lucide:bookmark"
-        >
-            Saved
-        </Button>
+            hidden
+        />
         <Button
+            id="all-articles-btn"
             variant={"outline"}
-            class="filter-btn"
+            class="filter-btn selected"
             size={"xs"}
             data-category={"all"}
         >
@@ -129,11 +128,27 @@ const categories = articleCategories;
             $filterBy.set(filterOpts);
         };
 
+        function setButtonSelected(target?: EventTarget | null) {
+            const buttons = document.querySelectorAll(
+                "#article-categories button",
+            );
+            const SELECTED_BTN_CLS = "selected";
+
+            buttons.forEach((btn) => btn.classList.remove(SELECTED_BTN_CLS));
+
+            if (!target) return;
+            target instanceof HTMLElement &&
+                target.classList.add(SELECTED_BTN_CLS);
+        }
+
         const filterBtns = document.querySelectorAll(".filter-btn");
         filterBtns.forEach((btn) => {
-            btn.addEventListener("click", () => {
+            btn.addEventListener("click", (e) => {
                 const category = btn.getAttribute("data-category");
                 if (!category) return;
+
+                e.currentTarget && setButtonSelected(e.currentTarget);
+                searchComponent?.clearSearch();
 
                 handleStateChange({
                     type: "category",
@@ -150,6 +165,16 @@ const categories = articleCategories;
             debounce(({ detail }) => {
                 const { query } = detail;
 
+                if (query.length) {
+                    setButtonSelected();
+                } else {
+                    setButtonSelected(
+                        document.querySelector(
+                            "#article-categories #all-articles-btn",
+                        ),
+                    );
+                }
+
                 handleStateChange({
                     type: "search",
                     query,
@@ -160,8 +185,10 @@ const categories = articleCategories;
         const savedArticlesBtn = document.querySelector<HTMLButtonElement>(
             "#saved-articles-btn",
         );
-        savedArticlesBtn?.addEventListener("click", () =>
-            handleStateChange({ type: "saved" }),
-        );
+        savedArticlesBtn?.addEventListener("click", (e) => {
+            handleStateChange({ type: "saved" });
+            e.currentTarget && setButtonSelected(e.currentTarget);
+            searchComponent?.clearSearch();
+        });
     });
 </script>

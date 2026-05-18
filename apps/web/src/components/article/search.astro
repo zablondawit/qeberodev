@@ -19,6 +19,27 @@ const { id } = Astro.props;
             );
         }
 
+        clearSearch(): void {
+            const searchInput = this.querySelector<HTMLInputElement>(
+                "c-article-search fieldset.search input[type='text']",
+            );
+            const quickSearchCheckbox = this.querySelector<HTMLInputElement>(
+                "c-article-search fieldset.search-options c-checkbox input[type='checkbox']",
+            );
+
+            if (searchInput) {
+                searchInput.value = "";
+            }
+
+            if (quickSearchCheckbox) {
+                quickSearchCheckbox.checked = false;
+            }
+
+            this.dispatchSearch("", {
+                quickSearch: false,
+            });
+        }
+
         connectedCallback() {
             const searchInput = this.querySelector<HTMLInputElement>(
                 "c-article-search fieldset.search input[type='text']",
