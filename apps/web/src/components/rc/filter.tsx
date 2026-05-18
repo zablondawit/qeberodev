@@ -3,7 +3,7 @@ import { useEffect, useMemo, type FC } from "react";
 import "@/components/web-components/article-card";
 import { useStore } from "@nanostores/react";
 import { ArticleCard } from "./article-card";
-import { $filterBy, $searchQuery } from "@/store";
+import { $filterBy, $savedPosts } from "@/store";
 
 type FilterComponentProps = {
     articles: CollectionEntry<"articles">[];
@@ -18,6 +18,7 @@ type FilterComponentProps = {
 const FilterComponent: FC<FilterComponentProps> = (props) => {
     const { articles } = props;
     const filterBy = useStore($filterBy);
+    const savedPostIds = useStore($savedPosts);
 
     const filterBySearch = (
         articles: CollectionEntry<"articles">[],
@@ -36,13 +37,34 @@ const FilterComponent: FC<FilterComponentProps> = (props) => {
                 ),
         );
 
-    const filteredArticles = useMemo(() => {
-        if (filterBy?.type === "search") {
-            const query = filterBy.query;
-            return filterBySearch(articles, query);
-        }
+    const filterByCategory = (
+        articles: CollectionEntry<"articles">[],
+        category: string,
+    ) => {
+        return articles.filter((article) => {
+            if (!category) return false;
+            if (category === "all") return true;
 
-        return articles;
+            return (
+                category.toLowerCase() === article.data.category?.toLowerCase()
+            );
+        });
+    };
+
+    const filteredArticles = useMemo(() => {
+        switch (filterBy?.type) {
+            case "search":
+                return filterBySearch(articles, filterBy.query);
+            case "category":
+                return filterByCategory(articles, filterBy.category);
+            case "saved":
+                return articles.filter((article) =>
+                    savedPostIds.includes(article.id),
+                );
+            case "none":
+            default:
+                return articles;
+        }
     }, [filterBy]);
 
     return (

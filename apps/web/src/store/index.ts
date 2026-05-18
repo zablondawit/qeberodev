@@ -4,14 +4,15 @@ import { persistentAtom } from "@nanostores/persistent";
 type PostKey = string;
 type FilterBy =
     | { type: "search"; query: string }
-    | { type: "tag"; tag: string }
-    | { type: "saved" };
+    | { type: "category"; category: string }
+    | { type: "saved" }
+    | { type: "none" };
 
-const $filterBy = atom<FilterBy | undefined>();
-const $searchQuery = atom<string>("");
+const $filterBy = atom<FilterBy>({ type: "none" });
 const $savedPosts = persistentAtom<PostKey[]>("", [], {
     encode: JSON.stringify,
     decode: JSON.parse,
 });
 
-export { $savedPosts, $filterBy, $searchQuery };
+export type { FilterBy };
+export { $savedPosts, $filterBy };

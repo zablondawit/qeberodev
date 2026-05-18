@@ -11,7 +11,7 @@ import type { CollectionEntry } from "astro:content";
 import { compareDesc } from "date-fns";
 import { getPageOGLink } from "@/lib/html-meta";
 import Button from "@/components/button.astro";
-import { $savedPosts } from "@/store";
+import { FilterTags } from "@/components/rc/filter-by-tags";
 
 const articles = await getCollection("articles");
 
@@ -45,21 +45,27 @@ const categories = articleCategories;
     ogImage={getPageOGLink("articles", Astro.url.origin)}
     title="Articles"
 >
-    <section id="header">
-        <Button
-            id="saved-articles-btn"
-            variant={"outline"}
-            size={"xs"}
-            icon="lucide:bookmark"
-            title="Saved Articles"
-        >
-            Saved
-        </Button>
-    </section>
-
     <ArticleSearch id="article-search" />
 
     <section id="article-categories">
+        <Button
+            id="saved-articles-btn"
+            variant={"outline"}
+            class="filter-btn"
+            size={"xs"}
+            data-category={"all"}
+            icon="lucide:bookmark"
+        >
+            Saved
+        </Button>
+        <Button
+            variant={"outline"}
+            class="filter-btn"
+            size={"xs"}
+            data-category={"all"}
+        >
+            All
+        </Button>
         {
             categories.map((category) => (
                 <Button
@@ -83,16 +89,54 @@ const categories = articleCategories;
 
 <script>
     import { onPageLoad } from "@/lib/astro";
-    import { $savedPosts, $searchQuery } from "@/store";
+    import { $savedPosts, $filterBy, type FilterBy } from "@/store";
     import debounce from "debounce";
 
     onPageLoad(() => {
-        const filterBtns = document.querySelectorAll(".filter-btn");
+        const handleStateChange = (filterOpts: FilterBy) => {
+            switch (filterOpts.type) {
+                case "search":
+                    if (filterOpts.query.length === 0) {
+                        $filterBy.set({
+                            type: "none",
+                        });
+                        return;
+                    }
+                    break;
+                case "category":
+                    if (!filterOpts.category) {
+                        $filterBy.set({
+                            type: "none",
+                        });
+                        return;
+                    }
+                    break;
+                case "saved":
+                    if ($savedPosts.get().length === 0) {
+                        $filterBy.set({
+                            type: "none",
+                        });
+                        return;
+                    }
+                    break;
+                default:
+                    $filterBy.set({
+                        type: "none",
+                    });
+                    return;
+            }
 
+            $filterBy.set(filterOpts);
+        };
+
+        const filterBtns = document.querySelectorAll(".filter-btn");
         filterBtns.forEach((btn) => {
             btn.addEventListener("click", () => {
                 const category = btn.getAttribute("data-category");
-                console.log({
+                if (!category) return;
+
+                handleStateChange({
+                    type: "category",
                     category,
                 });
             });
@@ -104,23 +148,20 @@ const categories = articleCategories;
         searchComponent?.addEventListener(
             "search-change",
             debounce(({ detail }) => {
-                const {
-                    query,
-                    options: { quickSearch },
-                } = detail;
+                const { query } = detail;
 
-                $searchQuery.set(query);
+                handleStateChange({
+                    type: "search",
+                    query,
+                });
             }, SEARCH_DELAY),
         );
 
         const savedArticlesBtn = document.querySelector<HTMLButtonElement>(
             "#saved-articles-btn",
         );
-
-        savedArticlesBtn?.addEventListener("click", () => {
-            console.log({
-                saved: $savedPosts.get(),
-            });
-        });
+        savedArticlesBtn?.addEventListener("click", () =>
+            handleStateChange({ type: "saved" }),
+        );
     });
 </script>
