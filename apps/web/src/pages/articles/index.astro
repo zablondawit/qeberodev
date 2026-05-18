@@ -79,7 +79,7 @@ const categories = articleCategories;
         }
     </section>
 
-    <section id="article-list">
+    <section id="article-list" class="min-h-[60vh]">
         <FilterComponent articles={articles} client:only>
             <section slot="fallback" class="h-[60vh]">
                 <h1>Loading Articles...</h1>
