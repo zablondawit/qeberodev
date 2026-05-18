@@ -23,7 +23,6 @@ og_image: "/assets/images/rich-test-og.jpg"
 canonical_url: "https://example.com/articles/rich-article-test"
 series: "Rendering Tests"
 ---
-# Rich article test
 
 ## Intro
 

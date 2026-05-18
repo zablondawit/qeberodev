@@ -19,7 +19,6 @@ reading_time: 11
 lang: en
 ---
 
-# Building Scalable Microservices Architecture
 
 ## Introduction
 

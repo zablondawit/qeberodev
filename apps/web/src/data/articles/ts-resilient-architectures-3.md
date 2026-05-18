@@ -20,7 +20,6 @@ reading_time: 9
 lang: en
 ---
 
-# TypeScript at Scale: Project References and Monorepos
 
 ## Introduction
 

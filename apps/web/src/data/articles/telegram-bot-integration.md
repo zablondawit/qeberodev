@@ -18,7 +18,6 @@ reading_time: 7
 lang: en
 ---
 
-# Beyond Chat: Telegram as a Business Platform
 
 ## Introduction
 

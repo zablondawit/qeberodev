@@ -19,7 +19,6 @@ reading_time: 7
 lang: en
 ---
 
-# Fixing Common Client Communication Problems
 
 ## Introduction
 

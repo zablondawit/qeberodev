@@ -19,7 +19,6 @@ reading_time: 9
 lang: en
 ---
 
-# Database Indexing: The Hidden Performance Multiplier
 
 ## Introduction
 

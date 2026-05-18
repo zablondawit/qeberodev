@@ -19,7 +19,6 @@ reading_time: 10
 lang: en
 ---
 
-# Securing User Authentication: From Basics to Production
 
 ## Introduction
 

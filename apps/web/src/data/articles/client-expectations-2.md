@@ -20,7 +20,6 @@ reading_time: 7
 lang: en
 ---
 
-# From Coder to Consultant: Strategic Communication
 
 ## Introduction
 

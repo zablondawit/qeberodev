@@ -19,7 +19,6 @@ reading_time: 6
 lang: en
 ---
 
-# The Art of Managing Client Expectations
 
 ## Introduction
 
