@@ -24,9 +24,10 @@ type FilterComponentProps = {
  * 3. Sort by relevance, date, or other relevant criteria
  */
 const FilterComponent: FC<FilterComponentProps> = (props) => {
-    const { articles } = props;
     const filterBy = useStore($filterBy);
     const savedPostIds = useStore($savedPosts);
+    // Filter out draft articles
+    const articles = props.articles.filter((a) => !a.data.draft);
 
     const filterBySearch = (
         articles: CollectionEntry<"articles">[],
@@ -71,7 +72,7 @@ const FilterComponent: FC<FilterComponentProps> = (props) => {
                 );
             case "none":
             default:
-                return articles;
+                return articles.filter((article) => !article.data.draft);
         }
     }, [filterBy]);
 

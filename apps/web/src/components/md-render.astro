@@ -31,7 +31,7 @@ const { content: Content, metadata } = Astro.props;
 
     <!-- Tags -->
     <span id="article-tags">
-        <Badge>{metadata?.category}</Badge>
+        <Badge class="category">{metadata?.category}</Badge>
         {
             metadata?.tags.map((tag) => (
                 <Badge variant="outline" class="tag">
