@@ -20,7 +20,5 @@ const { Content } = await render(document);
     ogImage={getPageOGLink("legal", Astro.url.origin)}
     title="Website Disclaimer"
 >
-    <MdRender>
-        <Content />
-    </MdRender>
+    <MdRender content={Content} />
 </MainLayout>
