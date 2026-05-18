@@ -19,7 +19,6 @@ reading_time: 7
 lang: en
 ---
 
-# Offline-First: The PWA Competitive Advantage
 
 ## Introduction
 

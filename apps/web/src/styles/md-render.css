@@ -146,6 +146,17 @@ main article.md {
     margin: 0 auto;
     max-width: 60%;
 
+    span#article-tags {
+        display: flex;
+        flex-direction: row;
+        gap: 0.25em;
+
+        .category,
+        .tag {
+            user-select: none;
+        }
+    }
+
     @media screen and (max-width: 600px) {
         max-width: 100%;
         padding: 0 15px;

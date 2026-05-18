@@ -19,7 +19,6 @@ reading_time: 6
 lang: en
 ---
 
-# Writing Effective Technical Documentation
 
 ## Introduction
 

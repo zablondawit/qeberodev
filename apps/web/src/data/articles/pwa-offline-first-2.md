@@ -19,7 +19,6 @@ reading_time: 8
 lang: en
 ---
 
-# PWA Engagement: Push Notifications and Installability
 
 ## Introduction
 

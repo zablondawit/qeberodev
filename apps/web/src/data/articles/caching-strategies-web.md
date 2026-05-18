@@ -19,7 +19,6 @@ reading_time: 8
 lang: en
 ---
 
-# Caching Strategies for Web Applications
 
 ## Introduction
 

@@ -19,7 +19,6 @@ reading_time: 7
 lang: en
 ---
 
-# API Rate Limiting: Protecting Your Backend from Abuse
 
 ## Introduction
 

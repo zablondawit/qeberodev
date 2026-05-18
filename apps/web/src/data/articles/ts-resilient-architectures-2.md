@@ -19,7 +19,6 @@ reading_time: 8
 lang: en
 ---
 
-# Advanced Type Safety: Generics and Discriminated Unions
 
 ## Introduction
 

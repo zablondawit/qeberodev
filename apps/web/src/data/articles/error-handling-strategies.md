@@ -19,7 +19,6 @@ reading_time: 8
 lang: en
 ---
 
-# Error Handling Strategies in Production Systems
 
 ## Introduction
 

@@ -20,7 +20,6 @@ lang: en
 og_image: "/images/og-default.png"    
 ---
 
-# Testing Strategies for Production Applications
 
 ## Introduction
 
