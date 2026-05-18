@@ -81,7 +81,9 @@ const categories = articleCategories;
 
     <section id="article-list">
         <FilterComponent articles={articles} client:only>
-            <h1 slot="fallback">Loading Articles...</h1>
+            <section slot="fallback" class="h-[60vh]">
+                <h1>Loading Articles...</h1>
+            </section>
         </FilterComponent>
     </section>
 </MainLayout>
@@ -148,7 +150,13 @@ const categories = articleCategories;
                 if (!category) return;
 
                 e.currentTarget && setButtonSelected(e.currentTarget);
-                searchComponent?.clearSearch();
+                // FIXME: This is a bit hacky, we should ideally have the search component
+                // listen to state changes and clear the search input when the category
+                // changes
+                //
+                // ISSUE: clearSearch will cause the category `All` to be selected
+                //
+                // searchComponent?.clearSearch();
 
                 handleStateChange({
                     type: "category",

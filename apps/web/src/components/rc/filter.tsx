@@ -5,6 +5,14 @@ import { useStore } from "@nanostores/react";
 import { ArticleCard } from "./article-card";
 import { $filterBy, $savedPosts } from "@/store";
 
+const NoArticleFound: FC = () => {
+    return (
+        <section className="h-[60vh]">
+            <h1>No articles found.</h1>
+        </section>
+    );
+};
+
 type FilterComponentProps = {
     articles: CollectionEntry<"articles">[];
 };
@@ -69,6 +77,8 @@ const FilterComponent: FC<FilterComponentProps> = (props) => {
 
     return (
         <>
+            {!filteredArticles.length && <NoArticleFound />}
+
             {filteredArticles.map((article) => (
                 <ArticleCard key={article.data.slug} article={article} />
             ))}
