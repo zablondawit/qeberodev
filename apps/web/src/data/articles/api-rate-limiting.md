@@ -19,8 +19,6 @@ reading_time: 7
 lang: en
 ---
 
-# API Rate Limiting: Protecting Your Backend from Abuse
-
 ## Introduction
 
 An unprotected API is like a restaurant with no reservation system. One large group books all tables. Other customers can't get in. Your business suffers.
