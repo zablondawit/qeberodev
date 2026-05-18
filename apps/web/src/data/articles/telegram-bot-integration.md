@@ -9,8 +9,7 @@ tags:
   - bots
   - integration
   - automation
-categories:
-  - showcase
+category: "showcase"
 slug: "telegram-bot-integration"
 layout: "post"
 draft: false

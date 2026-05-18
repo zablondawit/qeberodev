@@ -8,8 +8,7 @@ tags:
   - clients
   - communication
   - freelance
-categories:
-  - strategy
+category: "strategy"
 slug: "client-communication-problems"
 series: "Freelance Mastery"
 weight: 2

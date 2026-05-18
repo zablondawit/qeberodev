@@ -19,14 +19,17 @@ const tocData = articleHeadings.map((heading) => {
 ---
 
 <div id="toc-controls">
-    <Button icon="lucide:library" id="toc-btn">Index</Button>
+    <Button variant={"default"} icon="lucide:library" id="toc-btn">Index</Button
+    >
     <aside hidden id="toc-aside">
         <div id="toc-header">
-            <Button icon="lucide:x" id="toc-close-btn" />
+            <Button variant={"link"} icon="lucide:x" id="toc-close-btn" />
         </div>
+
         {
             tocData.map((heading) => (
                 <Button
+                    variant={"link"}
                     class="toc-btn"
                     data-slug={heading.slug}
                     style={`padding-left: ${heading.depthIndent}em`}
@@ -118,7 +121,7 @@ const tocData = articleHeadings.map((heading) => {
         // collapse the TOC when clicking outside of it
         // Note: This will not work if the TOC contains interactive elements (e.g., links, buttons) that can be clicked without closing the TOC
         eventsToHandle.forEach((eventType) => {
-            if (eventType === "scroll" || eventType === "touchstart") {
+            if (eventType === "scroll") {
                 document.addEventListener(eventType, (e) => e.preventDefault());
             }
 

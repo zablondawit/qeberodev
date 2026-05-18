@@ -8,8 +8,7 @@ tags:
   - typescript
   - patterns
   - generics
-categories:
-  - engineering
+category: "engineering"
 slug: "ts-resilient-architectures-2"
 series: "Mastering TypeScript"
 weight: 2

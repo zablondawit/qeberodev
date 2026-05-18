@@ -1,3 +1,5 @@
+import { DOMAttributes } from "react";
+
 /**
  * Article related data types
  */
@@ -9,6 +11,7 @@ interface ArticleSearchEventMap extends HTMLElementEventMap {
 declare global {
     declare class ArticleSearchElement extends HTMLElement {
         dispatchSearch(query: string): void;
+        clearSearch(): void;
 
         addEventListener<K extends keyof ArticleSearchEventMap>(
             type: K,
@@ -59,6 +62,17 @@ declare global {
     }
 
     interface GlobalEventHandlersEventMap {}
+}
+
+declare module "react" {
+    namespace JSX {
+        interface IntrinsicElements {
+            "c-article-card": React.DetailedHTMLProps<
+                React.HTMLAttributes<ArticleCardElement>,
+                ArticleCardElement
+            >;
+        }
+    }
 }
 
 export {};

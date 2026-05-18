@@ -8,8 +8,7 @@ tags:
   - caching
   - performance
   - architecture
-categories:
-  - engineering
+category: "engineering"
 slug: "caching-strategies-web"
 series: "Performance Optimization"
 weight: 1

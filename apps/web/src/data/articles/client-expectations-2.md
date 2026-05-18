@@ -9,8 +9,7 @@ tags:
   - freelance
   - strategy
   - communication
-categories:
-  - strategy
+category: "strategy"
 slug: "client-expectations-2"
 series: "Freelance Mastery"
 weight: 2

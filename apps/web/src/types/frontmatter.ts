@@ -19,7 +19,7 @@ export const Frontmatter = z.object({
     tags: z.array(z.string()),
 
     // optional lists / taxonomy
-    categories: z.array(z.string()).optional(),
+    category: z.string().optional(),
 
     // content controls
     slug: z.string().optional(),

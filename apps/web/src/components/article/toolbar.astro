@@ -1,12 +1,68 @@
 ---
 import Button from "@/components/button.astro";
 import "../../styles/article/toolbar.css";
+
+type Props = {
+    articleId: string;
+};
+
+const { articleId } = Astro.props;
 ---
+
+<div
+    id="article-toolbar-sentinel"
+    aria-hidden="true"
+    style="height: 1px; width: 100%; pointer-events: none;"
+>
+</div>
+
+<section id="article-toolbar">
+    <a id="toolbar-logo" href="/">
+        <img src="/inline-logo.svg" alt="qeberodev logo" />
+    </a>
+
+    <section id="controls">
+        <Button
+            transition:persist
+            id="leave-article"
+            variant="ghost"
+            icon="lucide:arrow-left">Back</Button
+        >
+        <span>
+            <Button
+                id="save-article-btn"
+                data-article-id={articleId}
+                variant="ghost"
+                icon="lucide:bookmark">Save</Button
+            >
+            <Button variant="ghost" icon="lucide:share-2">Share</Button>
+        </span>
+    </section>
+</section>
 
 <script>
     import { onPageLoad } from "@/lib/astro";
+    import { $savedPosts } from "@/store";
 
     onPageLoad(() => {
+        const saveArticleBtn = document.querySelector("#save-article-btn");
+        if (!saveArticleBtn) return;
+
+        saveArticleBtn.addEventListener("click", () => {
+            const articleId = saveArticleBtn.getAttribute("data-article-id");
+            if (!articleId) return;
+
+            // set nanostores atom
+            $savedPosts.set($savedPosts.get().concat(articleId));
+        });
+
+        const leaveArticleBtn = document.querySelector("#leave-article");
+        if (!leaveArticleBtn) return;
+
+        leaveArticleBtn.addEventListener("click", () => {
+            window.history.back();
+        });
+
         const toolbar = document.querySelector("#article-toolbar");
         const sentinel = document.querySelector("#article-toolbar-sentinel");
 
@@ -32,41 +88,3 @@ import "../../styles/article/toolbar.css";
         observer.observe(sentinel);
     });
 </script>
-
-<script>
-    import { onPageLoad } from "@/lib/astro";
-
-    onPageLoad(() => {
-        const leaveArticleBtn = document.querySelector("#leave-article");
-        if (!leaveArticleBtn) return;
-
-        leaveArticleBtn.addEventListener("click", () => {
-            window.history.back();
-        });
-    });
-</script>
-
-<div
-    id="article-toolbar-sentinel"
-    aria-hidden="true"
-    style="height: 1px; width: 100%; pointer-events: none;"
->
-</div>
-<section id="article-toolbar">
-    <a id="toolbar-logo" href="/">
-        <img src="/inline-logo.svg" alt="qeberodev logo" />
-    </a>
-
-    <section id="controls">
-        <Button
-            transition:persist
-            id="leave-article"
-            variant="ghost"
-            icon="lucide:arrow-left">Back</Button
-        >
-        <span>
-            <Button variant="ghost" icon="lucide:bookmark">Save</Button>
-            <Button variant="ghost" icon="lucide:share-2">Share</Button>
-        </span>
-    </section>
-</section>

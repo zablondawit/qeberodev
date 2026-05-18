@@ -8,8 +8,7 @@ tags:
   - microservices
   - architecture
   - scaling
-categories:
-  - engineering
+category: "engineering"
 slug: "scalable-microservices-architecture"
 series: "System Design"
 weight: 1

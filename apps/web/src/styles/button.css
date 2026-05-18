@@ -1,8 +1,6 @@
 @import "./global.css";
 
 button.c-btn {
-    /*font-size: 1rem;*/
-    border: none;
     border-radius: 0;
     cursor: pointer;
 
@@ -13,12 +11,7 @@ button.c-btn {
     /* 4px gap */
     gap: 0.25em;
 
-    @apply bg-foreground text-background px-2 py-1;
-
-    &[data-variant="ghost"] {
-        padding: 0;
-        @apply bg-transparent text-foreground;
-    }
+    @apply px-2 py-1;
 
     @media screen and (max-width: 600px) {
         /*font-size: 1.1rem;*/

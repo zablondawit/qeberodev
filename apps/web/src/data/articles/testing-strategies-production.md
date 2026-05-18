@@ -8,8 +8,7 @@ tags:
   - testing
   - quality
   - best-practices
-categories:
-  - engineering
+category: "engineering"
 slug: "testing-strategies-production"
 series: "Code Quality"
 weight: 1

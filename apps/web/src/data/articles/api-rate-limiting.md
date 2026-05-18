@@ -8,8 +8,7 @@ tags:
   - api
   - rate-limiting
   - security
-categories:
-  - engineering
+category: "engineering"
 slug: "api-rate-limiting"
 series: "API Security"
 weight: 2

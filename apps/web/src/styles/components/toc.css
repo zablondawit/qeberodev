@@ -2,10 +2,10 @@
 
 div#toc-controls {
     position: fixed;
-    bottom: 1%;
     left: 3%;
-    padding: 0;
+    bottom: 1%;
     margin: 0;
+    padding: 0;
 
     display: flex;
     flex-direction: column-reverse;
@@ -17,6 +17,10 @@ div#toc-controls {
         flex-direction: column;
         gap: 0.1em;
 
+        .toc-btn {
+            @apply text-background;
+        }
+
         #toc-header {
             display: flex;
             flex-direction: column;
@@ -24,8 +28,11 @@ div#toc-controls {
             padding-top: 0.125em;
             padding-bottom: 0.125em;
 
+            @apply text-background;
+
             #toc-close-btn {
                 width: fit-content;
+                @apply text-background;
             }
         }
 

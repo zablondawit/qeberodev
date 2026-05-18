@@ -8,8 +8,7 @@ tags:
   - error-handling
   - resilience
   - backend
-categories:
-  - engineering
+category: "engineering"
 slug: "error-handling-strategies"
 series: "Production Architecture"
 weight: 1

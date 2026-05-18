@@ -8,8 +8,7 @@ tags:
   - pwa
   - notifications
   - engagement
-categories:
-  - engineering
+category: "engineering"
 slug: "pwa-offline-first-2"
 series: "Modern PWA Guide"
 weight: 2

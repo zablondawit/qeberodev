@@ -1,6 +1,8 @@
 @import "../global.css";
 
+section#header,
 section#article-search-list,
+section#article-categories,
 section#article-list {
     font-size: 1rem;
     display: flex;
@@ -13,6 +15,20 @@ section#article-list {
 
     @media screen and (min-width: 600px) {
         max-width: 80%;
+    }
+}
+
+section#article-categories {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.2em;
+
+    & button {
+        @apply opacity-50;
+
+        &.selected {
+            @apply opacity-100;
+        }
     }
 }
 
