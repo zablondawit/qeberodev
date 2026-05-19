@@ -1,4 +1,3 @@
-import { log } from "node:console";
 import fs from "node:fs";
 import { join } from "path";
 
@@ -139,14 +138,10 @@ type CleanGithubProfilesOptions = {
 async function cleanGithubProfiles(options: CleanGithubProfilesOptions) {
     const { outDir } = options;
 
-    if (fs.existsSync(outDir)) {
-        fs.rmSync(outDir, { recursive: true, force: true });
-        log(`Cleaning up GitHub profile directory:`, outDir);
-    } else {
-        log(`GitHub profile directory  does not exist:`);
-    }
-    // const GITHUB_PROFILES_DIR = join(process.cwd(), "public/github");
-    // log("Cleaning GitHub profiles directory:", GITHUB_PROFILES_DIR);
+    if (!fs.existsSync(outDir)) return;
+
+    fs.rmSync(outDir, { recursive: true, force: true });
+    console.log(`Cleaning up github profiles directory:`, outDir);
 }
 
 export { fetchGithubProfiles, cleanGithubProfiles };
