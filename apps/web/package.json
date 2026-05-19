@@ -39,11 +39,13 @@
         "dev": "astro dev",
         "build": "astro build",
         "preview": "astro preview",
-        "astro": "astro"
+        "astro": "astro",
+        "test": "vitest run scripts/__test__"
     },
     "type": "module",
     "devDependencies": {
         "@iconify-json/lucide": "^1.2.101",
-        "sharp": "^0.34.5"
+        "sharp": "^0.34.5",
+        "vitest": "^4.1.6"
     }
 }

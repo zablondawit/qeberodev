@@ -1,4 +1,4 @@
-import { glob } from "astro/loaders";
+import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
 import { defineCollection } from "astro:content";
 import { ArticleFrontmatter } from "./types/frontmatter";
@@ -25,8 +25,21 @@ const general = defineCollection({
     }),
 });
 
+const teams = defineCollection({
+    loader: file("./src/data/team/team_members.json", {
+        parser: (text) => JSON.parse(text),
+    }),
+    schema: z.object({
+        name: z.string(),
+        username: z.string(),
+        linkedin: z.string(),
+        role: z.string(),
+    }),
+});
+
 export const collections = {
     articles,
     general,
     legal,
+    teams,
 };
