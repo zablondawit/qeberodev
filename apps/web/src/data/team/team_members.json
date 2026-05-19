@@ -5,5 +5,12 @@
         "linkedin": "https://www.linkedin.com/in/zablondawit/",
         "github": "https://github.com/zablondawit",
         "role": "Software Developer"
+    },
+    "octocat": {
+        "name": "The Octocat",
+        "username": "octocat",
+        "linkedin": "https://www.linkedin.com/company/github",
+        "github": "https://github.com/octocat",
+        "role": "Mascot"
     }
 }
