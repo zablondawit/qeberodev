@@ -9,7 +9,7 @@ import { z } from "astro/zod";
 
 const githubProfilesIntegration = async () => {
     const teamDir = "src/data/team";
-    const teamFile = "team.json";
+    const teamFile = "team_members.json";
     const teamFilePath = join(teamDir, teamFile);
 
     const schema = z.object({

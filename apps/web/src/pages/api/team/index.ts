@@ -1,11 +1,16 @@
 import { getCollection } from "astro:content";
 
 export async function GET() {
+    const isDev = import.meta.env.DEV;
+    const site = isDev ? "http://localhost:4321" : import.meta.env.SITE;
+
     const teamMembersCollection = await getCollection("teams");
     const responseData = {
-        team: teamMembersCollection.map(({ id, data }) => ({
+        members: teamMembersCollection.map(({ id, data }) => ({
             id,
-            details: data,
+            // should also work in dev
+            avatar: `${site}/github/${data.username}/avatar.jpg`,
+            ...data,
         })),
     };
 
