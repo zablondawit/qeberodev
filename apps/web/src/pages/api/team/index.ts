@@ -9,7 +9,7 @@ export async function GET() {
         })),
     };
 
-    return new Response(JSON.stringify(responseData), {
+    return new Response(JSON.stringify(responseData, null, 2), {
         headers: {
             "Content-Type": "application/json",
         },
