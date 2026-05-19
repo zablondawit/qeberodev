@@ -1,6 +1,6 @@
 import { z } from "astro/zod";
 
-export const Frontmatter = z.object({
+export const ArticleFrontmatter = z.object({
     title: z.string(),
     description: z.string(),
     date: z.date(),

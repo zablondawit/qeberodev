@@ -1,5 +1,5 @@
 import type { z } from "astro/zod";
-import type { Frontmatter } from "../types/frontmatter";
+import type { ArticleFrontmatter } from "../types/frontmatter";
 import { join } from "path/posix";
 
 type PageMetadata = {
@@ -26,7 +26,7 @@ type PageMetadata = {
         image: string;
     };
 };
-const generatePageMetadata = (f: z.infer<typeof Frontmatter>) => {
+const generatePageMetadata = (f: z.infer<typeof ArticleFrontmatter>) => {
     const meta: PageMetadata = {
         slug: f.slug || "",
         article: {

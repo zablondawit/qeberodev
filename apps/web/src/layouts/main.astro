@@ -1,7 +1,7 @@
 ---
 import Favicon from "@/components/favicon.astro";
 import FrontmatterRender from "@/components/frontmatter-render.astro";
-import type { Frontmatter } from "@/types/frontmatter";
+import type { ArticleFrontmatter } from "@/types/frontmatter";
 import Footer from "@components/footer.astro";
 import Header from "@components/header.astro";
 import type { z } from "astro/zod";
@@ -35,7 +35,7 @@ import type { TransitionAnimation, TransitionAnimationPair } from "astro";
 
 type Props = {
     title: string;
-    frontmatter?: z.infer<typeof Frontmatter>;
+    frontmatter?: z.infer<typeof ArticleFrontmatter>;
     ogImage?: URL;
 };
 const { title, frontmatter, ogImage } = Astro.props;

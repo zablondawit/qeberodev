@@ -1,14 +1,14 @@
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 import { defineCollection } from "astro:content";
-import { Frontmatter } from "./types/frontmatter";
+import { ArticleFrontmatter } from "./types/frontmatter";
 
 const articles = defineCollection({
     loader: glob({
         pattern: "**/*.md",
         base: "./src/data/articles",
     }),
-    schema: Frontmatter,
+    schema: ArticleFrontmatter,
 });
 
 const legal = defineCollection({

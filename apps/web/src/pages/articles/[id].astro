@@ -5,7 +5,7 @@ import ArticleToolbar from "@/components/article/toolbar.astro";
 import "../../styles/article/reader.css";
 
 import MainLayout from "@layouts/main.astro";
-import type { GetStaticPaths } from "astro";
+import type { GetStaticPaths, MarkdownHeading } from "astro";
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
@@ -20,14 +20,25 @@ interface Props {
 const { post } = Astro.props;
 const metadata = post.data;
 
-const { Content, headings } = await render(post);
+const { Content, headings: _headings } = await render(post);
+// If the article has a title and slug, we can add it as a heading to the TOC
+const Heading1 =
+    metadata && metadata.slug && metadata.title
+        ? ({
+              text: metadata.title,
+              depth: 1,
+              slug: metadata.slug,
+          } satisfies MarkdownHeading)
+        : undefined;
+const headings: MarkdownHeading[] = Heading1
+    ? [..._headings, Heading1]
+    : _headings;
 ---
 
 <MainLayout frontmatter={metadata} title={`${metadata.title}`}>
     <ArticleToolbar articleId={post.id} />
     <MdRender content={Content} metadata={metadata} />
     <section class="comment-soon">Comments Arriving Soon 🚀</section>
-
     <TOC headings={headings} />
 </MainLayout>
 

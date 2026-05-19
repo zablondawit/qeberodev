@@ -1,11 +1,11 @@
 ---
 import { generatePageMetadata } from "@/lib/html-meta";
-import type { Frontmatter } from "@/types/frontmatter";
+import type { ArticleFrontmatter } from "@/types/frontmatter";
 import { z } from 'astro/zod';
 import { join } from "path"
 
 type Props = {
-    frontmatter?: z.infer<typeof Frontmatter>;
+    frontmatter?: z.infer<typeof ArticleFrontmatter>;
 };
 
 const { frontmatter } = Astro.props;

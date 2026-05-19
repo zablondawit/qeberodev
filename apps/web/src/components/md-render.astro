@@ -21,7 +21,7 @@ const { content: Content, metadata } = Astro.props;
         )
     }
 
-    <h1>{metadata?.title}</h1>
+    <h1 id={metadata?.slug}>{metadata?.title}</h1>
 
     {
         metadata?.description && (
