@@ -34,6 +34,7 @@ const teams = defineCollection({
         username: z.string(),
         linkedin: z.string(),
         role: z.string(),
+        github: z.string(),
     }),
 });
 
