@@ -10,9 +10,7 @@ export const ArticleFrontmatter = z.object({
     // author object (name required when author present)
     author: z
         .object({
-            name: z.string(),
-            url: z.string().optional(),
-            avatar: z.string().optional(),
+            id: z.string(),
         })
         .optional(),
 

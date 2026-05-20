@@ -42,6 +42,8 @@ const { content: Content, metadata } = Astro.props;
     </span>
 
     <Content />
+
+    <slot name="article-footer" />
 </article>
 
 <script>

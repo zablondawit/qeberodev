@@ -1,0 +1,24 @@
+zablondawit:
+    name: "Zablon Dawit"
+    username: "zablondawit"
+    linkedin: "https://www.linkedin.com/in/zablondawit/"
+    github: "https://github.com/zablondawit"
+    role: "Full-Stack Software Developer"
+    description:
+        about:
+            - "TypeScript/Node developer building fast, bulletproof web platforms. React, Web Standards, sustainable architecture—that's where the magic happens."
+            - "That means learning from the best—studying standards from W3C, TC39, reading technical deep-dives from builders who shape the ecosystem. Books, specs, docs, community talks—that's where the real knowledge lives."
+            - "Clean code. Smart decisions. Real performance gains. Built on understanding, not shortcuts."
+        bio: ""
+        profile: ""
+octocat:
+    name: "The Octocat"
+    username: "octocat"
+    linkedin: "https://www.linkedin.com/company/github"
+    github: "https://github.com/octocat"
+    role: "Mascot"
+    description:
+        about:
+            - "GitHub's beloved mascot, the Octocat, is a whimsical character that represents the fun and creativity of the GitHub community. With its distinctive cat-like appearance and octopus-like tentacles, the Octocat embodies the spirit of collaboration and innovation that GitHub fosters among developers worldwide."
+        bio: ""
+        profile: ""

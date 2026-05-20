@@ -45,7 +45,9 @@
     "type": "module",
     "devDependencies": {
         "@iconify-json/lucide": "^1.2.101",
+        "@iconify-json/mdi": "^1.2.3",
         "sharp": "^0.34.5",
-        "vitest": "^4.1.6"
+        "vitest": "^4.1.6",
+        "yaml": "^2.9.0"
     }
 }

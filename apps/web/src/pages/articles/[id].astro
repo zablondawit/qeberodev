@@ -3,11 +3,14 @@ import MdRender from "@/components/md-render.astro";
 import TOC from "@/components/atoms/toc.astro";
 import ArticleToolbar from "@/components/article/toolbar.astro";
 import "../../styles/article/reader.css";
+import Button from "@/components/button.astro";
 
 import MainLayout from "@layouts/main.astro";
 import type { GetStaticPaths, MarkdownHeading } from "astro";
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const articles = await getCollection("articles");
@@ -33,11 +36,59 @@ const Heading1 =
 const headings: MarkdownHeading[] = Heading1
     ? [..._headings, Heading1]
     : _headings;
+
+const author = await getEntry("team", metadata.author?.id || "");
+
+console.log({
+    author,
+    articleAuthor: metadata.author,
+});
 ---
 
 <MainLayout frontmatter={metadata} title={`${metadata.title}`}>
     <ArticleToolbar articleId={post.id} />
-    <MdRender content={Content} metadata={metadata} />
+
+    <MdRender content={Content} metadata={metadata}>
+        {
+            author && (
+                <section slot="article-footer" class="article-author">
+                    <Image
+                        class="author-avatar"
+                        src={author.data.avatar}
+                        alt={`${author.data.name}'s avatar`}
+                        width={100}
+                        height={100}
+                    />
+
+                    <div class="author-details">
+                        <h2 data-role={"name"}>{author.data.name}</h2>
+                        <h5 data-role={"role"}>{author.data.role}</h5>
+                        <section class={"author-description"}>
+                            {author.data.description.about.map((paragraph) => (
+                                <p>{paragraph}</p>
+                            ))}
+                        </section>
+
+                        <div class="author-socials">
+                            <Button
+                                variant={"ghost"}
+                                icon="mdi:linkedin"
+                                title="Linkedin"
+                            >
+                                <a href={author.data.linkedin}>
+                                    <span data-role="linkedin">Linkedin</span>
+                                </a>
+                            </Button>
+                            <Button variant={"ghost"} icon="mdi:github">
+                                <a href={author.data.github}>Github</a>
+                            </Button>
+                        </div>
+                    </div>
+                </section>
+            )
+        }
+    </MdRender>
+
     <section class="comment-soon">Comments Arriving Soon 🚀</section>
     <TOC headings={headings} />
 </MainLayout>

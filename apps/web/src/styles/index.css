@@ -57,3 +57,7 @@ code {
 pre {
     overflow-x: auto;
 }
+
+a {
+    @apply text-foreground;
+}
