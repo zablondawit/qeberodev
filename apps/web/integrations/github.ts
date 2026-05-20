@@ -6,10 +6,11 @@ import {
 import { join } from "node:path";
 import fs from "node:fs";
 import { z } from "astro/zod";
+import { parse } from "yaml";
 
 const githubProfilesIntegration = async () => {
     const teamDir = "src/data/team";
-    const teamFile = "team_members.json";
+    const teamFile = "team_members.yml";
     const teamFilePath = join(teamDir, teamFile);
 
     const schema = z.object({
@@ -19,7 +20,7 @@ const githubProfilesIntegration = async () => {
         role: z.string(),
     });
     type TeamMembersList = Record<string, z.infer<typeof schema>>;
-    const team = JSON.parse(
+    const team = parse(
         fs.readFileSync(teamFilePath).toString(),
     ) as TeamMembersList;
     const usernames = Object.values(team).map((member) => member.username);
