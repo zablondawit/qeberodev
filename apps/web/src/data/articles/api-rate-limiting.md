@@ -2,8 +2,10 @@
 title: "API Rate Limiting: Protecting Your Backend from Abuse"
 description: "Implement rate limiting strategies to prevent abuse, manage capacity, and ensure fair access."
 date: 2026-01-05T09:30:00Z
+# Have a zod schema that checks if user id is valid
+# check from the `team_members.json` file if the user id exists
 author:
-  name: "Zablon Dawit"
+  id: "zablondawit"
 tags:
   - api
   - rate-limiting

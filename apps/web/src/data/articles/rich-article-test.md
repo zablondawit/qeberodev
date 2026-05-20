@@ -4,7 +4,7 @@ description: "Checks hero image, metadata, TOC, and social cards."
 date: 2026-04-26T12:00:00Z
 updated: 2026-04-26T13:00:00Z
 author:
-  name: "Zablon Dawit"
+  id: "zablondawit"
 tags:
   - test
   - seo

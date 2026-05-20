@@ -3,7 +3,7 @@ title: "Building Scalable Microservices Architecture"
 description: "Design microservices that scale independently while maintaining system coherence."
 date: 2026-03-01T16:30:00Z
 author:
-  name: "Zablon Dawit"
+  id: "zablondawit"
 tags:
   - microservices
   - architecture

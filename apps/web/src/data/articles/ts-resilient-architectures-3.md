@@ -3,7 +3,7 @@ title: "TypeScript at Scale: Project References and Monorepos"
 description: "Optimizing large-scale TypeScript projects for performance and maintainability."
 date: 2026-04-05T10:00:00Z
 author:
-  name: "Zablon Dawit"
+  id: "zablondawit"
 tags:
   - typescript
   - monorepo

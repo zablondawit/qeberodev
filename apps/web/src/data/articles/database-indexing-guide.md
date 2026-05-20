@@ -3,7 +3,7 @@ title: "Database Indexing: The Hidden Performance Multiplier"
 description: "How to design indexes that transform slow queries into lightning-fast lookups."
 date: 2025-12-18T11:00:00Z
 author:
-  name: "Zablon Dawit"
+  id: "zablondawit"
 tags:
   - database
   - performance

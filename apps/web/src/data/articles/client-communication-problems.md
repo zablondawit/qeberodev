@@ -3,7 +3,7 @@ title: "Fixing Common Client Communication Problems"
 description: "Prevent misunderstandings and scope creep by establishing clear communication protocols."
 date: 2026-03-15T11:00:00Z
 author:
-  name: "Zablon Dawit"
+  id: "zablondawit"
 tags:
   - clients
   - communication

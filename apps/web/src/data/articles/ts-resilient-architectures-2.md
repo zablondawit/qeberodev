@@ -3,7 +3,7 @@ title: "Advanced Type Safety: Generics and Discriminated Unions"
 description: "Moving beyond basic interfaces to create zero-runtime-error applications."
 date: 2026-01-28T10:00:00Z
 author:
-  name: "Zablon Dawit"
+  id: "zablondawit"
 tags:
   - typescript
   - patterns

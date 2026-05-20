@@ -3,7 +3,7 @@ title: "Writing Effective Technical Documentation"
 description: "How to document your codebase so developers actually use it."
 date: 2026-01-20T13:15:00Z
 author:
-  name: "Zablon Dawit"
+  id: "zablondawit"
 tags:
   - documentation
   - communication

@@ -3,7 +3,7 @@ title: "Building Resilient Architectures with TypeScript"
 description: "Master interfaces and structural typing to create self-documenting, refactor-safe code."
 date: 2025-12-15T10:00:00Z
 author:
-  name: "Zablon Dawit"
+  id: "zablondawit"
 tags:
   - typescript
   - architecture

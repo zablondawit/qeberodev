@@ -3,7 +3,7 @@ title: "Securing User Authentication: From Basics to Production"
 description: "Build secure authentication systems that protect user accounts without sacrificing usability."
 date: 2026-02-15T14:20:00Z
 author:
-  name: "Zablon Dawit"
+  id: "zablondawit"
 tags:
   - security
   - authentication

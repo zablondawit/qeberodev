@@ -3,7 +3,7 @@ title: "Error Handling Strategies in Production Systems"
 description: "Building resilient systems that gracefully handle failures and inform users appropriately."
 date: 2025-12-10T14:30:00Z
 author:
-  name: "Zablon Dawit"
+  id: "zablondawit"
 tags:
   - error-handling
   - resilience

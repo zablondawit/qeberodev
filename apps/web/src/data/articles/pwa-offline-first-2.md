@@ -3,7 +3,7 @@ title: "PWA Engagement: Push Notifications and Installability"
 description: "Deep dive into Web Push APIs and creating a native feel for users."
 date: 2025-12-28T10:00:00Z
 author:
-  name: "Zablon Dawit"
+  id: "zablondawit"
 tags:
   - pwa
   - notifications

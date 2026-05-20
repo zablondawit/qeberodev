@@ -3,7 +3,7 @@ title: "The Art of Managing Client Expectations"
 description: "Avoiding project creep by setting clear technical boundaries early."
 date: 2026-01-15T09:00:00Z
 author:
-  name: "Zablon Dawit"
+  id: "zablondawit"
 tags:
   - clients
   - freelance

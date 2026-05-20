@@ -3,7 +3,7 @@ title: "Beyond Chat: Telegram as a Business Platform"
 description: "Leveraging Telegram Bots for automated customer support and workflows."
 date: 2026-03-10T11:00:00Z
 author:
-  name: "Zablon Dawit"
+  id: "zablondawit"
 tags:
   - telegram
   - bots

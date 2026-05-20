@@ -3,7 +3,7 @@ title: "Testing Strategies for Production Applications"
 description: "Build test suites that catch bugs without becoming a maintenance burden."
 date: 2026-04-10T15:45:00Z
 author:
-  name: "Zablon Dawit"
+  id: "zablondawit"
 tags:
   - testing
   - quality

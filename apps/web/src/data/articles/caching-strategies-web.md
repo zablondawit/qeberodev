@@ -3,7 +3,7 @@ title: "Caching Strategies for Web Applications"
 description: "Implement multi-layer caching to reduce load times and database queries."
 date: 2026-02-02T10:45:00Z
 author:
-  name: "Zablon Dawit"
+  id: "zablondawit"
 tags:
   - caching
   - performance
