@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import { join } from "path";
+import isOnline from "is-online";
 
 /** GitHub user profile data */
 type GitHubProfileDetails = {
@@ -72,6 +73,12 @@ type GitHubProfileDetails = {
 };
 
 async function fetchUserProfile(outDir: string, username: string) {
+    const online = await isOnline({ timeout: 3000 });
+    if (!online)
+        throw new Error(
+            "No internet connection. Please check your network and try again.",
+        );
+
     const PROFILE_URL = `https://api.github.com/users/${username}`;
 
     const data = await fetch(PROFILE_URL);

@@ -32,7 +32,11 @@ const githubProfilesIntegration = async () => {
 
     // Disable for now to avoid unnecessary API calls during development. Enable when needed.
     false && (await cleanGithubProfiles(opts));
-    await fetchGithubProfiles(opts);
+    try {
+        await fetchGithubProfiles(opts);
+    } catch (error) {
+        console.error("Error fetching GitHub profiles:", error);
+    }
 };
 
 /**
