@@ -38,11 +38,6 @@ const headings: MarkdownHeading[] = Heading1
     : _headings;
 
 const author = await getEntry("team", metadata.author?.id || "");
-
-console.log({
-    author,
-    articleAuthor: metadata.author,
-});
 ---
 
 <MainLayout frontmatter={metadata} title={`${metadata.title}`}>
