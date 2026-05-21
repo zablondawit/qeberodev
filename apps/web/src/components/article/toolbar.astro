@@ -30,9 +30,10 @@ const { articleId } = Astro.props;
         >
         <span>
             <Button
+                hidden
+                variant="ghost"
                 id="save-article-btn"
                 data-article-id={articleId}
-                variant="ghost"
                 icon="lucide:bookmark">Save</Button
             >
             <Button variant="ghost" icon="lucide:share-2">Share</Button>
