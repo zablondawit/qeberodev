@@ -28,6 +28,7 @@ const { articleId } = Astro.props;
             variant="ghost"
             icon="lucide:arrow-left">Back</Button
         >
+
         <span>
             <Button
                 hidden
@@ -36,7 +37,7 @@ const { articleId } = Astro.props;
                 data-article-id={articleId}
                 icon="lucide:bookmark">Save</Button
             >
-            <Button variant="ghost" icon="lucide:share-2">Share</Button>
+            <Button hidden variant="ghost" icon="lucide:share-2">Share</Button>
         </span>
     </section>
 </section>
