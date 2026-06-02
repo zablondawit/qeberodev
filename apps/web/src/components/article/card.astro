@@ -22,10 +22,10 @@ const publishedDate = formatArticleCardDate(article.data.date);
     class ArticleCardElement extends HTMLElement {
         update(props: ArticleCardProps) {
             const template = document.getElementById(
-                "t-article-card",
+                "t-article-card"
             ) as HTMLTemplateElement;
             const content = template.content.cloneNode(
-                true,
+                true
             ) as DocumentFragment;
 
             const link = content.querySelector("a");
@@ -61,6 +61,11 @@ const publishedDate = formatArticleCardDate(article.data.date);
     <p class="description">
         {article.data.description}
     </p>
+
+    <!-- tags -->
+    <div class="tags">
+        {article.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+    </div>
 
     <small class="date">
         {publishedDate}
